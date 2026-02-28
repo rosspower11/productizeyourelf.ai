@@ -418,7 +418,7 @@ export default function LandingPage() {
               <div style={{ display: "flex" }}>
                 {[1, 2, 3, 4, 5].map((i) => (
                   <div key={i} style={{ width: 32, height: 32, borderRadius: "50%", overflow: "hidden", border: "2px solid #1A1A1A", marginLeft: i > 1 ? -10 : 0, position: "relative", background: "#333" }}>
-                    <Image src={`/images/headshots/${i}.jpg`} alt="" fill style={{ objectFit: "cover" }} sizes="32px" />
+                    <Image src={`/images/headshots/${i}.png`} alt="" fill style={{ objectFit: "cover" }} sizes="32px" />
                   </div>
                 ))}
               </div>
