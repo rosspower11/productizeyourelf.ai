@@ -648,7 +648,7 @@ export default function LandingPage() {
           </Reveal>
           <Reveal delay={100}>
             <div style={{ width: "100%", aspectRatio: "16/7", borderRadius: 16, overflow: "hidden", position: "relative", border: "1px solid rgba(255,255,255,0.06)" }}>
-              <Image src="/images/assets/bundle.png" alt="Productize Yourself programme bundle" fill style={{ objectFit: "contain" }} sizes="1140px" />
+              <Image src="/images/assets/bundle no background.svg" alt="Productize Yourself programme bundle" fill style={{ objectFit: "contain" }} sizes="1140px" />
             </div>
           </Reveal>
           <Reveal delay={200}>
