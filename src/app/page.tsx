@@ -117,6 +117,7 @@ function Section({
   return (
     <section
       id={id}
+      className="section-responsive"
       style={{
         background: dark ? "var(--color-charcoal)" : "var(--color-surface)",
         padding: "clamp(80px,12vw,160px) 24px",
@@ -145,7 +146,7 @@ function TextBanner({ dark, text = "PRODUCTIZE YOURSELF" }: { dark?: boolean; te
   const color = dark ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.03)";
   return (
     <div style={{ background: dark ? "var(--color-charcoal)" : "var(--color-surface)", padding: "40px 0", overflow: "hidden" }}>
-      <div style={{ display: "flex", whiteSpace: "nowrap", animation: "marquee 20s linear infinite" }}>
+      <div style={{ display: "flex", whiteSpace: "nowrap", animation: "marquee 35s linear infinite" }}>
         {[...Array(8)].map((_, i) => (
           <span
             key={i}
@@ -186,7 +187,7 @@ function LogoCarousel() {
       <div style={{ overflow: "hidden", position: "relative" }}>
         <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 100, background: "linear-gradient(to right, #FFFFFF, transparent)", zIndex: 2 }} />
         <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 100, background: "linear-gradient(to left, #FFFFFF, transparent)", zIndex: 2 }} />
-        <div style={{ display: "flex", alignItems: "center", animation: "marquee 35s linear infinite", width: "max-content" }}>
+        <div style={{ display: "flex", alignItems: "center", animation: "marquee 55s linear infinite", width: "max-content" }}>
           {all.map((logo, i) => (
             <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "0 32px", flexShrink: 0 }}>
               <Image
@@ -204,15 +205,15 @@ function LogoCarousel() {
   );
 }
 
-/* ── Vertical photo column (educator carousel) ── */
-function PhotoColVertical({ dir = "up", speed = 30, images }: { dir?: "up" | "down"; speed?: number; images: string[] }) {
+/* ── Vertical photo column ── */
+function PhotoColVertical({ dir = "up", speed = 45, images, aspectRatio = "3/4" }: { dir?: "up" | "down"; speed?: number; images: string[]; aspectRatio?: string }) {
   const doubled = [...images, ...images];
   return (
     <div style={{ overflow: "hidden", height: "100%", flex: 1 }}>
       <div style={{ display: "flex", flexDirection: "column", gap: 8, animation: `scroll-${dir} ${speed}s linear infinite` }}>
         {doubled.map((src, i) => (
-          <div key={i} style={{ width: "100%", aspectRatio: "3/4", borderRadius: 10, overflow: "hidden", flexShrink: 0, position: "relative" }}>
-            <Image src={src} alt="Educator carousel" fill style={{ objectFit: "cover" }} sizes="33vw" />
+          <div key={i} style={{ width: "100%", aspectRatio, borderRadius: 10, overflow: "hidden", flexShrink: 0, position: "relative" }}>
+            <Image src={src} alt="" fill style={{ objectFit: "cover" }} sizes="33vw" />
           </div>
         ))}
       </div>
@@ -223,7 +224,7 @@ function PhotoColVertical({ dir = "up", speed = 30, images }: { dir?: "up" | "do
 /* ── Horizontal image row ── */
 function HorizontalImageRow({
   direction = "left",
-  speed = 40,
+  speed = 60,
   images,
   height = 220,
 }: {
@@ -239,7 +240,7 @@ function HorizontalImageRow({
       <div style={{ display: "flex", gap: 10, animation: `${animName} ${speed}s linear infinite`, width: "max-content" }}>
         {doubled.map((src, i) => (
           <div key={i} style={{ height, aspectRatio: "4/3", borderRadius: 10, overflow: "hidden", flexShrink: 0, position: "relative" }}>
-            <Image src={src} alt="Social proof" fill style={{ objectFit: "cover" }} sizes="300px" />
+            <Image src={src} alt="" fill style={{ objectFit: "cover" }} sizes="300px" />
           </div>
         ))}
       </div>
@@ -279,16 +280,16 @@ function Phase({
         transition: "background 0.3s ease",
       }}
     >
-      <div onClick={onClick} style={{ padding: "32px 36px", display: "flex", alignItems: "center", gap: 28, cursor: "pointer", justifyContent: "space-between" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 28 }}>
-          <span style={{ fontSize: "clamp(36px, 5vw, 56px)", fontWeight: 900, letterSpacing: "-0.02em", color: isOpen ? "var(--color-accent)" : "rgba(255,255,255,0.12)", minWidth: 72, lineHeight: 1, transition: "color 0.3s ease" }}>{number}</span>
-          <span style={{ fontSize: "clamp(20px, 3vw, 32px)", fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--color-white)", lineHeight: 1 }}>{name}</span>
-          <span style={{ fontSize: 14, color: "rgba(255,255,255,0.3)", marginLeft: 4 }}>{subtitle}</span>
+      <div className="phase-header" onClick={onClick} style={{ padding: "32px 36px", display: "flex", alignItems: "center", gap: 28, cursor: "pointer", justifyContent: "space-between" }}>
+        <div className="phase-header-inner" style={{ display: "flex", alignItems: "center", gap: 28 }}>
+          <span className="phase-number" style={{ fontSize: "clamp(28px, 5vw, 56px)", fontWeight: 900, letterSpacing: "-0.02em", color: isOpen ? "var(--color-accent)" : "rgba(255,255,255,0.12)", minWidth: 72, lineHeight: 1, transition: "color 0.3s ease" }}>{number}</span>
+          <span style={{ fontSize: "clamp(18px, 3vw, 32px)", fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--color-white)", lineHeight: 1 }}>{name}</span>
+          <span className="phase-subtitle" style={{ fontSize: 14, color: "rgba(255,255,255,0.3)", marginLeft: 4 }}>{subtitle}</span>
         </div>
         <span style={{ fontSize: 24, color: "rgba(255,255,255,0.3)", fontWeight: 300, transform: isOpen ? "rotate(45deg)" : "rotate(0)", transition: "transform 0.3s ease", flexShrink: 0 }}>+</span>
       </div>
       <div style={{ maxHeight: isOpen ? h + 40 : 0, overflow: "hidden", transition: "max-height 0.5s cubic-bezier(0.25,0.46,0.45,0.94)" }}>
-        <div ref={ref} style={{ padding: "0 36px 36px 136px" }}>{children}</div>
+        <div ref={ref} className="phase-expand-content" style={{ padding: "0 36px 36px 136px" }}>{children}</div>
       </div>
     </div>
   );
@@ -353,8 +354,10 @@ export default function LandingPage() {
   const col3 = carouselImages.slice(10, 14);
 
   const proofImages = Array.from({ length: 26 }, (_, i) => `/images/social-proof/proof-${String(i + 1).padStart(2, "0")}.png`);
-  const proofRow1 = proofImages.slice(0, 13);
-  const proofRow2 = proofImages.slice(13);
+  const proofCol1 = proofImages.slice(0, 7);
+  const proofCol2 = proofImages.slice(7, 13);
+  const proofCol3 = proofImages.slice(13, 20);
+  const proofCol4 = proofImages.slice(20);
 
   const phases = [
     { n: "01", name: "Person", sub: "Identity & IP", body: "Before you build anything, you need absolute clarity on who you are professionally, what makes your perspective unique, and who needs what you offer. We excavate the expertise you\u2019ve been sitting on \u2014 frameworks you forgot you built, insights you take for granted, an entire IP library hiding in your career.", gets: ["Identity excavation & positioning", "Complete IP map", "Ideal client profile", "Future self design"], ai: "Claude surfaces patterns across your career you\u2019d never spot yourself, maps your IP at scale, and generates your ideal client profile from real market language." },
@@ -363,6 +366,48 @@ export default function LandingPage() {
     { n: "04", name: "Profile", sub: "Content & visibility", body: "An AI-powered content engine that takes your IP and turns it into authority-building content across every channel. One hour of input produces a week of content. You stay visible without it becoming a second job.", gets: ["Content engine (100+ prompts)", "Publishing system & workflow", "Digital presence alignment", "Keynote/talk structure"], ai: "Your IP feeds the engine; Claude produces LinkedIn posts, newsletters, Reels scripts \u2014 all in your voice, from your expertise." },
     { n: "05", name: "Pipeline", sub: "Client acquisition", body: "The business machine. Infrastructure that turns strangers into leads, leads into calls, calls into clients. CRM, landing page, email sequences, advertising, sales playbook \u2014 built, connected, running.", gets: ["CRM setup & pipeline", "Landing page", "Email automation", "Meta ads & paid acquisition", "Video sales letter", "Sales playbook"], ai: "AI writes email sequences, generates ad variations, builds landing page copy, and refines sales scripts \u2014 calibrated to your ideal client." },
     { n: "06", name: "Partner", sub: "Scale & ecosystems", body: "Strategic partnerships that multiply reach, revenue, and impact without hiring. Frameworks, scorecards, pitches, and agreements that let you evaluate and execute partnerships with confidence.", gets: ["Gap map", "Partner profile builder", "Fit scorecard", "Partnership pitch", "Agreement outlines"], ai: "Claude identifies potential partners, generates pitch documents, and models partnership scenarios for objective evaluation." },
+  ];
+
+  const timeline = [
+    { weeks: "Weeks 1\u20132", phase: "01", name: "Person", desc: "Identity & IP excavation" },
+    { weeks: "Weeks 3\u20134", phase: "02", name: "Proof", desc: "Market validation & positioning" },
+    { weeks: "Weeks 5\u20137", phase: "03", name: "Promise", desc: "Signature offer creation" },
+    { weeks: "Weeks 8\u201310", phase: "04", name: "Profile", desc: "Content & visibility engine" },
+    { weeks: "Weeks 11\u201314", phase: "05", name: "Pipeline", desc: "Client acquisition system" },
+    { weeks: "Weeks 15\u201316", phase: "06", name: "Partner", desc: "Scale & partnerships" },
+  ];
+
+  const allDeliverables = [
+    "Identity excavation & positioning",
+    "Complete IP map",
+    "Ideal client profile",
+    "Future self design",
+    "Competitor matrix",
+    "ICP validation research",
+    "Market intelligence brief",
+    "Must-have problem identification",
+    "Named signature offer",
+    "Value-based pricing strategy",
+    "Curriculum & delivery design",
+    "Professional prospectus",
+    "AI content engine (100+ prompts)",
+    "Publishing system & workflow",
+    "Digital presence alignment",
+    "Keynote & talk structure",
+    "CRM setup & pipeline",
+    "Landing page (designed & built)",
+    "Email nurture sequences",
+    "Meta ads & paid acquisition",
+    "Video sales letter",
+    "Complete sales playbook",
+    "Objection handling scripts",
+    "Ad creative library",
+    "Gap map",
+    "Partner profile builder",
+    "Fit scorecard",
+    "Partnership pitch deck",
+    "Agreement outlines & templates",
+    "AI fluency system (top 0.01%)",
   ];
 
   return (
@@ -387,7 +432,7 @@ export default function LandingPage() {
           borderTop: "1px solid rgba(255,255,255,0.06)",
         }}
       >
-        <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", letterSpacing: 0.5 }}>
+        <span className="hidden md:inline" style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", letterSpacing: 0.5 }}>
           See if you&apos;re right to productize yourself
         </span>
         <a
@@ -428,7 +473,7 @@ export default function LandingPage() {
             </div>
           </Reveal>
           <Reveal delay={100}>
-            <h1 style={{ fontSize: "clamp(40px, 7.5vw, 84px)", fontWeight: 900, lineHeight: 1.02, color: "var(--color-white)", letterSpacing: "-0.04em", marginBottom: 24 }}>
+            <h1 className="hero-heading" style={{ fontSize: "clamp(40px, 7.5vw, 84px)", fontWeight: 900, lineHeight: 1.02, color: "var(--color-white)", letterSpacing: "-0.04em", marginBottom: 24 }}>
               Build Your<br />
               <span style={{ background: "linear-gradient(135deg, var(--color-accent), #60a5fa)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
                 Productized
@@ -462,7 +507,7 @@ export default function LandingPage() {
       <div style={{ background: "var(--color-charcoal)", padding: "56px 24px", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <Wide>
           <Reveal>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 32, textAlign: "center" }}>
+            <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: 32, textAlign: "center" }}>
               {[
                 ["300+", "Post-Corporate Pros Trained"],
                 ["30+", "Assets Built Per Client"],
@@ -548,57 +593,47 @@ export default function LandingPage() {
         </Narrow>
       </Section>
 
-
-      {/* ── 6P FRAMEWORK — "HERE'S HOW WE DO IT" ── */}
-      <Section dark={false}>
+      {/* ── 6P FRAMEWORK — ACCORDION ── */}
+      <Section dark>
         <Wide>
           <Reveal>
-            <div style={{ textAlign: "center", marginBottom: 64 }}>
-              <Label>THE SYSTEM</Label>
-              <h2 style={{ fontSize: "clamp(32px, 5.5vw, 60px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-text)", letterSpacing: "-0.03em", marginBottom: 20 }}>
-                Here&apos;s How We Do It
-              </h2>
-              <p style={{ fontSize: 17, lineHeight: 1.8, color: "var(--color-text-body)", maxWidth: 640, margin: "0 auto" }}>
-                6 phases. 16 weeks. 30+ deliverables built with you. Each phase de-risks the next. Every step powered by AI.
-              </p>
-            </div>
+            <Label light>THE FRAMEWORK</Label>
+            <h2 style={{ fontSize: "clamp(32px, 5.5vw, 60px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 20 }}>
+              Six phases. One system.<br />Your productized consulting business.
+            </h2>
+            <p style={{ fontSize: 17, lineHeight: 1.8, color: "rgba(255,255,255,0.45)", marginBottom: 56, maxWidth: 680 }}>
+              Built on startup acceleration principles. Adapted for individuals with decades of expertise. Each phase produces real deliverables. Each de-risks the next. Every step powered by AI.
+            </p>
           </Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
+          <Reveal delay={100}>
             {phases.map((p, i) => (
-              <Reveal key={i} delay={i * 80}>
-                <div style={{
-                  background: "var(--color-white)",
-                  border: "2px solid var(--color-text)",
-                  borderRadius: 16,
-                  padding: "40px 32px",
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                }}>
-                  <span style={{ fontSize: 48, fontWeight: 900, color: "var(--color-text)", lineHeight: 1, marginBottom: 4 }}>{p.n}</span>
-                  <h3 style={{ fontSize: 22, fontWeight: 800, color: "var(--color-text)", textTransform: "uppercase", letterSpacing: 1.5, marginBottom: 4 }}>{p.name}</h3>
-                  <p style={{ fontSize: 13, fontWeight: 600, color: "var(--color-accent)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 16 }}>{p.sub}</p>
-                  <p style={{ fontSize: 15, lineHeight: 1.75, color: "var(--color-text-body)", marginBottom: 20 }}>{p.body}</p>
-                  <div style={{ marginTop: "auto" }}>
-                    <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "var(--color-muted)", marginBottom: 10 }}>Deliverables</p>
-                    {p.gets.map((g, j) => (
-                      <div key={j} style={{ display: "flex", gap: 8, marginBottom: 5, alignItems: "flex-start" }}>
-                        <span style={{ color: "var(--color-accent)", fontSize: 12, marginTop: 3, flexShrink: 0 }}>&gt;</span>
-                        <p style={{ fontSize: 13, lineHeight: 1.6, color: "var(--color-text-body)" }}>{g}</p>
-                      </div>
-                    ))}
-                  </div>
+              <Phase key={i} number={p.n} name={p.name} subtitle={p.sub} isOpen={openPhase === i} onClick={() => setOpenPhase(openPhase === i ? -1 : i)}>
+                <p style={{ fontSize: 16, lineHeight: 1.8, color: "rgba(255,255,255,0.65)", marginBottom: 24 }}>{p.body}</p>
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.3)", marginBottom: 12 }}>Deliverables</p>
+                {p.gets.map((g, j) => (
+                  <p key={j} style={{ fontSize: 14, color: "rgba(255,255,255,0.55)", marginBottom: 6, paddingLeft: 16 }}>
+                    <span style={{ color: "rgba(255,255,255,0.15)", marginRight: 8 }}>-</span>{g}
+                  </p>
+                ))}
+                <div style={{ marginTop: 20, padding: "16px 20px", background: "rgba(37,99,235,0.06)", borderRadius: 8, borderLeft: "2px solid var(--color-accent)" }}>
+                  <p style={{ fontSize: 11, fontWeight: 700, color: "var(--color-accent)", marginBottom: 6, letterSpacing: 1.5, textTransform: "uppercase" }}>AI at work</p>
+                  <p style={{ fontSize: 14, lineHeight: 1.75, color: "rgba(255,255,255,0.55)" }}>{p.ai}</p>
                 </div>
-              </Reveal>
+              </Phase>
             ))}
-          </div>
-          <Reveal delay={500}>
-            <div style={{ textAlign: "center", marginTop: 56 }}>
-              <p style={{ fontSize: 16, color: "var(--color-muted)", marginBottom: 32, fontStyle: "italic" }}>
-                Turn who you are into what you do, create, and sell.
-              </p>
-              <ApplyButton inverted={false} />
+          </Reveal>
+          <Reveal delay={200}>
+            <div className="flex justify-center flex-wrap" style={{ gap: 8, marginTop: 48 }}>
+              {phases.map((p, i) => (
+                <span key={i} style={{ fontSize: 11, color: "rgba(255,255,255,0.2)", letterSpacing: 1.5, textTransform: "uppercase" }}>
+                  {p.n} {p.name}{i < 5 ? <span style={{ margin: "0 8px", opacity: 0.3 }}>&gt;</span> : ""}
+                </span>
+              ))}
             </div>
+            <p style={{ textAlign: "center", fontSize: 16, color: "rgba(255,255,255,0.35)", marginTop: 32, fontStyle: "italic" }}>
+              Turn who you are into what you do, create, and sell.
+            </p>
+            <div style={{ textAlign: "center", marginTop: 40 }}><ApplyButton /></div>
           </Reveal>
         </Wide>
       </Section>
@@ -614,7 +649,7 @@ export default function LandingPage() {
               </h2>
             </div>
           </Reveal>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ gap: 16 }}>
             {[
               ["01", "Signature Offer", "A productized consulting offer \u2014 named, priced, and packaged \u2014 that attracts the right clients without chasing. Designed so strangers say, \u2018I need that.\u2019"],
               ["02", "AI Fluency", "100+ structured prompts woven into every part of your business. Content, leads, deliverables. AI becomes how you work \u2014 top 0.01% of AI users worldwide."],
@@ -635,15 +670,18 @@ export default function LandingPage() {
         </Wide>
       </Section>
 
-      {/* ── BUNDLE IMAGE + DELIVERABLES ── */}
+      {/* ── BUNDLE IMAGE + ALL 30 DELIVERABLES ── */}
       <div style={{ background: "var(--color-charcoal)", padding: "80px 24px" }}>
         <Wide>
           <Reveal>
             <div style={{ textAlign: "center", marginBottom: 48 }}>
               <Label light>THE FULL PACKAGE</Label>
-              <h2 style={{ fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em" }}>
+              <h2 style={{ fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 16 }}>
                 Everything You Get
               </h2>
+              <p style={{ fontSize: 16, color: "rgba(255,255,255,0.4)", maxWidth: 560, margin: "0 auto" }}>
+                30 operational assets. Built with you. Yours forever.
+              </p>
             </div>
           </Reveal>
           <Reveal delay={100}>
@@ -652,30 +690,66 @@ export default function LandingPage() {
             </div>
           </Reveal>
           <Reveal delay={200}>
-            <div style={{ marginTop: 56, display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
-              {[
-                ["Named Signature Offer", "A productized, priced, packaged consulting offer that sells itself to strangers."],
-                ["Professional Prospectus", "A polished document that positions your expertise and converts prospects on first read."],
-                ["AI Content Engine", "100+ structured prompts that publish 3x per week in your voice, across every channel."],
-                ["Full Client Pipeline", "CRM, landing page, email nurture sequences, and a video sales letter — all built and running."],
-                ["Meta Ads & Paid Acquisition", "Ad strategy, AI-generated creative, audience targeting, and campaign optimisation."],
-                ["Complete Sales Playbook", "Scripts, objection handling, closing frameworks — for people brilliant at delivery."],
-                ["Value-Based Pricing Model", "Pricing strategy stress-tested against competitors so you charge with confidence."],
-                ["Partnership Framework", "Gap maps, scorecards, pitch templates, and agreements to scale through partners."],
-                ["AI Fluency (Top 0.01%)", "AI woven into every part of your business — content, leads, delivery, operations."],
-              ].map(([title, desc], i) => (
-                <div key={i} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-                  <span style={{ color: "var(--color-accent)", fontSize: 14, marginTop: 2, flexShrink: 0, fontWeight: 700 }}>&gt;</span>
-                  <div>
-                    <p style={{ fontSize: 15, fontWeight: 700, color: "var(--color-white)", marginBottom: 4 }}>{title}</p>
-                    <p style={{ fontSize: 13, lineHeight: 1.65, color: "rgba(255,255,255,0.45)" }}>{desc}</p>
-                  </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ marginTop: 56, gap: 16 }}>
+              {allDeliverables.map((title, i) => (
+                <div key={i} style={{ display: "flex", gap: 12, alignItems: "flex-start", padding: "10px 0" }}>
+                  <span style={{ color: "var(--color-accent)", fontSize: 12, fontWeight: 700, flexShrink: 0, marginTop: 3, fontFamily: "monospace" }}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <p style={{ fontSize: 15, color: "rgba(255,255,255,0.7)", lineHeight: 1.5 }}>{title}</p>
                 </div>
               ))}
             </div>
           </Reveal>
         </Wide>
       </div>
+
+      {/* ── TIMELINE ── */}
+      <Section dark>
+        <Wide>
+          <Reveal>
+            <div style={{ textAlign: "center", marginBottom: 56 }}>
+              <Label light>THE TIMELINE</Label>
+              <h2 style={{ fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 16 }}>
+                Your 16-Week Journey
+              </h2>
+              <p style={{ fontSize: 16, color: "rgba(255,255,255,0.4)", maxWidth: 560, margin: "0 auto" }}>
+                From identity to acquisition system. Here&apos;s what we build and when.
+              </p>
+            </div>
+          </Reveal>
+          <Reveal delay={100}>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6" style={{ gap: 12 }}>
+              {timeline.map((t, i) => (
+                <div
+                  key={i}
+                  style={{
+                    background: "var(--color-card)",
+                    borderRadius: 12,
+                    padding: "28px 20px",
+                    borderLeft: "2px solid var(--color-accent)",
+                    position: "relative",
+                  }}
+                >
+                  <p style={{ fontSize: 11, letterSpacing: 2, color: "var(--color-accent)", fontWeight: 700, textTransform: "uppercase", marginBottom: 12 }}>
+                    {t.weeks}
+                  </p>
+                  <p style={{ fontSize: 11, color: "rgba(255,255,255,0.2)", letterSpacing: 1, marginBottom: 4 }}>{t.phase}</p>
+                  <p style={{ fontSize: 20, fontWeight: 800, color: "var(--color-white)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>
+                    {t.name}
+                  </p>
+                  <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", lineHeight: 1.5 }}>{t.desc}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+          <Reveal delay={200}>
+            <div style={{ textAlign: "center", marginTop: 48 }}>
+              <ApplyButton />
+            </div>
+          </Reveal>
+        </Wide>
+      </Section>
 
       {/* ── BEFORE / AFTER ── */}
       <Section dark>
@@ -687,7 +761,7 @@ export default function LandingPage() {
             </div>
           </Reveal>
           <Reveal delay={100}>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2, borderRadius: 16, overflow: "hidden" }}>
+            <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: 2, borderRadius: 16, overflow: "hidden" }}>
               <div style={{ background: "var(--color-card)", padding: "40px 36px" }}>
                 <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.25)", marginBottom: 28 }}>Before</p>
                 {[
@@ -761,7 +835,7 @@ export default function LandingPage() {
         </Narrow>
       </Section>
 
-      {/* ── SOCIAL PROOF CAROUSEL ── */}
+      {/* ── SOCIAL PROOF — VERTICAL SCROLL ── */}
       <Section dark style={{ paddingBottom: 40 }}>
         <Wide>
           <Reveal>
@@ -775,17 +849,29 @@ export default function LandingPage() {
         </Wide>
       </Section>
       <div style={{ background: "var(--color-charcoal)", paddingBottom: 80, overflow: "hidden" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          <HorizontalImageRow direction="left" speed={45} images={proofRow1} height={240} />
-          <HorizontalImageRow direction="right" speed={50} images={proofRow2} height={240} />
-        </div>
+        <Wide>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4" style={{ gap: 8, height: "clamp(400px, 60vh, 600px)" }}>
+            <div style={{ overflow: "hidden", height: "100%" }}>
+              <PhotoColVertical dir="up" speed={80} images={proofCol1} aspectRatio="4/5" />
+            </div>
+            <div style={{ overflow: "hidden", height: "100%" }}>
+              <PhotoColVertical dir="down" speed={90} images={proofCol2} aspectRatio="4/5" />
+            </div>
+            <div className="hidden md:block" style={{ overflow: "hidden", height: "100%" }}>
+              <PhotoColVertical dir="up" speed={85} images={proofCol3} aspectRatio="4/5" />
+            </div>
+            <div className="hidden lg:block" style={{ overflow: "hidden", height: "100%" }}>
+              <PhotoColVertical dir="down" speed={75} images={proofCol4} aspectRatio="4/5" />
+            </div>
+          </div>
+        </Wide>
       </div>
 
       {/* ── FOR / NOT FOR ── */}
       <Section dark={false}>
         <Wide>
           <Reveal>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2, borderRadius: 16, overflow: "hidden" }}>
+            <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: 2, borderRadius: 16, overflow: "hidden" }}>
               <div style={{ background: "var(--color-charcoal)", padding: "56px 44px" }}>
                 <p style={{ fontSize: "clamp(24px, 3vw, 36px)", fontWeight: 900, color: "var(--color-white)", marginBottom: 36, letterSpacing: "-0.02em" }}>This is for you if...</p>
                 {[
@@ -826,7 +912,7 @@ export default function LandingPage() {
       {/* ── ABOUT ROSS ── */}
       <Section dark>
         <Wide>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: 64, alignItems: "center" }}>
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr]" style={{ gap: 64, alignItems: "center" }}>
             <Reveal>
               <div style={{ width: "100%", aspectRatio: "4/5", borderRadius: 12, overflow: "hidden", position: "relative" }}>
                 <Image src="/images/assets/ross-headshot.jpg" alt="Ross Power" fill style={{ objectFit: "cover" }} sizes="400px" />
@@ -854,43 +940,33 @@ export default function LandingPage() {
       {/* ── EDUCATOR CAROUSEL ── */}
       <div style={{ background: "var(--color-charcoal)", padding: "20px 0 80px", overflow: "hidden" }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          <HorizontalImageRow direction="left" speed={38} images={carouselImages.slice(0, 7)} height={200} />
-          <HorizontalImageRow direction="right" speed={42} images={carouselImages.slice(7)} height={200} />
+          <HorizontalImageRow direction="left" speed={60} images={carouselImages.slice(0, 7)} height={200} />
+          <HorizontalImageRow direction="right" speed={70} images={carouselImages.slice(7)} height={200} />
         </div>
       </div>
 
-      {/* ── MY PROMISE CARD ── */}
-      <Section dark={false}>
+      {/* ── THE PROMISE — 90 DAY GUARANTEE ── */}
+      <Section dark>
         <Wide>
           <Reveal>
-            <div style={{
-              maxWidth: 940,
-              margin: "0 auto",
-              background: "var(--color-white)",
-              border: "2px solid var(--color-text)",
-              borderRadius: 20,
-              overflow: "hidden",
-              display: "grid",
-              gridTemplateColumns: "1fr 1.3fr",
-              alignItems: "stretch",
-            }}>
-              <div style={{ position: "relative", minHeight: 420 }}>
-                <Image src="/images/educator-carousel/11.jpg" alt="Ross Power mentoring" fill style={{ objectFit: "cover" }} sizes="400px" />
-              </div>
-              <div style={{ padding: "48px 44px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: "var(--color-muted)", marginBottom: 20 }}>MY PROMISE</p>
-                <h2 style={{ fontSize: "clamp(26px, 3.5vw, 40px)", fontWeight: 900, lineHeight: 1.1, color: "var(--color-text)", letterSpacing: "-0.03em", marginBottom: 24 }}>
-                  Every deliverable built.<br />Or we keep going.
+            <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: 56, alignItems: "center" }}>
+              <div>
+                <Label light>THE PROMISE</Label>
+                <h2 style={{ fontSize: "clamp(26px, 4vw, 44px)", fontWeight: 900, lineHeight: 1.1, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 28 }}>
+                  The 90-Day Acquisition<br />System Guarantee
                 </h2>
-                <p style={{ fontSize: 16, lineHeight: 1.8, color: "var(--color-text-body)", marginBottom: 16 }}>
-                  I know what it feels like to invest in something and walk away with nothing tangible. That&apos;s why the guarantee is simple.
+                <p style={{ fontSize: 17, lineHeight: 1.85, color: "rgba(255,255,255,0.7)", marginBottom: 20 }}>
+                  You will have a fully automated client acquisition system and productized offer. If you don&apos;t have a pipeline of leads, and close your investment back within 3 months after we launch, we&apos;ll refund everything you&apos;ve paid so far.
                 </p>
-                <p style={{ fontSize: 16, lineHeight: 1.8, color: "var(--color-text-body)", marginBottom: 16 }}>
-                  We build 30+ operational assets with you. If any aren&apos;t finished by programme end, we keep building at no additional cost until everything is complete and launched.
+                <p style={{ fontSize: 17, lineHeight: 1.85, color: "rgba(255,255,255,0.7)", marginBottom: 20 }}>
+                  <strong style={{ color: "var(--color-white)" }}>Why 50%?</strong> Because that&apos;s the MINIMUM I expect you to make if you actually do the work. If you make less, either I failed to teach you well, or you didn&apos;t implement. Either way, you get your money back.
                 </p>
-                <p style={{ fontSize: 16, lineHeight: 1.8, color: "var(--color-text)", fontWeight: 600 }}>
-                  I&apos;d rather over-deliver than over-promise. That&apos;s the only way I know how to do this.
-                </p>
+                <div style={{ marginTop: 32 }}>
+                  <ApplyButton />
+                </div>
+              </div>
+              <div style={{ width: "100%", aspectRatio: "4/5", borderRadius: 16, overflow: "hidden", position: "relative" }}>
+                <Image src="/images/assets/ross-headshot.jpg" alt="Ross Power" fill style={{ objectFit: "cover" }} sizes="500px" />
               </div>
             </div>
           </Reveal>
