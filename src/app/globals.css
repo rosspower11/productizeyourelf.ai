@@ -89,3 +89,29 @@ body {
   0% { transform: translateX(-50%); }
   100% { transform: translateX(0); }
 }
+
+/* ── Mobile responsive overrides ── */
+@media (max-width: 768px) {
+  .phase-header {
+    padding: 20px !important;
+  }
+  .phase-header-inner {
+    gap: 16px !important;
+  }
+  .phase-subtitle {
+    display: none !important;
+  }
+  .phase-number {
+    min-width: 40px !important;
+  }
+  .phase-expand-content {
+    padding: 0 20px 24px 20px !important;
+  }
+  .section-responsive {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+  .hero-heading {
+    font-size: clamp(32px, 7.5vw, 84px) !important;
+  }
+}
