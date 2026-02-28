@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 
 /* ── Constants ── */
-const CTA_URL = "https://productizeyourself.ai/start";
+const CTA_URL = "https://apply.productizeyourself.ai";
 
 /* ── Reveal on scroll ── */
 function useReveal(threshold = 0.12) {
@@ -417,7 +417,9 @@ export default function LandingPage() {
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 36 }}>
               <div style={{ display: "flex" }}>
                 {[1, 2, 3, 4, 5].map((i) => (
-                  <div key={i} style={{ width: 32, height: 32, borderRadius: "50%", background: "#333", border: "2px solid #1A1A1A", marginLeft: i > 1 ? -10 : 0 }} />
+                  <div key={i} style={{ width: 32, height: 32, borderRadius: "50%", overflow: "hidden", border: "2px solid #1A1A1A", marginLeft: i > 1 ? -10 : 0, position: "relative", background: "#333" }}>
+                    <Image src={`/images/headshots/${i}.png`} alt="" fill style={{ objectFit: "cover" }} sizes="32px" />
+                  </div>
                 ))}
               </div>
               <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>
@@ -546,60 +548,57 @@ export default function LandingPage() {
         </Narrow>
       </Section>
 
-      {/* ── VERTICAL PHOTO CAROUSEL ── */}
-      <div style={{ background: "var(--color-charcoal)", padding: "0 24px", overflow: "hidden" }}>
-        <Wide>
-          <div style={{ display: "flex", gap: 8, height: 480 }}>
-            <PhotoColVertical dir="up" speed={35} images={col1} />
-            <PhotoColVertical dir="down" speed={28} images={col2} />
-            <PhotoColVertical dir="up" speed={32} images={col3} />
-          </div>
-        </Wide>
-      </div>
 
-      <TextBanner dark text="PRODUCTIZE YOURSELF" />
-
-      {/* ── 6P FRAMEWORK ── */}
-      <Section dark>
+      {/* ── 6P FRAMEWORK — "HERE'S HOW WE DO IT" ── */}
+      <Section dark={false}>
         <Wide>
           <Reveal>
-            <Label light>THE FRAMEWORK</Label>
-            <h2 style={{ fontSize: "clamp(32px, 5.5vw, 60px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 20 }}>
-              Six phases. One system.<br />Your productized consulting business.
-            </h2>
-            <p style={{ fontSize: 17, lineHeight: 1.8, color: "rgba(255,255,255,0.45)", marginBottom: 56, maxWidth: 680 }}>
-              Built on startup acceleration principles. Adapted for individuals with decades of expertise. Each phase produces real deliverables. Each de-risks the next. Every step powered by AI.
-            </p>
-          </Reveal>
-          <Reveal delay={100}>
-            {phases.map((p, i) => (
-              <Phase key={i} number={p.n} name={p.name} subtitle={p.sub} isOpen={openPhase === i} onClick={() => setOpenPhase(openPhase === i ? -1 : i)}>
-                <p style={{ fontSize: 16, lineHeight: 1.8, color: "rgba(255,255,255,0.65)", marginBottom: 24 }}>{p.body}</p>
-                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.3)", marginBottom: 12 }}>Deliverables</p>
-                {p.gets.map((g, j) => (
-                  <p key={j} style={{ fontSize: 14, color: "rgba(255,255,255,0.55)", marginBottom: 6, paddingLeft: 16 }}>
-                    <span style={{ color: "rgba(255,255,255,0.15)", marginRight: 8 }}>-</span>{g}
-                  </p>
-                ))}
-                <div style={{ marginTop: 20, padding: "16px 20px", background: "rgba(37,99,235,0.06)", borderRadius: 8, borderLeft: "2px solid var(--color-accent)" }}>
-                  <p style={{ fontSize: 11, fontWeight: 700, color: "var(--color-accent)", marginBottom: 6, letterSpacing: 1.5, textTransform: "uppercase" }}>AI at work</p>
-                  <p style={{ fontSize: 14, lineHeight: 1.75, color: "rgba(255,255,255,0.55)" }}>{p.ai}</p>
-                </div>
-              </Phase>
-            ))}
-          </Reveal>
-          <Reveal delay={200}>
-            <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 48, flexWrap: "wrap" }}>
-              {phases.map((p, i) => (
-                <span key={i} style={{ fontSize: 11, color: "rgba(255,255,255,0.2)", letterSpacing: 1.5, textTransform: "uppercase" }}>
-                  {p.n} {p.name}{i < 5 ? <span style={{ margin: "0 8px", opacity: 0.3 }}>&gt;</span> : ""}
-                </span>
-              ))}
+            <div style={{ textAlign: "center", marginBottom: 64 }}>
+              <Label>THE SYSTEM</Label>
+              <h2 style={{ fontSize: "clamp(32px, 5.5vw, 60px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-text)", letterSpacing: "-0.03em", marginBottom: 20 }}>
+                Here&apos;s How We Do It
+              </h2>
+              <p style={{ fontSize: 17, lineHeight: 1.8, color: "var(--color-text-body)", maxWidth: 640, margin: "0 auto" }}>
+                6 phases. 16 weeks. 30+ deliverables built with you. Each phase de-risks the next. Every step powered by AI.
+              </p>
             </div>
-            <p style={{ textAlign: "center", fontSize: 16, color: "rgba(255,255,255,0.35)", marginTop: 32, fontStyle: "italic" }}>
-              Turn who you are into what you do, create, and sell.
-            </p>
-            <div style={{ textAlign: "center", marginTop: 40 }}><ApplyButton /></div>
+          </Reveal>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
+            {phases.map((p, i) => (
+              <Reveal key={i} delay={i * 80}>
+                <div style={{
+                  background: "var(--color-white)",
+                  border: "2px solid var(--color-text)",
+                  borderRadius: 16,
+                  padding: "40px 32px",
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                }}>
+                  <span style={{ fontSize: 48, fontWeight: 900, color: "var(--color-text)", lineHeight: 1, marginBottom: 4 }}>{p.n}</span>
+                  <h3 style={{ fontSize: 22, fontWeight: 800, color: "var(--color-text)", textTransform: "uppercase", letterSpacing: 1.5, marginBottom: 4 }}>{p.name}</h3>
+                  <p style={{ fontSize: 13, fontWeight: 600, color: "var(--color-accent)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 16 }}>{p.sub}</p>
+                  <p style={{ fontSize: 15, lineHeight: 1.75, color: "var(--color-text-body)", marginBottom: 20 }}>{p.body}</p>
+                  <div style={{ marginTop: "auto" }}>
+                    <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "var(--color-muted)", marginBottom: 10 }}>Deliverables</p>
+                    {p.gets.map((g, j) => (
+                      <div key={j} style={{ display: "flex", gap: 8, marginBottom: 5, alignItems: "flex-start" }}>
+                        <span style={{ color: "var(--color-accent)", fontSize: 12, marginTop: 3, flexShrink: 0 }}>&gt;</span>
+                        <p style={{ fontSize: 13, lineHeight: 1.6, color: "var(--color-text-body)" }}>{g}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal delay={500}>
+            <div style={{ textAlign: "center", marginTop: 56 }}>
+              <p style={{ fontSize: 16, color: "var(--color-muted)", marginBottom: 32, fontStyle: "italic" }}>
+                Turn who you are into what you do, create, and sell.
+              </p>
+              <ApplyButton inverted={false} />
+            </div>
           </Reveal>
         </Wide>
       </Section>
@@ -636,12 +635,43 @@ export default function LandingPage() {
         </Wide>
       </Section>
 
-      {/* ── BUNDLE IMAGE ── */}
+      {/* ── BUNDLE IMAGE + DELIVERABLES ── */}
       <div style={{ background: "var(--color-charcoal)", padding: "80px 24px" }}>
         <Wide>
           <Reveal>
+            <div style={{ textAlign: "center", marginBottom: 48 }}>
+              <Label light>THE FULL PACKAGE</Label>
+              <h2 style={{ fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em" }}>
+                Everything You Get
+              </h2>
+            </div>
+          </Reveal>
+          <Reveal delay={100}>
             <div style={{ width: "100%", aspectRatio: "16/7", borderRadius: 16, overflow: "hidden", position: "relative", border: "1px solid rgba(255,255,255,0.06)" }}>
-              <Image src="/images/assets/bundle.png" alt="Productize Yourself programme bundle" fill style={{ objectFit: "contain" }} sizes="1140px" />
+              <Image src="/images/assets/bundle no background.svg" alt="Productize Yourself programme bundle" fill style={{ objectFit: "contain" }} sizes="1140px" />
+            </div>
+          </Reveal>
+          <Reveal delay={200}>
+            <div style={{ marginTop: 56, display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
+              {[
+                ["Named Signature Offer", "A productized, priced, packaged consulting offer that sells itself to strangers."],
+                ["Professional Prospectus", "A polished document that positions your expertise and converts prospects on first read."],
+                ["AI Content Engine", "100+ structured prompts that publish 3x per week in your voice, across every channel."],
+                ["Full Client Pipeline", "CRM, landing page, email nurture sequences, and a video sales letter — all built and running."],
+                ["Meta Ads & Paid Acquisition", "Ad strategy, AI-generated creative, audience targeting, and campaign optimisation."],
+                ["Complete Sales Playbook", "Scripts, objection handling, closing frameworks — for people brilliant at delivery."],
+                ["Value-Based Pricing Model", "Pricing strategy stress-tested against competitors so you charge with confidence."],
+                ["Partnership Framework", "Gap maps, scorecards, pitch templates, and agreements to scale through partners."],
+                ["AI Fluency (Top 0.01%)", "AI woven into every part of your business — content, leads, delivery, operations."],
+              ].map(([title, desc], i) => (
+                <div key={i} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+                  <span style={{ color: "var(--color-accent)", fontSize: 14, marginTop: 2, flexShrink: 0, fontWeight: 700 }}>&gt;</span>
+                  <div>
+                    <p style={{ fontSize: 15, fontWeight: 700, color: "var(--color-white)", marginBottom: 4 }}>{title}</p>
+                    <p style={{ fontSize: 13, lineHeight: 1.65, color: "rgba(255,255,255,0.45)" }}>{desc}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </Reveal>
         </Wide>
@@ -829,26 +859,38 @@ export default function LandingPage() {
         </div>
       </div>
 
-      {/* ── GUARANTEE ── */}
+      {/* ── MY PROMISE CARD ── */}
       <Section dark={false}>
         <Wide>
           <Reveal>
-            <div style={{ display: "grid", gridTemplateColumns: "1.3fr 1fr", gap: 64, alignItems: "center" }}>
-              <div>
-                <Label>MY PROMISE</Label>
-                <h2 style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 900, lineHeight: 1.1, color: "var(--color-text)", letterSpacing: "-0.03em", marginBottom: 28 }}>
-                  Every deliverable built. Or we keep going.
-                </h2>
-                {[
-                  "I know what it feels like to invest in something and walk away with nothing tangible. That\u2019s why the guarantee is simple.",
-                  "We build 30+ operational assets with you. If any aren\u2019t finished by programme end, we keep building at no additional cost until everything is complete and launched.",
-                  "I\u2019d rather over-deliver than over-promise. That\u2019s the only way I know how to do this.",
-                ].map((t, i) => (
-                  <p key={i} style={{ fontSize: 17, lineHeight: 1.85, color: "var(--color-text-body)", marginBottom: 16 }}>{t}</p>
-                ))}
+            <div style={{
+              maxWidth: 940,
+              margin: "0 auto",
+              background: "var(--color-white)",
+              border: "2px solid var(--color-text)",
+              borderRadius: 20,
+              overflow: "hidden",
+              display: "grid",
+              gridTemplateColumns: "1fr 1.3fr",
+              alignItems: "stretch",
+            }}>
+              <div style={{ position: "relative", minHeight: 420 }}>
+                <Image src="/images/educator-carousel/11.jpg" alt="Ross Power mentoring" fill style={{ objectFit: "cover" }} sizes="400px" />
               </div>
-              <div style={{ width: "100%", aspectRatio: "4/5", borderRadius: 12, overflow: "hidden", position: "relative" }}>
-                <Image src="/images/assets/ross-headshot.jpg" alt="Ross Power guarantee" fill style={{ objectFit: "cover" }} sizes="400px" />
+              <div style={{ padding: "48px 44px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: "uppercase", color: "var(--color-muted)", marginBottom: 20 }}>MY PROMISE</p>
+                <h2 style={{ fontSize: "clamp(26px, 3.5vw, 40px)", fontWeight: 900, lineHeight: 1.1, color: "var(--color-text)", letterSpacing: "-0.03em", marginBottom: 24 }}>
+                  Every deliverable built.<br />Or we keep going.
+                </h2>
+                <p style={{ fontSize: 16, lineHeight: 1.8, color: "var(--color-text-body)", marginBottom: 16 }}>
+                  I know what it feels like to invest in something and walk away with nothing tangible. That&apos;s why the guarantee is simple.
+                </p>
+                <p style={{ fontSize: 16, lineHeight: 1.8, color: "var(--color-text-body)", marginBottom: 16 }}>
+                  We build 30+ operational assets with you. If any aren&apos;t finished by programme end, we keep building at no additional cost until everything is complete and launched.
+                </p>
+                <p style={{ fontSize: 16, lineHeight: 1.8, color: "var(--color-text)", fontWeight: 600 }}>
+                  I&apos;d rather over-deliver than over-promise. That&apos;s the only way I know how to do this.
+                </p>
               </div>
             </div>
           </Reveal>
