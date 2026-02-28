@@ -4,11 +4,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Productize Yourself | Ross Power",
   description:
-    "Turn what you already know into a digital product that earns while you sleep. The complete system for building, launching, and scaling your knowledge business.",
+    "Turn who you are into what you do, create, and sell. 16 weeks. AI-native. 30+ operational assets built with you.",
   openGraph: {
     title: "Productize Yourself | Ross Power",
     description:
-      "Turn what you already know into a digital product that earns while you sleep.",
+      "Build your productized consulting business. 16 weeks. AI-native. 30+ operational assets.",
     type: "website",
   },
 };
