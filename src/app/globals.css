@@ -17,20 +17,28 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Glacial Indifference";
+  src: url("/fonts/GlacialIndifference-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
 /* ── Theme tokens ── */
 :root {
-  /* Brand colours */
-  --color-black: #000000;
-  --color-white: #ffffff;
-  --color-gold: #c8a84e;
-  --color-gold-hover: #b8983e;
-  --color-dark-bg: #0a0a0a;
-  --color-dark-card: #111111;
-  --color-dark-border: #222222;
-  --color-muted: #888888;
-
-  /* Typography */
-  --font-body: "Glacial Indifference", "Helvetica Neue", Arial, sans-serif;
+  --color-bg: #0F0F0F;
+  --color-surface: #F8FBFD;
+  --color-charcoal: #1A1A1A;
+  --color-card: #1E1E1E;
+  --color-text: #1A1A1A;
+  --color-text-body: #4A4A4A;
+  --color-muted: #999999;
+  --color-border: #E0E0E0;
+  --color-border-dark: #2A2A2A;
+  --color-white: #FFFFFF;
+  --color-accent: #2563EB;
+  --font-body: "Glacial Indifference", -apple-system, "Helvetica Neue", Arial, sans-serif;
 }
 
 /* ── Base resets ── */
@@ -50,61 +58,34 @@ html {
 
 body {
   font-family: var(--font-body);
-  background: var(--color-black);
+  background: var(--color-charcoal);
   color: var(--color-white);
   line-height: 1.6;
   overflow-x: hidden;
 }
 
-/* ── Utility classes ── */
-.gold-gradient-text {
-  background: linear-gradient(135deg, #c8a84e, #e8d48b, #c8a84e);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+::selection {
+  background: var(--color-accent);
+  color: white;
 }
 
-.gold-button {
-  background: linear-gradient(135deg, #c8a84e, #b8983e);
-  color: var(--color-black);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  padding: 1rem 2.5rem;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.gold-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(200, 168, 78, 0.3);
-}
-
-/* ── Carousel animation keyframes ── */
-@keyframes scroll-left {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
+/* ── Animations ── */
 @keyframes scroll-up {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-50%);
-  }
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
 }
 
 @keyframes scroll-down {
-  0% {
-    transform: translateY(-50%);
-  }
-  100% {
-    transform: translateY(0);
-  }
+  0% { transform: translateY(-50%); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
 }
