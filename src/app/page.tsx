@@ -1,10 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 
-/* ── Constants ── */
-const CTA_URL = "https://apply.productizeyourself.ai";
 
 /* ── Reveal on scroll ── */
 function useReveal(threshold = 0.12) {
@@ -53,6 +51,73 @@ function Reveal({
   );
 }
 
+/* ── Slide-in reveal (for 8 reasons) ── */
+function SlideReveal({
+  children,
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  delay?: number;
+}) {
+  const [ref, visible] = useReveal(0.15);
+  return (
+    <div
+      ref={ref}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateX(0) translateY(0)" : "translateX(-40px) translateY(10px)",
+        transition: `opacity 1s cubic-bezier(0.25,0.46,0.45,0.94) ${delay}ms, transform 1s cubic-bezier(0.25,0.46,0.45,0.94) ${delay}ms`,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+/* ── Count-up number animation ── */
+function CountUp({ target, suffix = "" }: { target: number; suffix?: string }) {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const [count, setCount] = useState(0);
+  const [started, setStarted] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started) {
+          setStarted(true);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [started]);
+  useEffect(() => {
+    if (!started) return;
+    const duration = 2000;
+    const steps = 60;
+    const increment = target / steps;
+    let current = 0;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        setCount(target);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(current));
+      }
+    }, duration / steps);
+    return () => clearInterval(timer);
+  }, [started, target]);
+  return (
+    <p ref={ref} style={{ fontSize: 36, fontWeight: 900, color: "var(--color-white)", letterSpacing: "-0.02em" }}>
+      {count}{suffix}
+    </p>
+  );
+}
+
 /* ── Label ── */
 function Label({ children, light }: { children: React.ReactNode; light?: boolean }) {
   return (
@@ -71,16 +136,85 @@ function Label({ children, light }: { children: React.ReactNode; light?: boolean
   );
 }
 
+/* ── Demo Form Modal ── */
+function FormModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
+  if (!open) return null;
+
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 10000,
+        background: "rgba(0,0,0,0.7)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 20,
+      }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          position: "relative",
+          width: "100%",
+          maxWidth: 600,
+          maxHeight: "90vh",
+          background: "var(--color-white)",
+          borderRadius: 12,
+          overflow: "hidden",
+        }}
+      >
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          style={{
+            position: "absolute",
+            top: 10,
+            right: 10,
+            zIndex: 10,
+            width: 32,
+            height: 32,
+            border: "none",
+            background: "rgba(0,0,0,0.08)",
+            borderRadius: "50%",
+            fontSize: 18,
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#333",
+          }}
+        >
+          &times;
+        </button>
+        <iframe
+          src="https://links.productizeyourself.ai/widget/form/1igLStOCVuPO00HrY2E5"
+          style={{ width: "100%", height: 904, border: "none" }}
+          title="Demo Call Application Form"
+        />
+      </div>
+    </div>
+  );
+}
+
 /* ── CTA Button ── */
-function ApplyButton({ inverted, size = "large" }: { inverted?: boolean; size?: "large" | "small" }) {
+function DemoButton({ inverted, size = "large", onClick }: { inverted?: boolean; size?: "large" | "small"; onClick?: () => void }) {
   const pad = size === "large" ? "18px 48px" : "14px 32px";
   return (
     <div>
-      <a
-        href={CTA_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="apply-btn"
+      <button
+        onClick={onClick}
         style={{
           display: "inline-block",
           padding: pad,
@@ -94,10 +228,12 @@ function ApplyButton({ inverted, size = "large" }: { inverted?: boolean; size?: 
           textDecoration: "none",
           cursor: "pointer",
           transition: "all 0.3s ease",
+          border: "none",
+          fontFamily: "inherit",
         }}
       >
-        APPLY NOW
-      </a>
+        BOOK A DEMO
+      </button>
     </div>
   );
 }
@@ -324,6 +460,9 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 export default function LandingPage() {
   const [openPhase, setOpenPhase] = useState(0);
   const [showNav, setShowNav] = useState(false);
+  const [showDemoForm, setShowDemoForm] = useState(false);
+  const openDemo = useCallback(() => setShowDemoForm(true), []);
+  const closeDemo = useCallback(() => setShowDemoForm(false), []);
 
   useEffect(() => {
     const onScroll = () => setShowNav(window.scrollY > window.innerHeight * 0.7);
@@ -349,15 +488,10 @@ export default function LandingPage() {
     "/images/educator-carousel/20.jpg",
   ];
 
-  const col1 = carouselImages.slice(0, 5);
-  const col2 = carouselImages.slice(5, 10);
-  const col3 = carouselImages.slice(10, 14);
-
   const proofImages = Array.from({ length: 26 }, (_, i) => `/images/social-proof/proof-${String(i + 1).padStart(2, "0")}.png`);
-  const proofCol1 = proofImages.slice(0, 7);
-  const proofCol2 = proofImages.slice(7, 13);
-  const proofCol3 = proofImages.slice(13, 20);
-  const proofCol4 = proofImages.slice(20);
+  const proofCol1 = proofImages.slice(0, 9);
+  const proofCol2 = proofImages.slice(9, 18);
+  const proofCol3 = proofImages.slice(18);
 
   const phases = [
     { n: "01", name: "Person", sub: "Identity & IP", body: "Before you build anything, you need absolute clarity on who you are professionally, what makes your perspective unique, and who needs what you offer. We excavate the expertise you\u2019ve been sitting on \u2014 frameworks you forgot you built, insights you take for granted, an entire IP library hiding in your career.", gets: ["Identity excavation & positioning", "Complete IP map", "Ideal client profile", "Future self design"], ai: "Claude surfaces patterns across your career you\u2019d never spot yourself, maps your IP at scale, and generates your ideal client profile from real market language." },
@@ -410,6 +544,25 @@ export default function LandingPage() {
     "AI fluency system (top 0.01%)",
   ];
 
+  const comparisonRows = [
+    { feature: "Named productized offer", py: true, coach: "partial", agency: false, ai: false },
+    { feature: "Full client pipeline (CRM, landing page, email, ads)", py: true, coach: false, agency: true, ai: false },
+    { feature: "AI content engine (100+ prompts)", py: true, coach: false, agency: "partial", ai: "partial" },
+    { feature: "Paid acquisition strategy & creative", py: true, coach: false, agency: true, ai: false },
+    { feature: "Sales playbook & objection scripts", py: true, coach: "partial", agency: false, ai: false },
+    { feature: "AI fluency woven into every asset", py: true, coach: false, agency: false, ai: true },
+    { feature: "You own everything that\u2019s built", py: true, coach: false, agency: false, ai: true },
+    { feature: "Training + done-with-you implementation", py: true, coach: "partial", agency: "partial", ai: false },
+    { feature: "30+ operational assets delivered", py: true, coach: false, agency: false, ai: false },
+    { feature: "Designed for post-corporate professionals", py: true, coach: "partial", agency: false, ai: false },
+  ];
+
+  const renderCheck = (val: boolean | string) => {
+    if (val === true) return <span style={{ color: "#22c55e", fontSize: 18 }}>&#10003;</span>;
+    if (val === "partial") return <span style={{ color: "#eab308", fontSize: 14 }}>~</span>;
+    return <span style={{ color: "rgba(255,255,255,0.15)", fontSize: 14 }}>&#10005;</span>;
+  };
+
   return (
     <div>
       {/* ── STICKY BOTTOM BAR ── */}
@@ -435,10 +588,8 @@ export default function LandingPage() {
         <span className="hidden md:inline" style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", letterSpacing: 0.5 }}>
           See if you&apos;re right to productize yourself
         </span>
-        <a
-          href={CTA_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          onClick={openDemo}
           style={{
             padding: "12px 28px",
             background: "var(--color-accent)",
@@ -449,17 +600,20 @@ export default function LandingPage() {
             letterSpacing: 1,
             textTransform: "uppercase",
             textDecoration: "none",
+            border: "none",
+            cursor: "pointer",
+            fontFamily: "inherit",
           }}
         >
-          APPLY NOW
-        </a>
+          BOOK A DEMO
+        </button>
       </div>
 
       {/* ── HERO ── */}
       <Section dark style={{ minHeight: "100vh", display: "flex", alignItems: "center", paddingTop: 60, paddingBottom: 60 }}>
         <HeroW style={{ textAlign: "center" }}>
           <Reveal>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, marginBottom: 36 }}>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3" style={{ marginBottom: 36 }}>
               <div style={{ display: "flex" }}>
                 {[1, 2, 3, 4, 5].map((i) => (
                   <div key={i} style={{ width: 32, height: 32, borderRadius: "50%", overflow: "hidden", border: "2px solid #1A1A1A", marginLeft: i > 1 ? -10 : 0, position: "relative", background: "#333" }}>
@@ -490,7 +644,7 @@ export default function LandingPage() {
             </p>
           </Reveal>
           <Reveal delay={300}>
-            <ApplyButton />
+            <DemoButton onClick={openDemo} />
             <p style={{ fontSize: 12, color: "rgba(255,255,255,0.25)", marginTop: 16, letterSpacing: 0.5 }}>
               Free consultation. See if you qualify.
             </p>
@@ -503,24 +657,22 @@ export default function LandingPage() {
 
       <TextBanner dark text="PRODUCTIZE YOURSELF" />
 
-      {/* ── TRUST BAR ── */}
+      {/* ── TRUST BAR (count-up numbers) ── */}
       <div style={{ background: "var(--color-charcoal)", padding: "56px 24px", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <Wide>
-          <Reveal>
-            <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: 32, textAlign: "center" }}>
-              {[
-                ["300+", "Post-Corporate Pros Trained"],
-                ["30+", "Assets Built Per Client"],
-                ["100+", "AI Prompts Included"],
-                ["10+", "Years Product Strategy"],
-              ].map(([num, label], i) => (
-                <div key={i}>
-                  <p style={{ fontSize: 36, fontWeight: 900, color: "var(--color-white)", letterSpacing: "-0.02em" }}>{num}</p>
-                  <p style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", marginTop: 8, letterSpacing: 2, textTransform: "uppercase" }}>{label}</p>
-                </div>
-              ))}
-            </div>
-          </Reveal>
+          <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: 32, textAlign: "center" }}>
+            {[
+              { target: 300, suffix: "+", label: "Post-Corporate Pros Trained" },
+              { target: 30, suffix: "+", label: "Assets Built Per Client" },
+              { target: 100, suffix: "+", label: "AI Prompts Included" },
+              { target: 10, suffix: "+", label: "Years Product Strategy" },
+            ].map((item, i) => (
+              <div key={i}>
+                <CountUp target={item.target} suffix={item.suffix} />
+                <p style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", marginTop: 8, letterSpacing: 2, textTransform: "uppercase" }}>{item.label}</p>
+              </div>
+            ))}
+          </div>
         </Wide>
       </div>
 
@@ -547,8 +699,6 @@ export default function LandingPage() {
           </Reveal>
         </Narrow>
       </Section>
-
-      <TextBanner dark={false} text="CONFIDENCE COMES FROM DOING" />
 
       {/* ── ROSS STORY ── */}
       <Section dark style={{ paddingTop: 80 }}>
@@ -588,7 +738,7 @@ export default function LandingPage() {
             <p style={{ fontSize: 17, lineHeight: 1.85, color: "rgba(255,255,255,0.75)", marginBottom: 20 }}>
               <strong style={{ color: "var(--color-white)" }}>I built that system.</strong> It&apos;s called Productize Yourself. The 6P Framework compresses everything I spent five years and $100K learning into 16 weeks. With AI as your co-founder at every step.
             </p>
-            <div style={{ marginTop: 40 }}><ApplyButton /></div>
+            <div style={{ marginTop: 40 }}><DemoButton onClick={openDemo} /></div>
           </Reveal>
         </Narrow>
       </Section>
@@ -633,7 +783,7 @@ export default function LandingPage() {
             <p style={{ textAlign: "center", fontSize: 16, color: "rgba(255,255,255,0.35)", marginTop: 32, fontStyle: "italic" }}>
               Turn who you are into what you do, create, and sell.
             </p>
-            <div style={{ textAlign: "center", marginTop: 40 }}><ApplyButton /></div>
+            <div style={{ textAlign: "center", marginTop: 40 }}><DemoButton onClick={openDemo} /></div>
           </Reveal>
         </Wide>
       </Section>
@@ -721,32 +871,17 @@ export default function LandingPage() {
           <Reveal delay={100}>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6" style={{ gap: 12 }}>
               {timeline.map((t, i) => (
-                <div
-                  key={i}
-                  style={{
-                    background: "var(--color-card)",
-                    borderRadius: 12,
-                    padding: "28px 20px",
-                    borderLeft: "2px solid var(--color-accent)",
-                    position: "relative",
-                  }}
-                >
-                  <p style={{ fontSize: 11, letterSpacing: 2, color: "var(--color-accent)", fontWeight: 700, textTransform: "uppercase", marginBottom: 12 }}>
-                    {t.weeks}
-                  </p>
+                <div key={i} style={{ background: "var(--color-card)", borderRadius: 12, padding: "28px 20px", borderLeft: "2px solid var(--color-accent)" }}>
+                  <p style={{ fontSize: 11, letterSpacing: 2, color: "var(--color-accent)", fontWeight: 700, textTransform: "uppercase", marginBottom: 12 }}>{t.weeks}</p>
                   <p style={{ fontSize: 11, color: "rgba(255,255,255,0.2)", letterSpacing: 1, marginBottom: 4 }}>{t.phase}</p>
-                  <p style={{ fontSize: 20, fontWeight: 800, color: "var(--color-white)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>
-                    {t.name}
-                  </p>
+                  <p style={{ fontSize: 20, fontWeight: 800, color: "var(--color-white)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>{t.name}</p>
                   <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", lineHeight: 1.5 }}>{t.desc}</p>
                 </div>
               ))}
             </div>
           </Reveal>
           <Reveal delay={200}>
-            <div style={{ textAlign: "center", marginTop: 48 }}>
-              <ApplyButton />
-            </div>
+            <div style={{ textAlign: "center", marginTop: 48 }}><DemoButton onClick={openDemo} /></div>
           </Reveal>
         </Wide>
       </Section>
@@ -764,15 +899,7 @@ export default function LandingPage() {
             <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: 2, borderRadius: 16, overflow: "hidden" }}>
               <div style={{ background: "var(--color-card)", padding: "40px 36px" }}>
                 <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.25)", marginBottom: 28 }}>Before</p>
-                {[
-                  "Vague offer, custom every time",
-                  "Clients find you through referrals and luck",
-                  "Post on LinkedIn when you remember",
-                  "Awkward sales conversations, no playbook",
-                  "Clients feel more like managers",
-                  "\"I've played with ChatGPT a few times\"",
-                  "\"I'm figuring it out\"",
-                ].map((t, i) => (
+                {["Vague offer, custom every time", "Clients find you through referrals and luck", "Post on LinkedIn when you remember", "Awkward sales conversations, no playbook", "Clients feel more like managers", "\"I've played with ChatGPT a few times\"", "\"I'm figuring it out\""].map((t, i) => (
                   <div key={i} style={{ display: "flex", gap: 12, marginBottom: 14, alignItems: "flex-start" }}>
                     <span style={{ color: "rgba(255,255,255,0.15)", fontSize: 13, marginTop: 2, flexShrink: 0 }}>x</span>
                     <p style={{ fontSize: 15, lineHeight: 1.6, color: "rgba(255,255,255,0.4)" }}>{t}</p>
@@ -781,15 +908,7 @@ export default function LandingPage() {
               </div>
               <div style={{ background: "#111827", padding: "40px 36px" }}>
                 <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "var(--color-accent)", marginBottom: 28 }}>After 16 Weeks</p>
-                {[
-                  "Named signature offer strangers understand instantly",
-                  "Landing page, email nurture, and ads generating leads weekly",
-                  "AI engine publishing 3x per week in your voice",
-                  "Sales playbook with scripts and closing frameworks",
-                  "You control the dynamic, the scope, and the price",
-                  "AI woven into how you create, sell, and deliver",
-                  "\"I have a system and it's working\"",
-                ].map((t, i) => (
+                {["Named signature offer strangers understand instantly", "Landing page, email nurture, and ads generating leads weekly", "AI engine publishing 3x per week in your voice", "Sales playbook with scripts and closing frameworks", "You control the dynamic, the scope, and the price", "AI woven into how you create, sell, and deliver", "\"I have a system and it's working\""].map((t, i) => (
                   <div key={i} style={{ display: "flex", gap: 12, marginBottom: 14, alignItems: "flex-start" }}>
                     <span style={{ color: "var(--color-accent)", fontSize: 12, marginTop: 3, flexShrink: 0 }}>&gt;</span>
                     <p style={{ fontSize: 15, lineHeight: 1.6, color: "rgba(255,255,255,0.8)" }}>{t}</p>
@@ -803,7 +922,7 @@ export default function LandingPage() {
 
       <TextBanner dark text="PRODUCTIZE YOURSELF" />
 
-      {/* ── 8 REASONS ── */}
+      {/* ── 8 REASONS (staggered slide-in) ── */}
       <Section dark={false}>
         <Narrow>
           <Reveal>
@@ -822,20 +941,66 @@ export default function LandingPage() {
             ["No more imposter syndrome about selling.", "Scripts, objection handling, closing frameworks \u2014 for people brilliant at delivery but uncomfortable with self-promotion."],
             ["No more watching less experienced people win.", "You have the expertise. They have a system. After this, you\u2019ll have both."],
           ].map(([title, body], i) => (
-            <Reveal key={i} delay={i * 50}>
-              <div style={{ display: "flex", gap: 24, marginBottom: 40 }}>
-                <span style={{ fontSize: 56, fontWeight: 900, color: "#E8E8E8", minWidth: 56, lineHeight: 1, textAlign: "right" }}>{i + 1}</span>
-                <div style={{ paddingTop: 6 }}>
-                  <p style={{ fontSize: 17, fontWeight: 700, color: "var(--color-text)", marginBottom: 6 }}>{title}</p>
+            <SlideReveal key={i} delay={i * 150}>
+              <div style={{ display: "flex", gap: 24, marginBottom: 20, paddingBottom: 20, borderBottom: i < 7 ? "1px solid var(--color-border)" : "none" }}>
+                <span style={{ fontSize: 48, fontWeight: 900, color: "var(--color-accent)", minWidth: 48, lineHeight: 1, textAlign: "right", opacity: 0.2 }}>{i + 1}</span>
+                <div style={{ paddingTop: 4 }}>
+                  <p style={{ fontSize: 18, fontWeight: 700, color: "var(--color-text)", marginBottom: 8, lineHeight: 1.3 }}>{title}</p>
                   <p style={{ fontSize: 15, lineHeight: 1.75, color: "var(--color-text-body)" }}>{body}</p>
                 </div>
               </div>
-            </Reveal>
+            </SlideReveal>
           ))}
         </Narrow>
       </Section>
 
-      {/* ── SOCIAL PROOF — VERTICAL SCROLL ── */}
+      {/* ── HOW WE COMPARE ── */}
+      <Section dark>
+        <Wide>
+          <Reveal>
+            <div style={{ textAlign: "center", marginBottom: 56 }}>
+              <Label light>HOW WE COMPARE</Label>
+              <h2 style={{ fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 16 }}>
+                Not coaching. Not an agency.<br />A full-suite productized business &mdash; built with you.
+              </h2>
+              <p style={{ fontSize: 16, color: "rgba(255,255,255,0.4)", maxWidth: 640, margin: "0 auto" }}>
+                Training to empower you. Done-with-you to accelerate you. Everything you need, nothing outsourced.
+              </p>
+            </div>
+          </Reveal>
+          <Reveal delay={100}>
+            <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+              <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 700 }}>
+                <thead>
+                  <tr>
+                    <th style={{ textAlign: "left", padding: "16px 20px", fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "rgba(255,255,255,0.3)", borderBottom: "1px solid var(--color-border-dark)" }}></th>
+                    <th style={{ padding: "16px 16px", fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "var(--color-white)", background: "rgba(37,99,235,0.15)", borderBottom: "1px solid var(--color-accent)", borderRadius: "8px 8px 0 0", textAlign: "center" }}>Productize Yourself</th>
+                    <th style={{ padding: "16px 16px", fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "rgba(255,255,255,0.4)", borderBottom: "1px solid var(--color-border-dark)", textAlign: "center" }}>Business Coach</th>
+                    <th style={{ padding: "16px 16px", fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "rgba(255,255,255,0.4)", borderBottom: "1px solid var(--color-border-dark)", textAlign: "center" }}>Marketing Agency</th>
+                    <th style={{ padding: "16px 16px", fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "rgba(255,255,255,0.4)", borderBottom: "1px solid var(--color-border-dark)", textAlign: "center" }}>AI Course</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparisonRows.map((row, i) => (
+                    <tr key={i}>
+                      <td style={{ padding: "14px 20px", fontSize: 14, color: "rgba(255,255,255,0.65)", borderBottom: "1px solid var(--color-border-dark)" }}>{row.feature}</td>
+                      <td style={{ padding: "14px 16px", textAlign: "center", background: "rgba(37,99,235,0.06)", borderBottom: "1px solid var(--color-border-dark)" }}>{renderCheck(row.py)}</td>
+                      <td style={{ padding: "14px 16px", textAlign: "center", borderBottom: "1px solid var(--color-border-dark)" }}>{renderCheck(row.coach)}</td>
+                      <td style={{ padding: "14px 16px", textAlign: "center", borderBottom: "1px solid var(--color-border-dark)" }}>{renderCheck(row.agency)}</td>
+                      <td style={{ padding: "14px 16px", textAlign: "center", borderBottom: "1px solid var(--color-border-dark)" }}>{renderCheck(row.ai)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </Reveal>
+          <Reveal delay={200}>
+            <div style={{ textAlign: "center", marginTop: 48 }}><DemoButton onClick={openDemo} /></div>
+          </Reveal>
+        </Wide>
+      </Section>
+
+      {/* ── SOCIAL PROOF — VERTICAL SCROLL (3 columns) ── */}
       <Section dark style={{ paddingBottom: 40 }}>
         <Wide>
           <Reveal>
@@ -850,7 +1015,7 @@ export default function LandingPage() {
       </Section>
       <div style={{ background: "var(--color-charcoal)", paddingBottom: 80, overflow: "hidden" }}>
         <Wide>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4" style={{ gap: 8, height: "clamp(400px, 60vh, 600px)" }}>
+          <div className="grid grid-cols-2 md:grid-cols-3" style={{ gap: 8, height: "clamp(400px, 60vh, 600px)" }}>
             <div style={{ overflow: "hidden", height: "100%" }}>
               <PhotoColVertical dir="up" speed={80} images={proofCol1} aspectRatio="4/5" />
             </div>
@@ -859,9 +1024,6 @@ export default function LandingPage() {
             </div>
             <div className="hidden md:block" style={{ overflow: "hidden", height: "100%" }}>
               <PhotoColVertical dir="up" speed={85} images={proofCol3} aspectRatio="4/5" />
-            </div>
-            <div className="hidden lg:block" style={{ overflow: "hidden", height: "100%" }}>
-              <PhotoColVertical dir="down" speed={75} images={proofCol4} aspectRatio="4/5" />
             </div>
           </div>
         </Wide>
@@ -874,14 +1036,7 @@ export default function LandingPage() {
             <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: 2, borderRadius: 16, overflow: "hidden" }}>
               <div style={{ background: "var(--color-charcoal)", padding: "56px 44px" }}>
                 <p style={{ fontSize: "clamp(24px, 3vw, 36px)", fontWeight: 900, color: "var(--color-white)", marginBottom: 36, letterSpacing: "-0.02em" }}>This is for you if...</p>
-                {[
-                  "You have 5+ years of professional experience worth packaging",
-                  "You\u2019ve left corporate or you\u2019re about to",
-                  "You\u2019re doing custom work that feels like another job",
-                  "You\u2019re earning below your potential and you know it",
-                  "You\u2019re ready to build \u2014 not explore, learn, or plan",
-                  "You want AI to be a genuine competitive advantage",
-                ].map((t, i) => (
+                {["You have 5+ years of professional experience worth packaging", "You\u2019ve left corporate or you\u2019re about to", "You\u2019re doing custom work that feels like another job", "You\u2019re earning below your potential and you know it", "You\u2019re ready to build \u2014 not explore, learn, or plan", "You want AI to be a genuine competitive advantage"].map((t, i) => (
                   <div key={i} style={{ display: "flex", gap: 14, marginBottom: 16, alignItems: "flex-start" }}>
                     <span style={{ color: "var(--color-accent)", fontSize: 16, marginTop: 1, flexShrink: 0 }}>&gt;</span>
                     <p style={{ fontSize: 15, lineHeight: 1.65, color: "rgba(255,255,255,0.75)" }}>{t}</p>
@@ -890,14 +1045,7 @@ export default function LandingPage() {
               </div>
               <div style={{ background: "#111111", padding: "56px 44px" }}>
                 <p style={{ fontSize: "clamp(24px, 3vw, 36px)", fontWeight: 900, color: "rgba(255,255,255,0.35)", marginBottom: 36, letterSpacing: "-0.02em" }}>This isn&apos;t for you if...</p>
-                {[
-                  "You\u2019re looking for a get-rich-quick scheme",
-                  "You don\u2019t have real expertise or professional experience",
-                  "You want someone to do the work for you",
-                  "You\u2019re not willing to commit 5-10 hours per week",
-                  "You think AI is a fad or a shortcut",
-                  "You\u2019d rather keep planning than start building",
-                ].map((t, i) => (
+                {["You\u2019re looking for a get-rich-quick scheme", "You don\u2019t have real expertise or professional experience", "You want someone to do the work for you", "You\u2019re not willing to commit 5-10 hours per week", "You think AI is a fad or a shortcut", "You\u2019d rather keep planning than start building"].map((t, i) => (
                   <div key={i} style={{ display: "flex", gap: 14, marginBottom: 16, alignItems: "flex-start" }}>
                     <span style={{ color: "rgba(255,255,255,0.15)", fontSize: 13, marginTop: 2, flexShrink: 0 }}>x</span>
                     <p style={{ fontSize: 15, lineHeight: 1.65, color: "rgba(255,255,255,0.35)" }}>{t}</p>
@@ -937,6 +1085,9 @@ export default function LandingPage() {
         </Wide>
       </Section>
 
+      {/* ── CONFIDENCE COMES FROM DOING (full banner) ── */}
+      <TextBanner dark text="CONFIDENCE COMES FROM DOING" />
+
       {/* ── EDUCATOR CAROUSEL ── */}
       <div style={{ background: "var(--color-charcoal)", padding: "20px 0 80px", overflow: "hidden" }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -956,17 +1107,17 @@ export default function LandingPage() {
                   The 90-Day Acquisition<br />System Guarantee
                 </h2>
                 <p style={{ fontSize: 17, lineHeight: 1.85, color: "rgba(255,255,255,0.7)", marginBottom: 20 }}>
-                  You will have a fully automated client acquisition system and productized offer. If you don&apos;t have a pipeline of leads, and close your investment back within 3 months after we launch, we&apos;ll refund everything you&apos;ve paid so far.
+                  You will have a fully automated client acquisition system and productized offer. If you don&apos;t have a pipeline of leads and haven&apos;t closed your investment back within 3 months after we launch, we&apos;ll give you a <strong style={{ color: "var(--color-white)" }}>full refund</strong>.
                 </p>
                 <p style={{ fontSize: 17, lineHeight: 1.85, color: "rgba(255,255,255,0.7)", marginBottom: 20 }}>
-                  <strong style={{ color: "var(--color-white)" }}>Why 50%?</strong> Because that&apos;s the MINIMUM I expect you to make if you actually do the work. If you make less, either I failed to teach you well, or you didn&apos;t implement. Either way, you get your money back.
+                  If you do the work and the system doesn&apos;t deliver, either I failed to teach you well enough, or the methodology didn&apos;t fit. Either way &mdash; you get every penny back. No questions.
                 </p>
                 <div style={{ marginTop: 32 }}>
-                  <ApplyButton />
+                  <DemoButton onClick={openDemo} />
                 </div>
               </div>
               <div style={{ width: "100%", aspectRatio: "4/5", borderRadius: 16, overflow: "hidden", position: "relative" }}>
-                <Image src="/images/assets/ross-headshot.jpg" alt="Ross Power" fill style={{ objectFit: "cover" }} sizes="500px" />
+                <Image src="/images/assets/ross promise photo.png" alt="Ross Power" fill style={{ objectFit: "cover" }} sizes="500px" />
               </div>
             </div>
           </Reveal>
@@ -1013,25 +1164,43 @@ export default function LandingPage() {
             ].map((t, i) => (
               <p key={i} style={{ fontSize: 17, lineHeight: 1.85, color: "rgba(255,255,255,0.55)", marginBottom: 20, textAlign: "left" }}>{t}</p>
             ))}
-            <div style={{ marginTop: 40 }}><ApplyButton /></div>
+            <div style={{ marginTop: 40 }}><DemoButton onClick={openDemo} /></div>
           </Reveal>
         </Narrow>
       </Section>
 
-      {/* ── FINAL CTA ── */}
+      {/* ── FINAL CTA + TICK LIST ── */}
       <Section dark={false} style={{ textAlign: "center", padding: "clamp(100px,14vw,180px) 24px" }}>
         <HeroW>
           <Reveal>
             <h2 style={{ fontSize: "clamp(36px, 6.5vw, 76px)", fontWeight: 900, lineHeight: 1.05, color: "var(--color-text)", letterSpacing: "-0.04em", marginBottom: 20 }}>
               Ready to productize yourself?
             </h2>
-            <p style={{ fontSize: 18, color: "var(--color-text-body)", lineHeight: 1.7, maxWidth: 560, margin: "0 auto 12px" }}>
+            <p style={{ fontSize: 18, color: "var(--color-text-body)", lineHeight: 1.7, maxWidth: 560, margin: "0 auto 48px" }}>
               Turn who you are into what you do, create, and sell.
             </p>
-            <p style={{ fontSize: 16, color: "var(--color-muted)", lineHeight: 1.7, maxWidth: 520, margin: "0 auto 48px" }}>
-              Apply for a free consultation. We&apos;ll map the 6P Framework to your expertise and see if the programme is right for you.
-            </p>
-            <ApplyButton />
+          </Reveal>
+          <Reveal delay={100}>
+            <div style={{ maxWidth: 480, margin: "0 auto 48px", textAlign: "left" }}>
+              {[
+                "Named signature offer",
+                "AI content engine (100+ prompts)",
+                "Full client pipeline & CRM",
+                "Complete sales playbook",
+                "Paid acquisition strategy",
+                "30+ operational assets",
+                "AI fluency training",
+                "16 weeks of guided support",
+              ].map((item, i) => (
+                <div key={i} style={{ display: "flex", gap: 12, marginBottom: 12, alignItems: "center" }}>
+                  <span style={{ color: "var(--color-accent)", fontSize: 16, flexShrink: 0 }}>&#10003;</span>
+                  <p style={{ fontSize: 15, color: "var(--color-text-body)", lineHeight: 1.5 }}>{item}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+          <Reveal delay={200}>
+            <DemoButton onClick={openDemo} />
             <p style={{ fontSize: 12, color: "var(--color-muted)", marginTop: 16 }}>Free consultation. No commitment.</p>
           </Reveal>
         </HeroW>
@@ -1047,6 +1216,7 @@ export default function LandingPage() {
         </p>
       </div>
       <div style={{ height: 60 }} />
+      <FormModal open={showDemoForm} onClose={closeDemo} />
     </div>
   );
 }
