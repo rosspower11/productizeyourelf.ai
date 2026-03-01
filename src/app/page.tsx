@@ -169,10 +169,12 @@ function FormModal({ open, onClose }: { open: boolean; onClose: () => void }) {
           position: "relative",
           width: "100%",
           maxWidth: 600,
-          maxHeight: "90vh",
+          height: "95vh",
           background: "var(--color-white)",
           borderRadius: 12,
           overflow: "hidden",
+          display: "flex",
+          flexDirection: "column" as const,
         }}
       >
         <button
@@ -200,7 +202,7 @@ function FormModal({ open, onClose }: { open: boolean; onClose: () => void }) {
         </button>
         <iframe
           src="https://links.productizeyourself.ai/widget/form/1igLStOCVuPO00HrY2E5"
-          style={{ width: "100%", height: 904, border: "none" }}
+          style={{ width: "100%", flex: 1, border: "none" }}
           title="Demo Call Application Form"
         />
       </div>
