@@ -3,8 +3,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 
-/* ── Constants ── */
-const CTA_URL = "https://productizeyourself.ai/demo";
 
 /* ── Reveal on scroll ── */
 function useReveal(threshold = 0.12) {
@@ -138,15 +136,85 @@ function Label({ children, light }: { children: React.ReactNode; light?: boolean
   );
 }
 
+/* ── Demo Form Modal ── */
+function FormModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
+  if (!open) return null;
+
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 10000,
+        background: "rgba(0,0,0,0.7)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 20,
+      }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          position: "relative",
+          width: "100%",
+          maxWidth: 600,
+          maxHeight: "90vh",
+          background: "var(--color-white)",
+          borderRadius: 12,
+          overflow: "hidden",
+        }}
+      >
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          style={{
+            position: "absolute",
+            top: 10,
+            right: 10,
+            zIndex: 10,
+            width: 32,
+            height: 32,
+            border: "none",
+            background: "rgba(0,0,0,0.08)",
+            borderRadius: "50%",
+            fontSize: 18,
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#333",
+          }}
+        >
+          &times;
+        </button>
+        <iframe
+          src="https://links.productizeyourself.ai/widget/form/1igLStOCVuPO00HrY2E5"
+          style={{ width: "100%", height: 904, border: "none" }}
+          title="Demo Call Application Form"
+        />
+      </div>
+    </div>
+  );
+}
+
 /* ── CTA Button ── */
-function DemoButton({ inverted, size = "large" }: { inverted?: boolean; size?: "large" | "small" }) {
+function DemoButton({ inverted, size = "large", onClick }: { inverted?: boolean; size?: "large" | "small"; onClick?: () => void }) {
   const pad = size === "large" ? "18px 48px" : "14px 32px";
   return (
     <div>
-      <a
-        href={CTA_URL}
-        target="_blank"
-        rel="noopener noreferrer"
+      <button
+        onClick={onClick}
         style={{
           display: "inline-block",
           padding: pad,
@@ -160,10 +228,12 @@ function DemoButton({ inverted, size = "large" }: { inverted?: boolean; size?: "
           textDecoration: "none",
           cursor: "pointer",
           transition: "all 0.3s ease",
+          border: "none",
+          fontFamily: "inherit",
         }}
       >
         BOOK A DEMO
-      </a>
+      </button>
     </div>
   );
 }
@@ -390,6 +460,9 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 export default function LandingPage() {
   const [openPhase, setOpenPhase] = useState(0);
   const [showNav, setShowNav] = useState(false);
+  const [showDemoForm, setShowDemoForm] = useState(false);
+  const openDemo = useCallback(() => setShowDemoForm(true), []);
+  const closeDemo = useCallback(() => setShowDemoForm(false), []);
 
   useEffect(() => {
     const onScroll = () => setShowNav(window.scrollY > window.innerHeight * 0.7);
@@ -515,10 +588,8 @@ export default function LandingPage() {
         <span className="hidden md:inline" style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", letterSpacing: 0.5 }}>
           See if you&apos;re right to productize yourself
         </span>
-        <a
-          href={CTA_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          onClick={openDemo}
           style={{
             padding: "12px 28px",
             background: "var(--color-accent)",
@@ -529,10 +600,13 @@ export default function LandingPage() {
             letterSpacing: 1,
             textTransform: "uppercase",
             textDecoration: "none",
+            border: "none",
+            cursor: "pointer",
+            fontFamily: "inherit",
           }}
         >
           BOOK A DEMO
-        </a>
+        </button>
       </div>
 
       {/* ── HERO ── */}
@@ -570,7 +644,7 @@ export default function LandingPage() {
             </p>
           </Reveal>
           <Reveal delay={300}>
-            <DemoButton />
+            <DemoButton onClick={openDemo} />
             <p style={{ fontSize: 12, color: "rgba(255,255,255,0.25)", marginTop: 16, letterSpacing: 0.5 }}>
               Free consultation. See if you qualify.
             </p>
@@ -664,7 +738,7 @@ export default function LandingPage() {
             <p style={{ fontSize: 17, lineHeight: 1.85, color: "rgba(255,255,255,0.75)", marginBottom: 20 }}>
               <strong style={{ color: "var(--color-white)" }}>I built that system.</strong> It&apos;s called Productize Yourself. The 6P Framework compresses everything I spent five years and $100K learning into 16 weeks. With AI as your co-founder at every step.
             </p>
-            <div style={{ marginTop: 40 }}><DemoButton /></div>
+            <div style={{ marginTop: 40 }}><DemoButton onClick={openDemo} /></div>
           </Reveal>
         </Narrow>
       </Section>
@@ -709,7 +783,7 @@ export default function LandingPage() {
             <p style={{ textAlign: "center", fontSize: 16, color: "rgba(255,255,255,0.35)", marginTop: 32, fontStyle: "italic" }}>
               Turn who you are into what you do, create, and sell.
             </p>
-            <div style={{ textAlign: "center", marginTop: 40 }}><DemoButton /></div>
+            <div style={{ textAlign: "center", marginTop: 40 }}><DemoButton onClick={openDemo} /></div>
           </Reveal>
         </Wide>
       </Section>
@@ -807,7 +881,7 @@ export default function LandingPage() {
             </div>
           </Reveal>
           <Reveal delay={200}>
-            <div style={{ textAlign: "center", marginTop: 48 }}><DemoButton /></div>
+            <div style={{ textAlign: "center", marginTop: 48 }}><DemoButton onClick={openDemo} /></div>
           </Reveal>
         </Wide>
       </Section>
@@ -921,7 +995,7 @@ export default function LandingPage() {
             </div>
           </Reveal>
           <Reveal delay={200}>
-            <div style={{ textAlign: "center", marginTop: 48 }}><DemoButton /></div>
+            <div style={{ textAlign: "center", marginTop: 48 }}><DemoButton onClick={openDemo} /></div>
           </Reveal>
         </Wide>
       </Section>
@@ -1039,7 +1113,7 @@ export default function LandingPage() {
                   If you do the work and the system doesn&apos;t deliver, either I failed to teach you well enough, or the methodology didn&apos;t fit. Either way &mdash; you get every penny back. No questions.
                 </p>
                 <div style={{ marginTop: 32 }}>
-                  <DemoButton />
+                  <DemoButton onClick={openDemo} />
                 </div>
               </div>
               <div style={{ width: "100%", aspectRatio: "4/5", borderRadius: 16, overflow: "hidden", position: "relative" }}>
@@ -1090,7 +1164,7 @@ export default function LandingPage() {
             ].map((t, i) => (
               <p key={i} style={{ fontSize: 17, lineHeight: 1.85, color: "rgba(255,255,255,0.55)", marginBottom: 20, textAlign: "left" }}>{t}</p>
             ))}
-            <div style={{ marginTop: 40 }}><DemoButton /></div>
+            <div style={{ marginTop: 40 }}><DemoButton onClick={openDemo} /></div>
           </Reveal>
         </Narrow>
       </Section>
@@ -1126,7 +1200,7 @@ export default function LandingPage() {
             </div>
           </Reveal>
           <Reveal delay={200}>
-            <DemoButton />
+            <DemoButton onClick={openDemo} />
             <p style={{ fontSize: 12, color: "var(--color-muted)", marginTop: 16 }}>Free consultation. No commitment.</p>
           </Reveal>
         </HeroW>
@@ -1142,6 +1216,7 @@ export default function LandingPage() {
         </p>
       </div>
       <div style={{ height: 60 }} />
+      <FormModal open={showDemoForm} onClose={closeDemo} />
     </div>
   );
 }
