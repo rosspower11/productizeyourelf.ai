@@ -614,36 +614,24 @@ export default function LandingPage() {
           <Reveal>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 24, marginBottom: 28 }}>
               <div style={{ position: "relative", height: 36, width: 160 }}>
-                <Image src="/images/assets/Productize Yourself_AiVectorLogo.png" alt="Productize Yourself" fill style={{ objectFit: "contain" }} sizes="160px" />
+                <Image src="/images/assets/Productize Yourself_AiVectorLogo.png" alt="Productize Yourself" fill style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} sizes="160px" />
               </div>
               <span style={{ color: "rgba(255,255,255,0.25)", fontSize: 20, fontWeight: 300 }}>x</span>
               <div style={{ position: "relative", height: 32, width: 100 }}>
-                <Image src="/images/assets/claude white logo .png" alt="Claude" fill style={{ objectFit: "contain" }} sizes="100px" />
+                <Image src="/images/assets/claude white logo .png" alt="Claude" fill style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} sizes="100px" />
               </div>
             </div>
           </Reveal>
           <Reveal delay={50}>
-            <p style={{ fontSize: 13, fontWeight: 600, letterSpacing: 4, textTransform: "uppercase", color: "#C15F3C", marginBottom: 28 }}>
+            <p style={{ fontSize: 13, fontWeight: 600, letterSpacing: 4, textTransform: "uppercase", color: "#d97657", marginBottom: 20 }}>
               FOR POST CORPORATE FOUNDERS CONFUSED BY WHATS NEXT
             </p>
           </Reveal>
-          <Reveal delay={100}>
-            <h1 className="hero-heading" style={{ fontSize: "clamp(36px, 7vw, 76px)", fontWeight: 900, lineHeight: 1.06, color: "var(--color-white)", letterSpacing: "-0.04em", marginBottom: 24 }}>
-              Build a Productized Consulting Business &amp; System That Generates Leads{" "}
-              <span style={{ background: "linear-gradient(135deg, #C15F3C, #E8845C)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                On Demand
-              </span>
-              {" "}In 90 Days
-            </h1>
-          </Reveal>
-          <Reveal delay={200}>
-            <p style={{ fontSize: "clamp(17px, 2.2vw, 22px)", color: "rgba(255,255,255,0.6)", lineHeight: 1.7, maxWidth: 580, margin: "0 auto 12px", fontWeight: 500 }}>
-              Make Claude Your Co-Founder
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3" style={{ marginTop: 24, marginBottom: 48 }}>
+          <Reveal delay={75}>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3" style={{ marginBottom: 28 }}>
               <div style={{ display: "flex" }}>
                 {[1, 2, 3, 4, 5].map((i) => (
-                  <div key={i} style={{ width: 32, height: 32, borderRadius: "50%", overflow: "hidden", border: "2px solid #1A1A1A", marginLeft: i > 1 ? -10 : 0, position: "relative", background: "#333" }}>
+                  <div key={i} style={{ width: 32, height: 32, borderRadius: "50%", overflow: "hidden", border: "2px solid var(--color-charcoal)", marginLeft: i > 1 ? -10 : 0, position: "relative", background: "#333" }}>
                     <Image src={`/images/headshots/${i}.png`} alt="" fill style={{ objectFit: "cover" }} sizes="32px" />
                   </div>
                 ))}
@@ -652,6 +640,21 @@ export default function LandingPage() {
                 Trusted by <strong style={{ color: "rgba(255,255,255,0.8)" }}>300+</strong> post-corporate professionals
               </span>
             </div>
+          </Reveal>
+          <Reveal delay={100}>
+            <h1 className="hero-heading" style={{ fontSize: "clamp(32px, 5.5vw, 62px)", fontWeight: 900, lineHeight: 1.06, color: "var(--color-white)", letterSpacing: "-0.04em", marginBottom: 24 }}>
+              Build a Productized Consulting Business &amp; System That{" "}
+              <span style={{ color: "#d97657" }}>
+                Generates Leads On Demand
+              </span>
+              {" "}In 90 Days
+            </h1>
+          </Reveal>
+          <Reveal delay={200}>
+            <p style={{ fontSize: "clamp(17px, 2.2vw, 22px)", color: "rgba(255,255,255,0.6)", lineHeight: 1.7, maxWidth: 580, margin: "0 auto 12px", fontWeight: 500 }}>
+              Make Claude Your Co-Founder
+            </p>
+            <div style={{ marginTop: 24, marginBottom: 48 }} />
           </Reveal>
           <Reveal delay={300}>
             <DemoButton onClick={openDemo} />
@@ -775,7 +778,7 @@ export default function LandingPage() {
                     <span style={{ color: "rgba(255,255,255,0.15)", marginRight: 8 }}>-</span>{g}
                   </p>
                 ))}
-                <div style={{ marginTop: 20, padding: "16px 20px", background: "rgba(193,95,60,0.06)", borderRadius: 8, borderLeft: "2px solid var(--color-accent)" }}>
+                <div style={{ marginTop: 20, padding: "16px 20px", background: "rgba(217,118,87,0.06)", borderRadius: 8, borderLeft: "2px solid var(--color-accent)" }}>
                   <p style={{ fontSize: 11, fontWeight: 700, color: "var(--color-accent)", marginBottom: 6, letterSpacing: 1.5, textTransform: "uppercase" }}>AI at work</p>
                   <p style={{ fontSize: 14, lineHeight: 1.75, color: "rgba(255,255,255,0.55)" }}>{p.ai}</p>
                 </div>
@@ -984,7 +987,7 @@ export default function LandingPage() {
                 <thead>
                   <tr>
                     <th style={{ textAlign: "left", padding: "16px 20px", fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "rgba(255,255,255,0.3)", borderBottom: "1px solid var(--color-border-dark)" }}></th>
-                    <th style={{ padding: "16px 16px", fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "var(--color-white)", background: "rgba(193,95,60,0.15)", borderBottom: "1px solid var(--color-accent)", borderRadius: "8px 8px 0 0", textAlign: "center" }}>Productize Yourself</th>
+                    <th style={{ padding: "16px 16px", fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "var(--color-white)", background: "rgba(217,118,87,0.15)", borderBottom: "1px solid var(--color-accent)", borderRadius: "8px 8px 0 0", textAlign: "center" }}>Productize Yourself</th>
                     <th style={{ padding: "16px 16px", fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "rgba(255,255,255,0.4)", borderBottom: "1px solid var(--color-border-dark)", textAlign: "center" }}>Business Coach</th>
                     <th style={{ padding: "16px 16px", fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "rgba(255,255,255,0.4)", borderBottom: "1px solid var(--color-border-dark)", textAlign: "center" }}>Marketing Agency</th>
                     <th style={{ padding: "16px 16px", fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "rgba(255,255,255,0.4)", borderBottom: "1px solid var(--color-border-dark)", textAlign: "center" }}>AI Course</th>
@@ -994,7 +997,7 @@ export default function LandingPage() {
                   {comparisonRows.map((row, i) => (
                     <tr key={i}>
                       <td style={{ padding: "14px 20px", fontSize: 14, color: "rgba(255,255,255,0.65)", borderBottom: "1px solid var(--color-border-dark)" }}>{row.feature}</td>
-                      <td style={{ padding: "14px 16px", textAlign: "center", background: "rgba(193,95,60,0.06)", borderBottom: "1px solid var(--color-border-dark)" }}>{renderCheck(row.py)}</td>
+                      <td style={{ padding: "14px 16px", textAlign: "center", background: "rgba(217,118,87,0.06)", borderBottom: "1px solid var(--color-border-dark)" }}>{renderCheck(row.py)}</td>
                       <td style={{ padding: "14px 16px", textAlign: "center", borderBottom: "1px solid var(--color-border-dark)" }}>{renderCheck(row.coach)}</td>
                       <td style={{ padding: "14px 16px", textAlign: "center", borderBottom: "1px solid var(--color-border-dark)" }}>{renderCheck(row.agency)}</td>
                       <td style={{ padding: "14px 16px", textAlign: "center", borderBottom: "1px solid var(--color-border-dark)" }}>{renderCheck(row.ai)}</td>

@@ -29,15 +29,15 @@
 :root {
   --color-bg: #0F0F0F;
   --color-surface: #F8FBFD;
-  --color-charcoal: #1A1A1A;
-  --color-card: #1E1E1E;
-  --color-text: #1A1A1A;
+  --color-charcoal: #141413;
+  --color-card: #1C1C1B;
+  --color-text: #141413;
   --color-text-body: #4A4A4A;
   --color-muted: #999999;
   --color-border: #E0E0E0;
   --color-border-dark: #2A2A2A;
   --color-white: #FFFFFF;
-  --color-accent: #C15F3C;
+  --color-accent: #d97657;
   --font-body: "Glacial Indifference", -apple-system, "Helvetica Neue", Arial, sans-serif;
 }
 
@@ -112,6 +112,6 @@ body {
     padding-right: 16px !important;
   }
   .hero-heading {
-    font-size: clamp(32px, 7.5vw, 84px) !important;
+    font-size: clamp(28px, 6.5vw, 62px) !important;
   }
 }
