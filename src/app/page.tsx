@@ -491,16 +491,13 @@ export default function LandingPage() {
   ];
 
   const proofImages = Array.from({ length: 26 }, (_, i) => `/images/social-proof/proof-${String(i + 1).padStart(2, "0")}.png`);
-  const proofCol1 = proofImages.slice(0, 9);
-  const proofCol2 = proofImages.slice(9, 18);
-  const proofCol3 = proofImages.slice(18);
 
   const phases = [
-    { n: "01", name: "Person", sub: "Identity & IP", body: "Before you build anything, you need absolute clarity on who you are professionally, what makes your perspective unique, and who needs what you offer. We excavate the expertise you\u2019ve been sitting on \u2014 frameworks you forgot you built, insights you take for granted, an entire IP library hiding in your career.", gets: ["Identity excavation & positioning", "Complete IP map", "Ideal client profile", "Future self design"], ai: "Claude surfaces patterns across your career you\u2019d never spot yourself, maps your IP at scale, and generates your ideal client profile from real market language." },
+    { n: "01", name: "Person", sub: "Identity & IP", body: "Before you build anything, you need absolute clarity on who you are professionally, what makes your perspective unique, and who needs what you offer. We excavate the expertise you\u2019ve been sitting on. Frameworks you forgot you built, insights you take for granted, an entire IP library hiding in your career.", gets: ["Identity excavation & positioning", "Complete IP map", "Ideal client profile", "Future self design"], ai: "Claude surfaces patterns across your career you\u2019d never spot yourself, maps your IP at scale, and generates your ideal client profile from real market language." },
     { n: "02", name: "Proof", sub: "Market validation", body: "Before you invest weeks building, we validate demand. Competitor analysis, pricing benchmarks, demand signals. You\u2019ll know exactly what the market pays for, where the gaps are, and how you stack up.", gets: ["Competitor matrix", "ICP validation research", "Market intelligence brief", "Must-have problem identification"], ai: "AI analyses your competitive landscape in hours and identifies positioning gaps a human researcher would take weeks to find." },
     { n: "03", name: "Promise", sub: "Signature offer", body: "The centrepiece. We synthesise your IP, market intelligence, and ideal client profile into a signature offer so clear that strangers say \u2018that\u2019s exactly what I need.\u2019 Named. Priced. Packaged. With a curriculum, delivery model, and professional prospectus.", gets: ["Named signature offer", "Value-based pricing strategy", "Curriculum & delivery design", "Professional prospectus"], ai: "Claude stress-tests your offer against competitors, generates prospectus copy, and models pricing scenarios so you price with confidence." },
-    { n: "04", name: "Profile", sub: "Content & visibility", body: "An AI-powered content engine that takes your IP and turns it into authority-building content across every channel. One hour of input produces a week of content. You stay visible without it becoming a second job.", gets: ["Content engine (100+ prompts)", "Publishing system & workflow", "Digital presence alignment", "Keynote/talk structure"], ai: "Your IP feeds the engine; Claude produces LinkedIn posts, newsletters, Reels scripts \u2014 all in your voice, from your expertise." },
-    { n: "05", name: "Pipeline", sub: "Client acquisition", body: "The business machine. Infrastructure that turns strangers into leads, leads into calls, calls into clients. CRM, landing page, email sequences, advertising, sales playbook \u2014 built, connected, running.", gets: ["CRM setup & pipeline", "Landing page", "Email automation", "Meta ads & paid acquisition", "Video sales letter", "Sales playbook"], ai: "AI writes email sequences, generates ad variations, builds landing page copy, and refines sales scripts \u2014 calibrated to your ideal client." },
+    { n: "04", name: "Profile", sub: "Content & visibility", body: "An AI-powered content engine that takes your IP and turns it into authority-building content across every channel. One hour of input produces a week of content. You stay visible without it becoming a second job.", gets: ["Content engine (100+ prompts)", "Publishing system & workflow", "Digital presence alignment", "Keynote/talk structure"], ai: "Your IP feeds the engine; Claude produces LinkedIn posts, newsletters, Reels scripts, all in your voice, from your expertise." },
+    { n: "05", name: "Pipeline", sub: "Client acquisition", body: "The business machine. Infrastructure that turns strangers into leads, leads into calls, calls into clients. CRM, landing page, email sequences, advertising, sales playbook. Built, connected, running.", gets: ["CRM setup & pipeline", "Landing page", "Email automation", "Meta ads & paid acquisition", "Video sales letter", "Sales playbook"], ai: "AI writes email sequences, generates ad variations, builds landing page copy, and refines sales scripts, calibrated to your ideal client." },
     { n: "06", name: "Partner", sub: "Scale & ecosystems", body: "Strategic partnerships that multiply reach, revenue, and impact without hiring. Frameworks, scorecards, pitches, and agreements that let you evaluate and execute partnerships with confidence.", gets: ["Gap map", "Partner profile builder", "Fit scorecard", "Partnership pitch", "Agreement outlines"], ai: "Claude identifies potential partners, generates pitch documents, and models partnership scenarios for objective evaluation." },
   ];
 
@@ -615,7 +612,35 @@ export default function LandingPage() {
       <Section dark style={{ minHeight: "100vh", display: "flex", alignItems: "center", paddingTop: 60, paddingBottom: 60 }}>
         <HeroW style={{ textAlign: "center" }}>
           <Reveal>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3" style={{ marginBottom: 36 }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 24, marginBottom: 28 }}>
+              <div style={{ position: "relative", height: 36, width: 160 }}>
+                <Image src="/images/assets/Productize Yourself_AiVectorLogo.png" alt="Productize Yourself" fill style={{ objectFit: "contain" }} sizes="160px" />
+              </div>
+              <span style={{ color: "rgba(255,255,255,0.25)", fontSize: 20, fontWeight: 300 }}>x</span>
+              <div style={{ position: "relative", height: 32, width: 100 }}>
+                <Image src="/images/assets/claude white logo .png" alt="Claude" fill style={{ objectFit: "contain" }} sizes="100px" />
+              </div>
+            </div>
+          </Reveal>
+          <Reveal delay={50}>
+            <p style={{ fontSize: 13, fontWeight: 600, letterSpacing: 4, textTransform: "uppercase", color: "#C15F3C", marginBottom: 28 }}>
+              FOR POST CORPORATE FOUNDERS CONFUSED BY WHATS NEXT
+            </p>
+          </Reveal>
+          <Reveal delay={100}>
+            <h1 className="hero-heading" style={{ fontSize: "clamp(36px, 7vw, 76px)", fontWeight: 900, lineHeight: 1.06, color: "var(--color-white)", letterSpacing: "-0.04em", marginBottom: 24 }}>
+              Build a Productized Consulting Business &amp; System That Generates Leads{" "}
+              <span style={{ background: "linear-gradient(135deg, #C15F3C, #E8845C)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                On Demand
+              </span>
+              {" "}In 90 Days
+            </h1>
+          </Reveal>
+          <Reveal delay={200}>
+            <p style={{ fontSize: "clamp(17px, 2.2vw, 22px)", color: "rgba(255,255,255,0.6)", lineHeight: 1.7, maxWidth: 580, margin: "0 auto 12px", fontWeight: 500 }}>
+              Make Claude Your Co-Founder
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3" style={{ marginTop: 24, marginBottom: 48 }}>
               <div style={{ display: "flex" }}>
                 {[1, 2, 3, 4, 5].map((i) => (
                   <div key={i} style={{ width: 32, height: 32, borderRadius: "50%", overflow: "hidden", border: "2px solid #1A1A1A", marginLeft: i > 1 ? -10 : 0, position: "relative", background: "#333" }}>
@@ -627,23 +652,6 @@ export default function LandingPage() {
                 Trusted by <strong style={{ color: "rgba(255,255,255,0.8)" }}>300+</strong> post-corporate professionals
               </span>
             </div>
-          </Reveal>
-          <Reveal delay={100}>
-            <h1 className="hero-heading" style={{ fontSize: "clamp(40px, 7.5vw, 84px)", fontWeight: 900, lineHeight: 1.02, color: "var(--color-white)", letterSpacing: "-0.04em", marginBottom: 24 }}>
-              Build Your<br />
-              <span style={{ background: "linear-gradient(135deg, var(--color-accent), #60a5fa)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                Productized
-              </span>
-              <br />Consulting Business
-            </h1>
-          </Reveal>
-          <Reveal delay={200}>
-            <p style={{ fontSize: "clamp(16px, 2vw, 20px)", color: "rgba(255,255,255,0.5)", lineHeight: 1.7, maxWidth: 580, margin: "0 auto 12px" }}>
-              Turn who you are into what you do, create, and sell.
-            </p>
-            <p style={{ fontSize: "clamp(15px, 1.8vw, 18px)", color: "rgba(255,255,255,0.35)", lineHeight: 1.7, maxWidth: 520, margin: "0 auto 48px" }}>
-              16 weeks. AI-native. 30+ operational assets built with you.
-            </p>
           </Reveal>
           <Reveal delay={300}>
             <DemoButton onClick={openDemo} />
@@ -690,13 +698,13 @@ export default function LandingPage() {
           <Reveal delay={100}>
             {[
               "You spent years becoming genuinely excellent at what you do. Strategy. Operations. People. Product. The kind of good that got you promoted and trusted with the work that mattered.",
-              "Then you left. And you stepped out of a structure doing enormous heavy lifting \u2014 marketing, sales, operations, IT, finance, admin. All handled. You never had to think about it.",
+              "Then you left. And you stepped out of a structure doing enormous heavy lifting: marketing, sales, operations, IT, finance, admin. All handled. You never had to think about it.",
               "Now you\u2019re running five departments alone. Doing custom work for clients who dictate the scope and negotiate your rate down. It doesn\u2019t feel like the business you imagined. It feels like you replaced your boss with several.",
             ].map((t, i) => (
               <p key={i} style={{ fontSize: 17, lineHeight: 1.85, color: "var(--color-text-body)", marginBottom: 20 }}>{t}</p>
             ))}
             <p style={{ fontSize: 17, lineHeight: 1.85, color: "var(--color-text-body)" }}>
-              We call this <strong style={{ color: "var(--color-text)", fontWeight: 700 }}>Structure Shock.</strong> It&apos;s the single biggest reason talented professionals earn a fraction of their worth after corporate. The good news &mdash; it&apos;s completely fixable. And with AI, faster than ever.
+              We call this <strong style={{ color: "var(--color-text)", fontWeight: 700 }}>Structure Shock.</strong> It&apos;s the single biggest reason talented professionals earn a fraction of their worth after corporate. The good news: it&apos;s completely fixable. And with AI, faster than ever.
             </p>
           </Reveal>
         </Narrow>
@@ -767,7 +775,7 @@ export default function LandingPage() {
                     <span style={{ color: "rgba(255,255,255,0.15)", marginRight: 8 }}>-</span>{g}
                   </p>
                 ))}
-                <div style={{ marginTop: 20, padding: "16px 20px", background: "rgba(37,99,235,0.06)", borderRadius: 8, borderLeft: "2px solid var(--color-accent)" }}>
+                <div style={{ marginTop: 20, padding: "16px 20px", background: "rgba(193,95,60,0.06)", borderRadius: 8, borderLeft: "2px solid var(--color-accent)" }}>
                   <p style={{ fontSize: 11, fontWeight: 700, color: "var(--color-accent)", marginBottom: 6, letterSpacing: 1.5, textTransform: "uppercase" }}>AI at work</p>
                   <p style={{ fontSize: 14, lineHeight: 1.75, color: "rgba(255,255,255,0.55)" }}>{p.ai}</p>
                 </div>
@@ -803,8 +811,8 @@ export default function LandingPage() {
           </Reveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ gap: 16 }}>
             {[
-              ["01", "Signature Offer", "A productized consulting offer \u2014 named, priced, and packaged \u2014 that attracts the right clients without chasing. Designed so strangers say, \u2018I need that.\u2019"],
-              ["02", "AI Fluency", "100+ structured prompts woven into every part of your business. Content, leads, deliverables. AI becomes how you work \u2014 top 0.01% of AI users worldwide."],
+              ["01", "Signature Offer", "A productized consulting offer, named, priced, and packaged, that attracts the right clients without chasing. Designed so strangers say, \u2018I need that.\u2019"],
+              ["02", "AI Fluency", "100+ structured prompts woven into every part of your business. Content, leads, deliverables. AI becomes how you work. Top 0.01% of AI users worldwide."],
               ["03", "Client Pipeline", "CRM, landing page, email automation, video sales letter, and a complete sales playbook. All built, connected, running. Leads while you sleep."],
               ["04", "Content Engine", "AI-powered publishing that turns your IP into posts, newsletters, and Reels. 3x per week, in your voice, without a marketing team."],
               ["05", "Paid Acquisition", "Meta ads strategy, AI-powered creative production, audience targeting, and campaign optimisation. Advanced techniques that scale your reach profitably."],
@@ -935,12 +943,12 @@ export default function LandingPage() {
           </Reveal>
           {[
             ["No more custom work that puts you back in a \u2018job.\u2019", "When every client dictates the terms, you\u2019ve replaced your boss with several. A productized offer puts you back in control."],
-            ["No more invisible expertise.", "An AI content engine turns your IP into authority-building content \u2014 consistently, in your voice \u2014 without becoming your full-time job."],
+            ["No more invisible expertise.", "An AI content engine turns your IP into authority-building content, consistently, in your voice, without becoming your full-time job."],
             ["No more random tactics.", "The 6P Framework is sequential. Each phase tells you what to build, in what order, and why."],
             ["No more paying for advice that produces nothing.", "You walk away with 30+ operational assets. Infrastructure, not inspiration."],
-            ["No more being behind on AI.", "AI becomes part of how your business runs \u2014 permanently. That fluency compounds every month."],
-            ["No more feast-or-famine.", "A pipeline means leads come in every week \u2014 not just when someone remembers your name."],
-            ["No more imposter syndrome about selling.", "Scripts, objection handling, closing frameworks \u2014 for people brilliant at delivery but uncomfortable with self-promotion."],
+            ["No more being behind on AI.", "AI becomes part of how your business runs, permanently. That fluency compounds every month."],
+            ["No more feast-or-famine.", "A pipeline means leads come in every week, not just when someone remembers your name."],
+            ["No more imposter syndrome about selling.", "Scripts, objection handling, closing frameworks, for people brilliant at delivery but uncomfortable with self-promotion."],
             ["No more watching less experienced people win.", "You have the expertise. They have a system. After this, you\u2019ll have both."],
           ].map(([title, body], i) => (
             <SlideReveal key={i} delay={i * 150}>
@@ -963,7 +971,7 @@ export default function LandingPage() {
             <div style={{ textAlign: "center", marginBottom: 56 }}>
               <Label light>HOW WE COMPARE</Label>
               <h2 style={{ fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 16 }}>
-                Not coaching. Not an agency.<br />A full-suite productized business &mdash; built with you.
+                Not coaching. Not an agency.<br />A full-suite productized business, built with you.
               </h2>
               <p style={{ fontSize: 16, color: "rgba(255,255,255,0.4)", maxWidth: 640, margin: "0 auto" }}>
                 Training to empower you. Done-with-you to accelerate you. Everything you need, nothing outsourced.
@@ -976,7 +984,7 @@ export default function LandingPage() {
                 <thead>
                   <tr>
                     <th style={{ textAlign: "left", padding: "16px 20px", fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "rgba(255,255,255,0.3)", borderBottom: "1px solid var(--color-border-dark)" }}></th>
-                    <th style={{ padding: "16px 16px", fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "var(--color-white)", background: "rgba(37,99,235,0.15)", borderBottom: "1px solid var(--color-accent)", borderRadius: "8px 8px 0 0", textAlign: "center" }}>Productize Yourself</th>
+                    <th style={{ padding: "16px 16px", fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "var(--color-white)", background: "rgba(193,95,60,0.15)", borderBottom: "1px solid var(--color-accent)", borderRadius: "8px 8px 0 0", textAlign: "center" }}>Productize Yourself</th>
                     <th style={{ padding: "16px 16px", fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "rgba(255,255,255,0.4)", borderBottom: "1px solid var(--color-border-dark)", textAlign: "center" }}>Business Coach</th>
                     <th style={{ padding: "16px 16px", fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "rgba(255,255,255,0.4)", borderBottom: "1px solid var(--color-border-dark)", textAlign: "center" }}>Marketing Agency</th>
                     <th style={{ padding: "16px 16px", fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "rgba(255,255,255,0.4)", borderBottom: "1px solid var(--color-border-dark)", textAlign: "center" }}>AI Course</th>
@@ -986,7 +994,7 @@ export default function LandingPage() {
                   {comparisonRows.map((row, i) => (
                     <tr key={i}>
                       <td style={{ padding: "14px 20px", fontSize: 14, color: "rgba(255,255,255,0.65)", borderBottom: "1px solid var(--color-border-dark)" }}>{row.feature}</td>
-                      <td style={{ padding: "14px 16px", textAlign: "center", background: "rgba(37,99,235,0.06)", borderBottom: "1px solid var(--color-border-dark)" }}>{renderCheck(row.py)}</td>
+                      <td style={{ padding: "14px 16px", textAlign: "center", background: "rgba(193,95,60,0.06)", borderBottom: "1px solid var(--color-border-dark)" }}>{renderCheck(row.py)}</td>
                       <td style={{ padding: "14px 16px", textAlign: "center", borderBottom: "1px solid var(--color-border-dark)" }}>{renderCheck(row.coach)}</td>
                       <td style={{ padding: "14px 16px", textAlign: "center", borderBottom: "1px solid var(--color-border-dark)" }}>{renderCheck(row.agency)}</td>
                       <td style={{ padding: "14px 16px", textAlign: "center", borderBottom: "1px solid var(--color-border-dark)" }}>{renderCheck(row.ai)}</td>
@@ -1002,7 +1010,35 @@ export default function LandingPage() {
         </Wide>
       </Section>
 
-      {/* ── SOCIAL PROOF — VERTICAL SCROLL (3 columns) ── */}
+      {/* ── WHY CLAUDE ── */}
+      <Section dark={false}>
+        <Narrow>
+          <Reveal>
+            <Label>WHY CLAUDE</Label>
+            <h2 style={{ fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-text)", letterSpacing: "-0.03em", marginBottom: 36 }}>
+              Why we build everything on Claude
+            </h2>
+          </Reveal>
+          <Reveal delay={100}>
+            <div style={{ textAlign: "center", marginBottom: 40 }}>
+              <div style={{ position: "relative", height: 60, width: 200, margin: "0 auto" }}>
+                <Image src="/images/assets/claude-logo-freelogovectors.net_.png" alt="Claude by Anthropic" fill style={{ objectFit: "contain" }} sizes="200px" />
+              </div>
+            </div>
+            <p style={{ fontSize: 17, lineHeight: 1.85, color: "var(--color-text-body)", marginBottom: 20 }}>
+              Most AI programs teach you generic prompts for generic tools. We built Productize Yourself entirely around Claude by Anthropic because it reasons at a level no other AI matches for business strategy work.
+            </p>
+            <p style={{ fontSize: 17, lineHeight: 1.85, color: "var(--color-text-body)", marginBottom: 20 }}>
+              Claude doesn&apos;t just generate content. It thinks through your positioning, stress-tests your offer, identifies gaps in your pipeline, and builds assets that actually convert. Every prompt, every framework, every workflow in this program is designed for Claude.
+            </p>
+            <p style={{ fontSize: 17, lineHeight: 1.85, color: "var(--color-text-body)" }}>
+              You won&apos;t just learn to &quot;use AI.&quot; You&apos;ll learn to use the best AI, properly, woven into every part of how your business runs.
+            </p>
+          </Reveal>
+        </Narrow>
+      </Section>
+
+      {/* ── SOCIAL PROOF — STATIC GRID ── */}
       <Section dark style={{ paddingBottom: 40 }}>
         <Wide>
           <Reveal>
@@ -1015,18 +1051,14 @@ export default function LandingPage() {
           </Reveal>
         </Wide>
       </Section>
-      <div style={{ background: "var(--color-charcoal)", paddingBottom: 80, overflow: "hidden" }}>
+      <div style={{ background: "var(--color-charcoal)", paddingBottom: 80 }}>
         <Wide>
-          <div className="grid grid-cols-2 md:grid-cols-3" style={{ gap: 8, height: "clamp(400px, 60vh, 600px)" }}>
-            <div style={{ overflow: "hidden", height: "100%" }}>
-              <PhotoColVertical dir="up" speed={80} images={proofCol1} aspectRatio="4/5" />
-            </div>
-            <div style={{ overflow: "hidden", height: "100%" }}>
-              <PhotoColVertical dir="down" speed={90} images={proofCol2} aspectRatio="4/5" />
-            </div>
-            <div className="hidden md:block" style={{ overflow: "hidden", height: "100%" }}>
-              <PhotoColVertical dir="up" speed={85} images={proofCol3} aspectRatio="4/5" />
-            </div>
+          <div className="columns-2 md:columns-3" style={{ columnGap: 8 }}>
+            {proofImages.map((src, i) => (
+              <div key={i} style={{ breakInside: "avoid", marginBottom: 8, borderRadius: 10, overflow: "hidden" }}>
+                <Image src={src} alt="" width={400} height={500} style={{ width: "100%", height: "auto", display: "block" }} sizes="(max-width: 768px) 50vw, 33vw" />
+              </div>
+            ))}
           </div>
         </Wide>
       </div>
@@ -1097,34 +1129,6 @@ export default function LandingPage() {
           <HorizontalImageRow direction="right" speed={70} images={carouselImages.slice(7)} height={200} />
         </div>
       </div>
-
-      {/* ── THE PROMISE — 90 DAY GUARANTEE ── */}
-      <Section dark>
-        <Wide>
-          <Reveal>
-            <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: 56, alignItems: "center" }}>
-              <div>
-                <Label light>THE PROMISE</Label>
-                <h2 style={{ fontSize: "clamp(26px, 4vw, 44px)", fontWeight: 900, lineHeight: 1.1, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 28 }}>
-                  The 90-Day Acquisition<br />System Guarantee
-                </h2>
-                <p style={{ fontSize: 17, lineHeight: 1.85, color: "rgba(255,255,255,0.7)", marginBottom: 20 }}>
-                  You will have a fully automated client acquisition system and productized offer. If you don&apos;t have a pipeline of leads and haven&apos;t closed your investment back within 3 months after we launch, we&apos;ll give you a <strong style={{ color: "var(--color-white)" }}>full refund</strong>.
-                </p>
-                <p style={{ fontSize: 17, lineHeight: 1.85, color: "rgba(255,255,255,0.7)", marginBottom: 20 }}>
-                  If you do the work and the system doesn&apos;t deliver, either I failed to teach you well enough, or the methodology didn&apos;t fit. Either way &mdash; you get every penny back. No questions.
-                </p>
-                <div style={{ marginTop: 32 }}>
-                  <DemoButton onClick={openDemo} />
-                </div>
-              </div>
-              <div style={{ width: "100%", aspectRatio: "4/5", borderRadius: 16, overflow: "hidden", position: "relative" }}>
-                <Image src="/images/assets/ross promise photo.png" alt="Ross Power" fill style={{ objectFit: "cover" }} sizes="500px" />
-              </div>
-            </div>
-          </Reveal>
-        </Wide>
-      </Section>
 
       {/* ── FAQ ── */}
       <Section dark={false} style={{ paddingTop: 40 }}>
