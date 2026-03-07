@@ -618,7 +618,7 @@ export default function LandingPage() {
               </div>
               <span style={{ color: "rgba(255,255,255,0.25)", fontSize: 20, fontWeight: 300 }}>x</span>
               <div style={{ position: "relative", height: 32, width: 100 }}>
-                <Image src="/images/assets/claude white logo .png" alt="Claude" fill style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} sizes="100px" />
+                <Image src="/images/assets/claude logo white no background.png" alt="Claude" fill style={{ objectFit: "contain" }} sizes="100px" />
               </div>
             </div>
           </Reveal>
@@ -1025,7 +1025,7 @@ export default function LandingPage() {
           <Reveal delay={100}>
             <div style={{ textAlign: "center", marginBottom: 40 }}>
               <div style={{ position: "relative", height: 60, width: 200, margin: "0 auto" }}>
-                <Image src="/images/assets/claude-logo-freelogovectors.net_.png" alt="Claude by Anthropic" fill style={{ objectFit: "contain" }} sizes="200px" />
+                <Image src="/images/assets/claude logo white no background.png" alt="Claude by Anthropic" fill style={{ objectFit: "contain" }} sizes="200px" />
               </div>
             </div>
             <p style={{ fontSize: 17, lineHeight: 1.85, color: "var(--color-text-body)", marginBottom: 20 }}>
