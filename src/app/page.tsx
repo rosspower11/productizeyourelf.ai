@@ -1013,32 +1013,78 @@ export default function LandingPage() {
         </Wide>
       </Section>
 
-      {/* ── WHY CLAUDE ── */}
+      {/* ── MAKE CLAUDE YOUR CO-FOUNDER ── */}
       <Section dark={false}>
         <Narrow>
           <Reveal>
-            <Label>WHY CLAUDE</Label>
-            <h2 style={{ fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-text)", letterSpacing: "-0.03em", marginBottom: 36 }}>
-              Why we build everything on Claude
+            <div style={{ textAlign: "center", marginBottom: 16 }}>
+              <div style={{ position: "relative", height: 50, width: 180, margin: "0 auto 20px" }}>
+                <Image src="/images/assets/claude-logo-freelogovectors.net_.png" alt="Claude by Anthropic" fill style={{ objectFit: "contain" }} sizes="180px" />
+              </div>
+              <Label>YOUR AI CO-FOUNDER</Label>
+            </div>
+            <h2 style={{ fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-text)", letterSpacing: "-0.03em", marginBottom: 24 }}>
+              Make Claude Your Co-Founder
             </h2>
           </Reveal>
           <Reveal delay={100}>
-            <div style={{ textAlign: "center", marginBottom: 40 }}>
-              <div style={{ position: "relative", height: 60, width: 200, margin: "0 auto" }}>
-                <Image src="/images/assets/claude-logo-freelogovectors.net_.png" alt="Claude by Anthropic" fill style={{ objectFit: "contain" }} sizes="200px" />
-              </div>
-            </div>
-            <p style={{ fontSize: 17, lineHeight: 1.85, color: "var(--color-text-body)", marginBottom: 20 }}>
-              Most AI programs teach you generic prompts for generic tools. We built Productize Yourself entirely around Claude by Anthropic because it reasons at a level no other AI matches for business strategy work.
+            <p style={{ fontSize: 18, lineHeight: 1.85, color: "var(--color-text-body)", marginBottom: 12, maxWidth: 640, margin: "0 auto 12px" }}>
+              It&apos;s never been more exciting or more possible to build a business.
             </p>
-            <p style={{ fontSize: 17, lineHeight: 1.85, color: "var(--color-text-body)", marginBottom: 20 }}>
-              Claude doesn&apos;t just generate content. It thinks through your positioning, stress-tests your offer, identifies gaps in your pipeline, and builds assets that actually convert. Every prompt, every framework, every workflow in this program is designed for Claude.
-            </p>
-            <p style={{ fontSize: 17, lineHeight: 1.85, color: "var(--color-text-body)" }}>
-              You won&apos;t just learn to &quot;use AI.&quot; You&apos;ll learn to use the best AI, properly, woven into every part of how your business runs.
+            <p style={{ fontSize: 18, lineHeight: 1.85, color: "var(--color-text-body)", marginBottom: 28, maxWidth: 640, margin: "0 auto 28px" }}>
+              Yet most people are in a place of fear rather than opportunity. We&apos;ll set Claude up as your co-founder so you can:
             </p>
           </Reveal>
         </Narrow>
+        <Wide>
+          <Reveal delay={200}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24, marginBottom: 48 }}>
+              {/* SELL */}
+              <div style={{ background: "var(--color-bg)", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 16, padding: "40px 32px", position: "relative", overflow: "hidden" }}>
+                <span style={{ position: "absolute", top: -10, left: 16, fontSize: 120, fontWeight: 900, color: "rgba(217,118,87,0.10)", lineHeight: 1, pointerEvents: "none", userSelect: "none" }}>1</span>
+                <div style={{ position: "relative", zIndex: 1 }}>
+                  <span style={{ display: "inline-block", fontSize: 48, fontWeight: 900, color: "#d97657", lineHeight: 1, marginBottom: 12 }}>1</span>
+                  <h3 style={{ fontSize: 24, fontWeight: 800, color: "var(--color-text)", marginBottom: 14, letterSpacing: "-0.02em" }}>Sell</h3>
+                  <p style={{ fontSize: 16, lineHeight: 1.75, color: "var(--color-text-body)" }}>
+                    Sell on repeat through a stronger offer, clear assets, landing pages, and a real understanding of the sales process for a productized business founder.
+                  </p>
+                </div>
+              </div>
+              {/* SCALE */}
+              <div style={{ background: "var(--color-bg)", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 16, padding: "40px 32px", position: "relative", overflow: "hidden" }}>
+                <span style={{ position: "absolute", top: -10, left: 16, fontSize: 120, fontWeight: 900, color: "rgba(217,118,87,0.10)", lineHeight: 1, pointerEvents: "none", userSelect: "none" }}>2</span>
+                <div style={{ position: "relative", zIndex: 1 }}>
+                  <span style={{ display: "inline-block", fontSize: 48, fontWeight: 900, color: "#d97657", lineHeight: 1, marginBottom: 12 }}>2</span>
+                  <h3 style={{ fontSize: 24, fontWeight: 800, color: "var(--color-text)", marginBottom: 14, letterSpacing: "-0.02em" }}>Scale</h3>
+                  <p style={{ fontSize: 16, lineHeight: 1.75, color: "var(--color-text-body)" }}>
+                    Use systems that let the backend of your business run while you deliver and do more of what you&apos;re best at.
+                  </p>
+                </div>
+              </div>
+              {/* SUSTAIN */}
+              <div style={{ background: "var(--color-bg)", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 16, padding: "40px 32px", position: "relative", overflow: "hidden" }}>
+                <span style={{ position: "absolute", top: -10, left: 16, fontSize: 120, fontWeight: 900, color: "rgba(217,118,87,0.10)", lineHeight: 1, pointerEvents: "none", userSelect: "none" }}>3</span>
+                <div style={{ position: "relative", zIndex: 1 }}>
+                  <span style={{ display: "inline-block", fontSize: 48, fontWeight: 900, color: "#d97657", lineHeight: 1, marginBottom: 12 }}>3</span>
+                  <h3 style={{ fontSize: 24, fontWeight: 800, color: "var(--color-text)", marginBottom: 14, letterSpacing: "-0.02em" }}>Sustain</h3>
+                  <p style={{ fontSize: 16, lineHeight: 1.75, color: "var(--color-text-body)" }}>
+                    Think long-term. Build something that lasts. With AI, stay relevant, needed, and able to survive the ultimate test of our time.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+          <Reveal delay={300}>
+            <div style={{ textAlign: "center", maxWidth: 600, margin: "0 auto" }}>
+              <p style={{ fontSize: 19, lineHeight: 1.8, color: "var(--color-text)", fontWeight: 600 }}>
+                This is about getting to maximum agency. Maximum freedom.
+              </p>
+              <p style={{ fontSize: 17, lineHeight: 1.8, color: "var(--color-text-body)", marginTop: 8 }}>
+                Do more of what lights you up and hand the rest to Claude.
+              </p>
+            </div>
+          </Reveal>
+        </Wide>
       </Section>
 
       {/* ── SOCIAL PROOF — STATIC GRID ── */}
