@@ -320,7 +320,7 @@ function LogoCarousel() {
   return (
     <div style={{ background: "var(--color-white)", padding: "44px 24px", borderTop: "1px solid var(--color-border)", borderBottom: "1px solid var(--color-border)" }}>
       <p style={{ textAlign: "center", fontSize: 11, fontWeight: 600, letterSpacing: 2.5, textTransform: "uppercase", color: "var(--color-muted)", marginBottom: 32 }}>
-        Join post-corporate professionals from
+        Join post-corporate founders from
       </p>
       <div style={{ overflow: "hidden", position: "relative" }}>
         <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 100, background: "linear-gradient(to right, #FFFFFF, transparent)", zIndex: 2 }} />
@@ -553,7 +553,7 @@ export default function LandingPage() {
     { feature: "You own everything that\u2019s built", py: true, coach: false, agency: false, ai: true },
     { feature: "Training + done-with-you implementation", py: true, coach: "partial", agency: "partial", ai: false },
     { feature: "30+ operational assets delivered", py: true, coach: false, agency: false, ai: false },
-    { feature: "Designed for post-corporate professionals", py: true, coach: "partial", agency: false, ai: false },
+    { feature: "Designed for post-corporate founders", py: true, coach: "partial", agency: false, ai: false },
   ];
 
   const renderCheck = (val: boolean | string) => {
@@ -618,7 +618,7 @@ export default function LandingPage() {
               </div>
               <span style={{ color: "rgba(255,255,255,0.25)", fontSize: 20, fontWeight: 300 }}>x</span>
               <div style={{ position: "relative", height: 32, width: 100 }}>
-                <Image src="/images/assets/claude white logo .png" alt="Claude" fill style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} sizes="100px" />
+                <Image src="/images/assets/claude logo white no background.png" alt="Claude" fill style={{ objectFit: "contain" }} sizes="100px" />
               </div>
             </div>
           </Reveal>
@@ -637,7 +637,7 @@ export default function LandingPage() {
                 ))}
               </div>
               <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>
-                Trusted by <strong style={{ color: "rgba(255,255,255,0.8)" }}>300+</strong> post-corporate professionals
+                Trusted by <strong style={{ color: "rgba(255,255,255,0.8)" }}>50+</strong> post-corporate founders
               </span>
             </div>
           </Reveal>
@@ -675,7 +675,7 @@ export default function LandingPage() {
         <Wide>
           <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: 32, textAlign: "center" }}>
             {[
-              { target: 300, suffix: "+", label: "Post-Corporate Pros Trained" },
+              { target: 50, suffix: "+", label: "Post-Corporate Founders Trained" },
               { target: 30, suffix: "+", label: "Assets Built Per Client" },
               { target: 100, suffix: "+", label: "AI Prompts Included" },
               { target: 10, suffix: "+", label: "Years Product Strategy" },
@@ -819,7 +819,7 @@ export default function LandingPage() {
               ["03", "Client Pipeline", "CRM, landing page, email automation, video sales letter, and a complete sales playbook. All built, connected, running. Leads while you sleep."],
               ["04", "Content Engine", "AI-powered publishing that turns your IP into posts, newsletters, and Reels. 3x per week, in your voice, without a marketing team."],
               ["05", "Paid Acquisition", "Meta ads strategy, AI-powered creative production, audience targeting, and campaign optimisation. Advanced techniques that scale your reach profitably."],
-              ["06", "Growth Network", "Build alongside post-corporate professionals from Google, Accenture, Deloitte, Microsoft, and beyond. People who are in it right now."],
+              ["06", "Growth Network", "Build alongside post-corporate founders from Google, Accenture, Deloitte, Microsoft, and beyond. People who are in it right now."],
             ].map(([num, title, desc], i) => (
               <Reveal key={i} delay={i * 80}>
                 <div style={{ background: "var(--color-white)", padding: 36, borderRadius: 12, position: "relative", height: "100%", border: "1px solid var(--color-border)" }}>
@@ -941,7 +941,7 @@ export default function LandingPage() {
           <Reveal>
             <Label>WHY US</Label>
             <h2 style={{ fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-text)", letterSpacing: "-0.03em", marginBottom: 48 }}>
-              8 reasons post-corporate pros choose to build with us
+              8 reasons post-corporate founders choose to build with us
             </h2>
           </Reveal>
           {[
@@ -1110,7 +1110,7 @@ export default function LandingPage() {
                 "Ex-Accenture product strategist. 10+ years in product strategy and acceleration. Built across the UK, Lisbon, US, Dubai, and Bali.",
                 "I built Productize Yourself because it didn\u2019t exist when I needed it. After leaving corporate at 26, I was confused, lost, and spent years assembling pieces from coaches, courses, and expensive mistakes until the pattern became clear.",
                 "Today, I run AI Powered from Bali \u2014 an education and events company teaching hundreds of people how to bring AI into their business and transform their lives for the new era. Workshops, accelerator programmes, corporate training, and this: a system that turns what you know into a business that works.",
-                "I\u2019ve trained 300+ post-corporate professionals, delivered AI workshops to standing-room audiences across Bali, Dubai, and Singapore, and built a consulting business that runs from wherever I choose to be. The thing I care about most? Being genuine about what this takes \u2014 and showing you it\u2019s possible.",
+                "I\u2019ve trained 50+ post-corporate founders, delivered AI workshops to standing-room audiences across Bali, Dubai, and Singapore, and built a consulting business that runs from wherever I choose to be. The thing I care about most? Being genuine about what this takes \u2014 and showing you it\u2019s possible.",
               ].map((t, i) => (
                 <p key={i} style={{ fontSize: 16, lineHeight: 1.85, color: "rgba(255,255,255,0.7)", marginBottom: 16 }}>{t}</p>
               ))}
@@ -1147,7 +1147,7 @@ export default function LandingPage() {
               ["How is this different from coaching or courses?", "Coaches give advice. Courses give information. We build infrastructure \u2014 with you. 30+ operational assets. AI-native. Tangible deliverables every phase."],
               ["I\u2019ve paid for coaching before and got nothing.", "The difference is structural: we build 30+ finished assets with you. If your last coach gave you a Canva logo, this is the opposite."],
               ["I don\u2019t know how to use AI.", "Every prompt is pre-built and guided. If you can have a conversation, you can use this. By the end, AI fluency will be one of the most valuable skills you keep."],
-              ["Can one person really build this in 16 weeks?", "That\u2019s what AI makes possible. 300+ post-corporate pros have used this methodology. The bottleneck was infrastructure \u2014 not capability."],
+              ["Can one person really build this in 16 weeks?", "That\u2019s what AI makes possible. 50+ post-corporate founders have used this methodology. The bottleneck was infrastructure \u2014 not capability."],
               ["What happens after I apply?", "You\u2019ll book a free consultation where we map the framework to your experience. We\u2019ll explore whether the programme is the right fit. Zero pressure."],
             ].map(([q, a], i) => (
               <FAQItem key={i} q={q} a={a} />
