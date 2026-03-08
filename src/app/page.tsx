@@ -724,9 +724,9 @@ export default function LandingPage() {
           </Reveal>
           <Reveal delay={100}>
             {[
-              "I was 26 when I walked away from a career that, on paper, was working. Accenture. Good salary. Global clients. Fast-tracked. But I could see the road ahead \u2014 and it looked like a slow march toward regret.",
-              "I was confused. Lost. Out on my own after a stable, fast-track route to success. I could see people around me \u2014 some younger \u2014 figuring their careers out. And for me, I saw a road to regret and boredom. I wanted more than I could see before me, but nothing made sense.",
-              "For years, I tried everything. Coaches who gave me a Canva logo for $5K. Courses I never finished. I spent over $100K on business education. Some brilliant. A lot of it expensive lessons in what doesn\u2019t work.",
+              "I was 26 when I walked away from a career that, on paper, was working. Accenture. Good salary. Global clients. Fast-tracked. But I could see the road ahead, and it looked like a slow march toward regret.",
+              "I was confused. Lost. Out on my own after a stable, fast-track route to success. I could see people around me, some younger, figuring their careers out. And for me, I saw a road to regret and boredom. I wanted more than I could see before me, but nothing made sense.",
+              "For years, I tried everything. Coaches who gave me a Canva logo for $5K. Courses I never finished. I spent over $100K on business education. Some brilliant. A lot of it expensive lessons in what doesn't work.",
               "But slowly, the pattern emerged. The professionals making it had three things: a clear offer that sold itself, a content engine that built trust automatically, and a pipeline that turned strangers into clients. The ones stuck had all the raw material but no system.",
             ].map((t, i) => (
               <p key={i} style={{ fontSize: 17, lineHeight: 1.85, color: "rgba(255,255,255,0.75)", marginBottom: 20 }}>{t}</p>
@@ -1039,39 +1039,24 @@ export default function LandingPage() {
         <Wide>
           <Reveal delay={200}>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24, marginBottom: 48 }}>
-              {/* SELL */}
-              <div style={{ background: "var(--color-bg)", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 16, padding: "40px 32px", position: "relative", overflow: "hidden" }}>
-                <span style={{ position: "absolute", top: -10, left: 16, fontSize: 120, fontWeight: 900, color: "rgba(217,118,87,0.10)", lineHeight: 1, pointerEvents: "none", userSelect: "none" }}>1</span>
-                <div style={{ position: "relative", zIndex: 1 }}>
-                  <span style={{ display: "inline-block", fontSize: 48, fontWeight: 900, color: "#d97657", lineHeight: 1, marginBottom: 12 }}>1</span>
-                  <h3 style={{ fontSize: 24, fontWeight: 800, color: "var(--color-text)", marginBottom: 14, letterSpacing: "-0.02em" }}>Sell</h3>
-                  <p style={{ fontSize: 16, lineHeight: 1.75, color: "var(--color-text-body)" }}>
-                    Sell on repeat through a stronger offer, clear assets, landing pages, and a real understanding of the sales process for a productized business founder.
-                  </p>
+              {[
+                { num: "1", label: "SELL", desc: "Sell on repeat through a stronger offer, clear assets, landing pages, and a real understanding of the sales process for a productized business founder." },
+                { num: "2", label: "SCALE", desc: "Use systems that let the backend of your business run while you deliver and do more of what you're best at." },
+                { num: "3", label: "SUSTAIN", desc: "Think long-term. Build something that lasts. With AI, stay relevant, needed, and able to survive the ultimate test of our time." },
+              ].map((item) => (
+                <div key={item.num} style={{ background: "var(--color-bg)", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 16, padding: "40px 32px", position: "relative", overflow: "hidden" }}>
+                  <span style={{ position: "absolute", top: -10, left: 16, fontSize: 120, fontWeight: 900, color: "rgba(217,118,87,0.10)", lineHeight: 1, pointerEvents: "none", userSelect: "none" }}>{item.num}</span>
+                  <div style={{ position: "relative", zIndex: 1 }}>
+                    <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginBottom: 16 }}>
+                      <span style={{ fontSize: 48, fontWeight: 900, color: "#d97657", lineHeight: 1 }}>{item.num}</span>
+                      <span style={{ fontSize: 42, fontWeight: 900, color: "#d97657", lineHeight: 1, letterSpacing: "-0.02em" }}>{item.label}</span>
+                    </div>
+                    <p style={{ fontSize: 16, lineHeight: 1.75, color: "var(--color-text-body)" }}>
+                      {item.desc}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              {/* SCALE */}
-              <div style={{ background: "var(--color-bg)", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 16, padding: "40px 32px", position: "relative", overflow: "hidden" }}>
-                <span style={{ position: "absolute", top: -10, left: 16, fontSize: 120, fontWeight: 900, color: "rgba(217,118,87,0.10)", lineHeight: 1, pointerEvents: "none", userSelect: "none" }}>2</span>
-                <div style={{ position: "relative", zIndex: 1 }}>
-                  <span style={{ display: "inline-block", fontSize: 48, fontWeight: 900, color: "#d97657", lineHeight: 1, marginBottom: 12 }}>2</span>
-                  <h3 style={{ fontSize: 24, fontWeight: 800, color: "var(--color-text)", marginBottom: 14, letterSpacing: "-0.02em" }}>Scale</h3>
-                  <p style={{ fontSize: 16, lineHeight: 1.75, color: "var(--color-text-body)" }}>
-                    Use systems that let the backend of your business run while you deliver and do more of what you&apos;re best at.
-                  </p>
-                </div>
-              </div>
-              {/* SUSTAIN */}
-              <div style={{ background: "var(--color-bg)", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 16, padding: "40px 32px", position: "relative", overflow: "hidden" }}>
-                <span style={{ position: "absolute", top: -10, left: 16, fontSize: 120, fontWeight: 900, color: "rgba(217,118,87,0.10)", lineHeight: 1, pointerEvents: "none", userSelect: "none" }}>3</span>
-                <div style={{ position: "relative", zIndex: 1 }}>
-                  <span style={{ display: "inline-block", fontSize: 48, fontWeight: 900, color: "#d97657", lineHeight: 1, marginBottom: 12 }}>3</span>
-                  <h3 style={{ fontSize: 24, fontWeight: 800, color: "var(--color-text)", marginBottom: 14, letterSpacing: "-0.02em" }}>Sustain</h3>
-                  <p style={{ fontSize: 16, lineHeight: 1.75, color: "var(--color-text-body)" }}>
-                    Think long-term. Build something that lasts. With AI, stay relevant, needed, and able to survive the ultimate test of our time.
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
           </Reveal>
           <Reveal delay={300}>
@@ -1154,7 +1139,7 @@ export default function LandingPage() {
               <h2 style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 900, lineHeight: 1.1, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 28 }}>Meet Ross</h2>
               {[
                 "Ex-Accenture product strategist. 10+ years in product strategy and acceleration. Built across the UK, Lisbon, US, Dubai, and Bali.",
-                "I built Productize Yourself because it didn\u2019t exist when I needed it. After leaving corporate at 26, I was confused, lost, and spent years assembling pieces from coaches, courses, and expensive mistakes until the pattern became clear.",
+                "I built Productize Yourself because it didn't exist when I needed it. After leaving corporate at 26, I was confused, lost, and spent years assembling pieces from coaches, courses, and expensive mistakes until the pattern became clear.",
                 "Today, I run AI Powered from Bali \u2014 an education and events company teaching hundreds of people how to bring AI into their business and transform their lives for the new era. Workshops, accelerator programmes, corporate training, and this: a system that turns what you know into a business that works.",
                 "I\u2019ve trained 50+ post-corporate founders, delivered AI workshops to standing-room audiences across Bali, Dubai, and Singapore, and built a consulting business that runs from wherever I choose to be. The thing I care about most? Being genuine about what this takes \u2014 and showing you it\u2019s possible.",
               ].map((t, i) => (
