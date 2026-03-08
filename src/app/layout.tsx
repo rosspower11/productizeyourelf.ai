@@ -3,31 +3,31 @@ import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Productize Yourself | Ross Power",
+  title: "Productize Yourself | Build & Sell with Ross Power",
   description:
-    "Turn who you are into what you do, create, and sell. 16 weeks. AI-native. 30+ operational assets built with you.",
-  metadataBase: new URL("https://productizeyourself.ai"),
+    "Turn who you are into what you do, create, and sell. A 16-week AI-native program to build your productized consulting business with 30+ operational assets.",
+  metadataBase: new URL("https://apply.productizeyourself.ai"),
   openGraph: {
-    title: "Productize Yourself | Ross Power",
+    title: "Productize Yourself | Build & Sell with Ross Power",
     description:
-      "Build your productized consulting business. 16 weeks. AI-native. 30+ operational assets.",
+      "Turn who you are into what you do, create, and sell. A 16-week AI-native program to build your productized consulting business with 30+ operational assets.",
     type: "website",
-    url: "https://productizeyourself.ai",
+    url: "https://apply.productizeyourself.ai",
     images: [
       {
-        url: "/images/assets/social-preview-image.png",
+        url: "https://apply.productizeyourself.ai/images/assets/social-preview-image.png",
         width: 1200,
         height: 630,
-        alt: "Productize Yourself | Ross Power",
+        alt: "Productize Yourself — 16-week AI-native program by Ross Power",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Productize Yourself | Ross Power",
+    title: "Productize Yourself | Build & Sell with Ross Power",
     description:
-      "Build your productized consulting business. 16 weeks. AI-native. 30+ operational assets.",
-    images: ["/images/assets/social-preview-image.png"],
+      "Turn who you are into what you do, create, and sell. A 16-week AI-native program to build your productized consulting business with 30+ operational assets.",
+    images: ["https://apply.productizeyourself.ai/images/assets/social-preview-image.png"],
   },
 };
 
