@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     url: "https://productizeyourself.ai",
     images: [
       {
-        url: "/images/assets/social preview image.png",
+        url: "/images/assets/social-preview-image.png",
         width: 1200,
         height: 630,
         alt: "Productize Yourself | Ross Power",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: "Productize Yourself | Ross Power",
     description:
       "Build your productized consulting business. 16 weeks. AI-native. 30+ operational assets.",
-    images: ["/images/assets/social preview image.png"],
+    images: ["/images/assets/social-preview-image.png"],
   },
 };
 
