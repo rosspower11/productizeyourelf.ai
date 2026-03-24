@@ -212,8 +212,8 @@ function FormModal({ open, onClose }: { open: boolean; onClose: () => void }) {
 }
 
 /* ── CTA Button ── */
-function DemoButton({ inverted, size = "large", onClick }: { inverted?: boolean; size?: "large" | "small"; onClick?: () => void }) {
-  const pad = size === "large" ? "16px 44px" : "12px 28px";
+function DemoButton({ size = "large", onClick }: { size?: "large" | "small"; onClick?: () => void }) {
+  const pad = size === "large" ? "18px 48px" : "12px 28px";
   return (
     <div>
       <button
@@ -221,8 +221,8 @@ function DemoButton({ inverted, size = "large", onClick }: { inverted?: boolean;
         style={{
           display: "inline-block",
           padding: pad,
-          background: inverted ? "var(--color-white)" : "var(--color-accent)",
-          color: inverted ? "var(--color-bg)" : "var(--color-bg)",
+          background: "var(--color-white)",
+          color: "var(--color-bg)",
           borderRadius: 8,
           fontSize: size === "large" ? 13 : 12,
           fontWeight: 700,
@@ -626,8 +626,8 @@ export default function LandingPage() {
           onClick={openDemo}
           style={{
             padding: "12px 28px",
-            background: "var(--color-accent)",
-            color: "var(--color-white)",
+            background: "var(--color-white)",
+            color: "var(--color-bg)",
             borderRadius: 8,
             fontSize: 13,
             fontWeight: 700,
@@ -648,29 +648,22 @@ export default function LandingPage() {
         <div className="hero-grid">
           <div>
             <Reveal>
-              <div className="flex flex-col sm:flex-row items-center gap-3" style={{ marginBottom: 36 }}>
-                <div style={{ display: "flex" }}>
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <div key={i} style={{ width: 36, height: 36, borderRadius: "50%", overflow: "hidden", border: "2px solid var(--color-charcoal)", marginLeft: i > 1 ? -10 : 0, position: "relative", background: "#222" }}>
-                      <Image src={`/images/headshots/${i}.png`} alt="" fill style={{ objectFit: "cover" }} sizes="36px" />
-                    </div>
-                  ))}
-                </div>
-                <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", fontFamily: "var(--font-sans)" }}>
-                  Join <strong style={{ color: "rgba(255,255,255,0.8)" }}>300+</strong> professionals trained in AI
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "8px 18px", borderRadius: 100, border: "1px solid rgba(255,255,255,0.1)", marginBottom: 36 }}>
+                <span style={{ fontSize: 14, color: "rgba(255,255,255,0.5)", fontFamily: "var(--font-sans)" }}>
+                  Join <strong style={{ color: "rgba(255,255,255,0.85)" }}>300+</strong> professionals trained in AI
                 </span>
               </div>
             </Reveal>
             <Reveal delay={100}>
-              <h1 className="hero-heading" style={{ fontSize: "clamp(36px, 5.5vw, 68px)", fontWeight: 700, lineHeight: 1.06, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 8, textTransform: "uppercase", fontFamily: "var(--font-display)" }}>
+              <h1 className="hero-heading" style={{ fontSize: "clamp(40px, 6vw, 80px)", fontWeight: 700, lineHeight: 1.06, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 4, textTransform: "uppercase", fontFamily: "var(--font-display)" }}>
                 PRODUCTIZE YOURSELF IN 16 WEEKS.
               </h1>
-              <p style={{ fontSize: "clamp(32px, 4.5vw, 58px)", fontWeight: 600, lineHeight: 1.08, color: "var(--color-accent)", letterSpacing: "-0.03em", marginBottom: 28, fontStyle: "italic", fontFamily: "var(--font-display)" }}>
+              <p style={{ fontSize: "clamp(36px, 5vw, 72px)", fontWeight: 500, lineHeight: 1.1, color: "var(--color-accent)", letterSpacing: "-0.03em", marginBottom: 28, fontStyle: "italic", fontFamily: "var(--font-display)" }}>
                 Build. Launch. Lead.
               </p>
             </Reveal>
             <Reveal delay={200}>
-              <p style={{ fontSize: "clamp(16px, 1.8vw, 18px)", color: "rgba(255,255,255,0.5)", lineHeight: 1.7, maxWidth: 520, marginBottom: 36 }}>
+              <p style={{ fontSize: "clamp(16px, 1.6vw, 18px)", color: "rgba(255,255,255,0.45)", lineHeight: 1.7, maxWidth: 520, marginBottom: 40 }}>
                 For entrepreneurs and ambitious professionals ready to get ahead. The live accelerator that teaches you to build, ship, and lead in the AI era.
               </p>
             </Reveal>
