@@ -676,9 +676,6 @@ export default function LandingPage() {
             </Reveal>
             <Reveal delay={300}>
               <DemoButton onClick={openDemo} />
-              <p style={{ fontSize: 12, color: "rgba(255,255,255,0.25)", marginTop: 14, letterSpacing: 0.5, fontFamily: "var(--font-mono)" }}>
-                Starts March 31st. Tuesdays, 10:30 BST. 16 weeks live.
-              </p>
             </Reveal>
           </div>
           <Reveal delay={150}>
