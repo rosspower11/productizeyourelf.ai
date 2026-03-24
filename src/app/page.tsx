@@ -562,8 +562,69 @@ export default function LandingPage() {
     return <span style={{ color: "rgba(255,255,255,0.15)", fontSize: 14 }}>&#10005;</span>;
   };
 
+  const navItems = [
+    { label: "Curriculum", target: "curriculum" },
+    { label: "Roadmap", target: "timeline" },
+    { label: "Proof", target: "proof" },
+    { label: "About", target: "about" },
+  ];
+
+  const scrollTo = useCallback((id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  }, []);
+
+  const tickerMessages = [
+    { text: "PLACES REMAINING", highlight: "5" },
+    { text: "STARTS 31 MARCH  TUESDAYS 10:30 BST" },
+    { text: "COHORT 1  LIVE NOW" },
+    { text: "PLACES REMAINING", highlight: "5" },
+  ];
+
   return (
     <div>
+      {/* ── TOP NAVIGATION ── */}
+      <nav className="site-nav">
+        <div className="nav-inner">
+          <div className="nav-logos" style={{ display: "flex", alignItems: "center", gap: 20 }}>
+            <div style={{ position: "relative", height: 28, width: 130 }}>
+              <Image src="/images/assets/Productize Yourself_AiVectorLogo.png" alt="Productize Yourself" fill style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} sizes="130px" priority />
+            </div>
+            <span style={{ color: "rgba(255,255,255,0.2)", fontSize: 16, fontWeight: 300 }}>x</span>
+            <div style={{ position: "relative", height: 24, width: 80 }}>
+              <Image src="/images/assets/claude logo white no background.png" alt="Claude" fill style={{ objectFit: "contain" }} sizes="80px" priority />
+            </div>
+          </div>
+          <div className="nav-tabs">
+            {navItems.map((item) => (
+              <button key={item.target} className="nav-tab" onClick={() => scrollTo(item.target)}>
+                {item.label}
+              </button>
+            ))}
+          </div>
+          <button className="nav-cta" onClick={openDemo}>JOIN NOW</button>
+        </div>
+      </nav>
+
+      {/* ── TICKER BAR ── */}
+      <div className="ticker-bar">
+        <div className="ticker-track">
+          {[...Array(4)].map((_, rep) =>
+            tickerMessages.map((msg, i) => (
+              <div className="ticker-item" key={`${rep}-${i}`}>
+                <span className="ticker-dot" />
+                <span className="ticker-text">
+                  {msg.highlight ? (
+                    <>{msg.text} <strong>{msg.highlight}</strong></>
+                  ) : (
+                    msg.text
+                  )}
+                </span>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+
       {/* ── STICKY BOTTOM BAR ── */}
       <div
         style={{
@@ -609,60 +670,56 @@ export default function LandingPage() {
       </div>
 
       {/* ── HERO ── */}
-      <Section dark style={{ minHeight: "100vh", display: "flex", alignItems: "center", paddingTop: 60, paddingBottom: 60 }}>
-        <HeroW style={{ textAlign: "center" }}>
-          <Reveal>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 24, marginBottom: 28 }}>
-              <div style={{ position: "relative", height: 36, width: 160 }}>
-                <Image src="/images/assets/Productize Yourself_AiVectorLogo.png" alt="Productize Yourself" fill style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} sizes="160px" />
+      <Section dark style={{ minHeight: "100vh", display: "flex", alignItems: "center", paddingTop: 40, paddingBottom: 60 }}>
+        <div className="hero-grid">
+          <div>
+            <Reveal>
+              <div className="flex flex-col sm:flex-row items-center gap-3" style={{ marginBottom: 36 }}>
+                <div style={{ display: "flex" }}>
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <div key={i} style={{ width: 36, height: 36, borderRadius: "50%", overflow: "hidden", border: "2px solid var(--color-charcoal)", marginLeft: i > 1 ? -10 : 0, position: "relative", background: "#333" }}>
+                      <Image src={`/images/headshots/${i}.png`} alt="" fill style={{ objectFit: "cover" }} sizes="36px" />
+                    </div>
+                  ))}
+                </div>
+                <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>
+                  Join <strong style={{ color: "rgba(255,255,255,0.8)" }}>300+</strong> professionals trained in AI
+                </span>
               </div>
-              <span style={{ color: "rgba(255,255,255,0.25)", fontSize: 20, fontWeight: 300 }}>x</span>
-              <div style={{ position: "relative", height: 32, width: 100 }}>
-                <Image src="/images/assets/claude logo white no background.png" alt="Claude" fill style={{ objectFit: "contain" }} sizes="100px" />
-              </div>
+            </Reveal>
+            <Reveal delay={100}>
+              <h1 className="hero-heading" style={{ fontSize: "clamp(36px, 5.5vw, 68px)", fontWeight: 900, lineHeight: 1.04, color: "var(--color-white)", letterSpacing: "-0.04em", marginBottom: 8, textTransform: "uppercase" }}>
+                PRODUCTIZE YOURSELF IN 16 WEEKS.
+              </h1>
+              <p style={{ fontSize: "clamp(32px, 4.5vw, 58px)", fontWeight: 800, lineHeight: 1.08, color: "var(--color-accent)", letterSpacing: "-0.03em", marginBottom: 28, fontStyle: "italic" }}>
+                Build. Launch. Lead.
+              </p>
+            </Reveal>
+            <Reveal delay={200}>
+              <p style={{ fontSize: "clamp(16px, 1.8vw, 19px)", color: "rgba(255,255,255,0.55)", lineHeight: 1.7, maxWidth: 520, marginBottom: 36 }}>
+                For entrepreneurs and ambitious professionals ready to get ahead. The live accelerator that teaches you to build, ship, and lead in the AI era.
+              </p>
+            </Reveal>
+            <Reveal delay={300}>
+              <DemoButton inverted onClick={openDemo} />
+              <p style={{ fontSize: 12, color: "rgba(255,255,255,0.3)", marginTop: 14, letterSpacing: 0.5 }}>
+                Starts March 31st. Tuesdays, 10:30 BST. 16 weeks live.
+              </p>
+            </Reveal>
+          </div>
+          <Reveal delay={150}>
+            <div className="hero-image-wrapper">
+              <Image
+                src="/images/educator-carousel/1.jpg"
+                alt="Ross Power speaking"
+                fill
+                style={{ objectFit: "cover" }}
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
+              />
             </div>
           </Reveal>
-          <Reveal delay={50}>
-            <p style={{ fontSize: 13, fontWeight: 600, letterSpacing: 4, textTransform: "uppercase", color: "#d97657", marginBottom: 20 }}>
-              FOR POST CORPORATE FOUNDERS CONFUSED BY WHATS NEXT
-            </p>
-          </Reveal>
-          <Reveal delay={75}>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3" style={{ marginBottom: 28 }}>
-              <div style={{ display: "flex" }}>
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <div key={i} style={{ width: 32, height: 32, borderRadius: "50%", overflow: "hidden", border: "2px solid var(--color-charcoal)", marginLeft: i > 1 ? -10 : 0, position: "relative", background: "#333" }}>
-                    <Image src={`/images/headshots/${i}.png`} alt="" fill style={{ objectFit: "cover" }} sizes="32px" />
-                  </div>
-                ))}
-              </div>
-              <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>
-                Trusted by <strong style={{ color: "rgba(255,255,255,0.8)" }}>50+</strong> post-corporate founders
-              </span>
-            </div>
-          </Reveal>
-          <Reveal delay={100}>
-            <h1 className="hero-heading" style={{ fontSize: "clamp(32px, 5.5vw, 62px)", fontWeight: 900, lineHeight: 1.06, color: "var(--color-white)", letterSpacing: "-0.04em", marginBottom: 24 }}>
-              Build a Productized Consulting Business &amp; System That{" "}
-              <span style={{ color: "#d97657" }}>
-                Generates Leads On Demand
-              </span>
-              {" "}In 90 Days
-            </h1>
-          </Reveal>
-          <Reveal delay={200}>
-            <p style={{ fontSize: "clamp(17px, 2.2vw, 22px)", color: "rgba(255,255,255,0.6)", lineHeight: 1.7, maxWidth: 580, margin: "0 auto 12px", fontWeight: 500 }}>
-              Make Claude Your Co-Founder
-            </p>
-            <div style={{ marginTop: 24, marginBottom: 48 }} />
-          </Reveal>
-          <Reveal delay={300}>
-            <DemoButton onClick={openDemo} />
-            <p style={{ fontSize: 12, color: "rgba(255,255,255,0.25)", marginTop: 16, letterSpacing: 0.5 }}>
-              Free consultation. See if you qualify.
-            </p>
-          </Reveal>
-        </HeroW>
+        </div>
       </Section>
 
       {/* ── LOGO CAROUSEL ── */}
@@ -757,7 +814,7 @@ export default function LandingPage() {
       </Section>
 
       {/* ── 6P FRAMEWORK — ACCORDION ── */}
-      <Section dark>
+      <Section dark id="curriculum">
         <Wide>
           <Reveal>
             <Label light>THE FRAMEWORK</Label>
@@ -868,7 +925,7 @@ export default function LandingPage() {
       </div>
 
       {/* ── TIMELINE ── */}
-      <Section dark>
+      <Section dark id="timeline">
         <Wide>
           <Reveal>
             <div style={{ textAlign: "center", marginBottom: 56 }}>
@@ -1073,7 +1130,7 @@ export default function LandingPage() {
       </Section>
 
       {/* ── SOCIAL PROOF — STATIC GRID ── */}
-      <Section dark style={{ paddingBottom: 40 }}>
+      <Section dark id="proof" style={{ paddingBottom: 40 }}>
         <Wide>
           <Reveal>
             <div style={{ textAlign: "center", marginBottom: 48 }}>
@@ -1126,7 +1183,7 @@ export default function LandingPage() {
       </Section>
 
       {/* ── ABOUT ROSS ── */}
-      <Section dark>
+      <Section dark id="about">
         <Wide>
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr]" style={{ gap: 64, alignItems: "center" }}>
             <Reveal>
