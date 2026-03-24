@@ -655,10 +655,10 @@ export default function LandingPage() {
               </div>
             </Reveal>
             <Reveal delay={100}>
-              <h1 className="hero-heading" style={{ fontSize: "clamp(40px, 6vw, 80px)", fontWeight: 700, lineHeight: 1.06, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 4, textTransform: "uppercase", fontFamily: "var(--font-display)" }}>
+              <h1 className="hero-heading" style={{ fontSize: "clamp(32px, 4.5vw, 58px)", fontWeight: 700, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 4, textTransform: "uppercase", fontFamily: "var(--font-display)" }}>
                 PRODUCTIZE YOURSELF IN 16 WEEKS.
               </h1>
-              <p style={{ fontSize: "clamp(36px, 5vw, 72px)", fontWeight: 500, lineHeight: 1.1, color: "var(--color-accent)", letterSpacing: "-0.03em", marginBottom: 28, fontStyle: "italic", fontFamily: "var(--font-display)" }}>
+              <p style={{ fontSize: "clamp(28px, 3.8vw, 52px)", fontWeight: 500, lineHeight: 1.12, color: "var(--color-accent)", letterSpacing: "-0.03em", marginBottom: 24, fontStyle: "italic", fontFamily: "var(--font-display)" }}>
                 Build. Launch. Lead.
               </p>
             </Reveal>
