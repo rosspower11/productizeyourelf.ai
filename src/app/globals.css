@@ -1,4 +1,4 @@
-/* ── Utility classes (replaces Tailwind) ── */
+/* ── Utility classes ── */
 .hidden { display: none; }
 .flex { display: flex; }
 .grid { display: grid; }
@@ -16,7 +16,7 @@
   .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .md\:inline { display: inline; }
   .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -30,45 +30,39 @@
   .lg\:grid-cols-\[1fr_1\.4fr\] { grid-template-columns: 1fr 1.4fr; }
 }
 
-/* ── Glacial Indifference font ── */
-@font-face {
-  font-family: "Glacial Indifference";
-  src: url("/fonts/GlacialIndifference-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Glacial Indifference";
-  src: url("/fonts/GlacialIndifference-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Glacial Indifference";
-  src: url("/fonts/GlacialIndifference-Italic.woff2") format("woff2");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-/* ── Theme tokens ── */
+/* ── Design tokens ── */
 :root {
-  --color-bg: #0F0F0F;
-  --color-surface: #F8FBFD;
-  --color-charcoal: #141413;
-  --color-card: #1C1C1B;
-  --color-text: #141413;
-  --color-text-body: #4A4A4A;
-  --color-muted: #999999;
-  --color-border: #E0E0E0;
-  --color-border-dark: #2A2A2A;
+  /* Backgrounds (dark → light) */
+  --color-bg: #0A0A0A;
+  --color-charcoal: #141414;
+  --color-card: #1A1A1A;
+  --color-mid: #222222;
+  --color-surface: #F5F5F0;
+  --color-cream: #FAFAF7;
+
+  /* Text */
   --color-white: #FFFFFF;
-  --color-accent: #d97657;
-  --font-body: "Glacial Indifference", -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --color-text: #0A0A0A;
+  --color-text-body: #666666;
+  --color-muted: #888888;
+  --text-muted: rgba(255, 255, 255, 0.35);
+
+  /* Accent */
+  --color-accent: #9BB0C4;
+  --color-accent-orange: #d97657;
+  --off-white: #E8E8E4;
+
+  /* Borders */
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-dark: rgba(255, 255, 255, 0.06);
+
+  /* Success */
+  --color-success: #8BC49A;
+
+  /* Fonts */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 /* ── Base resets ── */
@@ -87,11 +81,12 @@ html {
 }
 
 body {
-  font-family: var(--font-body);
+  font-family: var(--font-sans);
   background: var(--color-charcoal);
   color: var(--color-white);
   line-height: 1.6;
   overflow-x: hidden;
+  font-weight: 400;
 }
 
 ::selection {
@@ -120,12 +115,6 @@ body {
   100% { transform: translateX(0); }
 }
 
-/* ── Ticker animation ── */
-@keyframes ticker {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
 /* ── Navigation ── */
 .site-nav {
   position: fixed;
@@ -133,14 +122,14 @@ body {
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(20, 20, 19, 0.92);
+  background: rgba(10, 10, 10, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .nav-inner {
-  max-width: 1240px;
+  max-width: 1100px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -164,9 +153,9 @@ body {
   color: rgba(255, 255, 255, 0.5);
   cursor: pointer;
   border-radius: 100px;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
-  font-family: inherit;
+  font-family: var(--font-sans);
   border: none;
   background: none;
   letter-spacing: 0.3px;
@@ -179,8 +168,8 @@ body {
 
 .nav-cta {
   padding: 10px 24px;
-  background: var(--color-white);
-  color: var(--color-charcoal);
+  background: var(--color-accent);
+  color: var(--color-bg);
   border: none;
   border-radius: 8px;
   font-size: 12px;
@@ -188,60 +177,12 @@ body {
   letter-spacing: 1.5px;
   text-transform: uppercase;
   cursor: pointer;
-  font-family: inherit;
-  transition: all 0.2s ease;
+  font-family: var(--font-sans);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .nav-cta:hover {
-  background: rgba(255, 255, 255, 0.9);
-}
-
-/* ── Ticker bar ── */
-.ticker-bar {
-  background: var(--color-charcoal);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  overflow: hidden;
-  padding: 10px 0;
-  margin-top: 60px;
-}
-
-.ticker-track {
-  display: flex;
-  animation: ticker 30s linear infinite;
-  width: max-content;
-}
-
-.ticker-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0 40px;
-  white-space: nowrap;
-}
-
-.ticker-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #4ade80;
-  flex-shrink: 0;
-}
-
-.ticker-text {
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
-  font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
-}
-
-.ticker-text strong {
-  color: var(--color-white);
-  background: rgba(255, 255, 255, 0.1);
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-weight: 700;
+  filter: brightness(1.15);
 }
 
 /* ── Hero two-column ── */
@@ -250,7 +191,7 @@ body {
   grid-template-columns: 1fr;
   gap: 48px;
   align-items: center;
-  max-width: 1240px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
@@ -274,7 +215,7 @@ body {
 }
 
 /* ── Mobile responsive overrides ── */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .phase-header {
     padding: 20px !important;
   }
@@ -302,12 +243,5 @@ body {
   }
   .nav-logos {
     gap: 12px !important;
-  }
-  .ticker-item {
-    padding: 0 24px;
-  }
-  .ticker-text {
-    font-size: 10px;
-    letter-spacing: 2px;
   }
 }
