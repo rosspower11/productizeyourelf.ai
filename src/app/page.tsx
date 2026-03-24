@@ -43,7 +43,7 @@ function Reveal({
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(30px)",
-        transition: `opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94) ${delay}ms, transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94) ${delay}ms`,
+        transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
       }}
     >
       {children}
@@ -66,7 +66,7 @@ function SlideReveal({
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? "translateX(0) translateY(0)" : "translateX(-40px) translateY(10px)",
-        transition: `opacity 1s cubic-bezier(0.25,0.46,0.45,0.94) ${delay}ms, transform 1s cubic-bezier(0.25,0.46,0.45,0.94) ${delay}ms`,
+        transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
       }}
     >
       {children}
@@ -112,7 +112,7 @@ function CountUp({ target, suffix = "" }: { target: number; suffix?: string }) {
     return () => clearInterval(timer);
   }, [started, target]);
   return (
-    <p ref={ref} style={{ fontSize: 36, fontWeight: 900, color: "var(--color-white)", letterSpacing: "-0.02em" }}>
+    <p ref={ref} style={{ fontSize: 36, fontWeight: 700, color: "var(--color-white)", letterSpacing: "-0.02em", fontFamily: "var(--font-display)" }}>
       {count}{suffix}
     </p>
   );
@@ -124,11 +124,12 @@ function Label({ children, light }: { children: React.ReactNode; light?: boolean
     <p
       style={{
         fontSize: 11,
-        fontWeight: 500,
+        fontWeight: 600,
         letterSpacing: 3,
         textTransform: "uppercase",
         color: light ? "rgba(255,255,255,0.35)" : "var(--color-muted)",
         marginBottom: 20,
+        fontFamily: "var(--font-mono)",
       }}
     >
       {children}
@@ -211,8 +212,8 @@ function FormModal({ open, onClose }: { open: boolean; onClose: () => void }) {
 }
 
 /* ── CTA Button ── */
-function DemoButton({ inverted, size = "large", onClick }: { inverted?: boolean; size?: "large" | "small"; onClick?: () => void }) {
-  const pad = size === "large" ? "18px 48px" : "14px 32px";
+function DemoButton({ size = "large", onClick }: { size?: "large" | "small"; onClick?: () => void }) {
+  const pad = size === "large" ? "18px 48px" : "12px 28px";
   return (
     <div>
       <button
@@ -220,18 +221,18 @@ function DemoButton({ inverted, size = "large", onClick }: { inverted?: boolean;
         style={{
           display: "inline-block",
           padding: pad,
-          background: inverted ? "var(--color-white)" : "var(--color-accent)",
-          color: inverted ? "var(--color-charcoal)" : "var(--color-white)",
+          background: "var(--color-white)",
+          color: "var(--color-bg)",
           borderRadius: 8,
-          fontSize: size === "large" ? 14 : 13,
+          fontSize: size === "large" ? 13 : 12,
           fontWeight: 700,
-          letterSpacing: 1.2,
+          letterSpacing: 1.5,
           textTransform: "uppercase",
           textDecoration: "none",
           cursor: "pointer",
-          transition: "all 0.3s ease",
+          transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
           border: "none",
-          fontFamily: "inherit",
+          fontFamily: "var(--font-sans)",
         }}
       >
         BOOK A DEMO
@@ -257,8 +258,8 @@ function Section({
       id={id}
       className="section-responsive"
       style={{
-        background: dark ? "var(--color-charcoal)" : "var(--color-surface)",
-        padding: "clamp(80px,12vw,160px) 24px",
+        background: dark ? "var(--color-bg)" : "var(--color-surface)",
+        padding: "100px 48px",
         position: "relative",
         overflow: "hidden",
         ...style,
@@ -270,13 +271,13 @@ function Section({
 }
 
 function Narrow({ children, style = {} }: { children: React.ReactNode; style?: React.CSSProperties }) {
-  return <div style={{ maxWidth: 720, margin: "0 auto", ...style }}>{children}</div>;
+  return <div style={{ maxWidth: 800, margin: "0 auto", ...style }}>{children}</div>;
 }
 function Wide({ children, style = {} }: { children: React.ReactNode; style?: React.CSSProperties }) {
-  return <div style={{ maxWidth: 1140, margin: "0 auto", ...style }}>{children}</div>;
+  return <div style={{ maxWidth: 1100, margin: "0 auto", ...style }}>{children}</div>;
 }
 function HeroW({ children, style = {} }: { children: React.ReactNode; style?: React.CSSProperties }) {
-  return <div style={{ maxWidth: 1000, margin: "0 auto", ...style }}>{children}</div>;
+  return <div style={{ maxWidth: 1100, margin: "0 auto", ...style }}>{children}</div>;
 }
 
 /* ── Text marquee banner ── */
@@ -318,13 +319,13 @@ function LogoCarousel() {
   ];
   const all = [...logos, ...logos, ...logos];
   return (
-    <div style={{ background: "var(--color-white)", padding: "44px 24px", borderTop: "1px solid var(--color-border)", borderBottom: "1px solid var(--color-border)" }}>
-      <p style={{ textAlign: "center", fontSize: 11, fontWeight: 600, letterSpacing: 2.5, textTransform: "uppercase", color: "var(--color-muted)", marginBottom: 32 }}>
+    <div style={{ background: "var(--color-surface)", padding: "44px 24px", borderTop: "1px solid var(--color-border)", borderBottom: "1px solid var(--color-border)" }}>
+      <p style={{ textAlign: "center", fontSize: 11, fontWeight: 600, letterSpacing: 2.5, textTransform: "uppercase", color: "var(--color-muted)", marginBottom: 32, fontFamily: "var(--font-mono)" }}>
         Join post-corporate founders from
       </p>
       <div style={{ overflow: "hidden", position: "relative" }}>
-        <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 100, background: "linear-gradient(to right, #FFFFFF, transparent)", zIndex: 2 }} />
-        <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 100, background: "linear-gradient(to left, #FFFFFF, transparent)", zIndex: 2 }} />
+        <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 100, background: "linear-gradient(to right, var(--color-surface), transparent)", zIndex: 2 }} />
+        <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 100, background: "linear-gradient(to left, var(--color-surface), transparent)", zIndex: 2 }} />
         <div style={{ display: "flex", alignItems: "center", animation: "marquee 55s linear infinite", width: "max-content" }}>
           {all.map((logo, i) => (
             <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "0 32px", flexShrink: 0 }}>
@@ -420,13 +421,13 @@ function Phase({
     >
       <div className="phase-header" onClick={onClick} style={{ padding: "32px 36px", display: "flex", alignItems: "center", gap: 28, cursor: "pointer", justifyContent: "space-between" }}>
         <div className="phase-header-inner" style={{ display: "flex", alignItems: "center", gap: 28 }}>
-          <span className="phase-number" style={{ fontSize: "clamp(28px, 5vw, 56px)", fontWeight: 900, letterSpacing: "-0.02em", color: isOpen ? "var(--color-accent)" : "rgba(255,255,255,0.12)", minWidth: 72, lineHeight: 1, transition: "color 0.3s ease" }}>{number}</span>
-          <span style={{ fontSize: "clamp(18px, 3vw, 32px)", fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--color-white)", lineHeight: 1 }}>{name}</span>
+          <span className="phase-number" style={{ fontSize: "clamp(28px, 5vw, 56px)", fontWeight: 600, letterSpacing: "-0.02em", color: isOpen ? "var(--color-accent)" : "rgba(255,255,255,0.12)", minWidth: 72, lineHeight: 1, transition: "color 0.3s ease", fontFamily: "var(--font-display)" }}>{number}</span>
+          <span style={{ fontSize: "clamp(18px, 3vw, 32px)", fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "var(--color-white)", lineHeight: 1, fontFamily: "var(--font-display)" }}>{name}</span>
           <span className="phase-subtitle" style={{ fontSize: 14, color: "rgba(255,255,255,0.3)", marginLeft: 4 }}>{subtitle}</span>
         </div>
         <span style={{ fontSize: 24, color: "rgba(255,255,255,0.3)", fontWeight: 300, transform: isOpen ? "rotate(45deg)" : "rotate(0)", transition: "transform 0.3s ease", flexShrink: 0 }}>+</span>
       </div>
-      <div style={{ maxHeight: isOpen ? h + 40 : 0, overflow: "hidden", transition: "max-height 0.5s cubic-bezier(0.25,0.46,0.45,0.94)" }}>
+      <div style={{ maxHeight: isOpen ? h + 40 : 0, overflow: "hidden", transition: "max-height 0.5s cubic-bezier(0.16,1,0.3,1)" }}>
         <div ref={ref} className="phase-expand-content" style={{ padding: "0 36px 36px 136px" }}>{children}</div>
       </div>
     </div>
@@ -557,13 +558,47 @@ export default function LandingPage() {
   ];
 
   const renderCheck = (val: boolean | string) => {
-    if (val === true) return <span style={{ color: "#22c55e", fontSize: 18 }}>&#10003;</span>;
+    if (val === true) return <span style={{ color: "var(--color-success)", fontSize: 18 }}>&#10003;</span>;
     if (val === "partial") return <span style={{ color: "#eab308", fontSize: 14 }}>~</span>;
     return <span style={{ color: "rgba(255,255,255,0.15)", fontSize: 14 }}>&#10005;</span>;
   };
 
+  const navItems = [
+    { label: "Curriculum", target: "curriculum" },
+    { label: "Roadmap", target: "timeline" },
+    { label: "Proof", target: "proof" },
+    { label: "About", target: "about" },
+  ];
+
+  const scrollTo = useCallback((id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  }, []);
+
   return (
     <div>
+      {/* ── TOP NAVIGATION ── */}
+      <nav className="site-nav">
+        <div className="nav-inner">
+          <div className="nav-logos" style={{ display: "flex", alignItems: "center", gap: 20 }}>
+            <div style={{ position: "relative", height: 28, width: 130 }}>
+              <Image src="/images/assets/Productize Yourself_AiVectorLogo.png" alt="Productize Yourself" fill style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} sizes="130px" priority />
+            </div>
+            <span style={{ color: "rgba(255,255,255,0.2)", fontSize: 16, fontWeight: 300 }}>x</span>
+            <div style={{ position: "relative", height: 24, width: 80 }}>
+              <Image src="/images/assets/claude logo white no background.png" alt="Claude" fill style={{ objectFit: "contain" }} sizes="80px" priority />
+            </div>
+          </div>
+          <div className="nav-tabs">
+            {navItems.map((item) => (
+              <button key={item.target} className="nav-tab" onClick={() => scrollTo(item.target)}>
+                {item.label}
+              </button>
+            ))}
+          </div>
+          <button className="nav-cta" onClick={openDemo}>JOIN NOW</button>
+        </div>
+      </nav>
+
       {/* ── STICKY BOTTOM BAR ── */}
       <div
         style={{
@@ -591,8 +626,8 @@ export default function LandingPage() {
           onClick={openDemo}
           style={{
             padding: "12px 28px",
-            background: "var(--color-accent)",
-            color: "var(--color-white)",
+            background: "var(--color-white)",
+            color: "var(--color-bg)",
             borderRadius: 8,
             fontSize: 13,
             fontWeight: 700,
@@ -609,60 +644,46 @@ export default function LandingPage() {
       </div>
 
       {/* ── HERO ── */}
-      <Section dark style={{ minHeight: "100vh", display: "flex", alignItems: "center", paddingTop: 60, paddingBottom: 60 }}>
-        <HeroW style={{ textAlign: "center" }}>
-          <Reveal>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 24, marginBottom: 28 }}>
-              <div style={{ position: "relative", height: 36, width: 160 }}>
-                <Image src="/images/assets/Productize Yourself_AiVectorLogo.png" alt="Productize Yourself" fill style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} sizes="160px" />
+      <Section dark style={{ minHeight: "100vh", display: "flex", alignItems: "center", paddingTop: 80, paddingBottom: 60 }}>
+        <div className="hero-grid">
+          <div>
+            <Reveal>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "8px 18px", borderRadius: 100, border: "1px solid rgba(255,255,255,0.1)", marginBottom: 36 }}>
+                <span style={{ fontSize: 14, color: "rgba(255,255,255,0.5)", fontFamily: "var(--font-sans)" }}>
+                  Join <strong style={{ color: "rgba(255,255,255,0.85)" }}>300+</strong> professionals trained in AI
+                </span>
               </div>
-              <span style={{ color: "rgba(255,255,255,0.25)", fontSize: 20, fontWeight: 300 }}>x</span>
-              <div style={{ position: "relative", height: 32, width: 100 }}>
-                <Image src="/images/assets/claude logo white no background.png" alt="Claude" fill style={{ objectFit: "contain" }} sizes="100px" />
-              </div>
+            </Reveal>
+            <Reveal delay={100}>
+              <h1 className="hero-heading" style={{ fontSize: "clamp(32px, 4.5vw, 58px)", fontWeight: 700, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 4, textTransform: "uppercase", fontFamily: "var(--font-display)" }}>
+                PRODUCTIZE YOURSELF IN 16 WEEKS.
+              </h1>
+              <p style={{ fontSize: "clamp(28px, 3.8vw, 52px)", fontWeight: 500, lineHeight: 1.12, color: "var(--color-accent)", letterSpacing: "-0.03em", marginBottom: 24, fontStyle: "italic", fontFamily: "var(--font-display)" }}>
+                Build. Launch. Lead.
+              </p>
+            </Reveal>
+            <Reveal delay={200}>
+              <p style={{ fontSize: "clamp(16px, 1.6vw, 18px)", color: "rgba(255,255,255,0.45)", lineHeight: 1.7, maxWidth: 520, marginBottom: 40 }}>
+                For entrepreneurs and ambitious professionals ready to get ahead. The live accelerator that teaches you to build, ship, and lead in the AI era.
+              </p>
+            </Reveal>
+            <Reveal delay={300}>
+              <DemoButton onClick={openDemo} />
+            </Reveal>
+          </div>
+          <Reveal delay={150}>
+            <div className="hero-image-wrapper">
+              <Image
+                src="/images/educator-carousel/1.jpg"
+                alt="Ross Power speaking"
+                fill
+                style={{ objectFit: "cover" }}
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
+              />
             </div>
           </Reveal>
-          <Reveal delay={50}>
-            <p style={{ fontSize: 13, fontWeight: 600, letterSpacing: 4, textTransform: "uppercase", color: "#d97657", marginBottom: 20 }}>
-              FOR POST CORPORATE FOUNDERS CONFUSED BY WHATS NEXT
-            </p>
-          </Reveal>
-          <Reveal delay={75}>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3" style={{ marginBottom: 28 }}>
-              <div style={{ display: "flex" }}>
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <div key={i} style={{ width: 32, height: 32, borderRadius: "50%", overflow: "hidden", border: "2px solid var(--color-charcoal)", marginLeft: i > 1 ? -10 : 0, position: "relative", background: "#333" }}>
-                    <Image src={`/images/headshots/${i}.png`} alt="" fill style={{ objectFit: "cover" }} sizes="32px" />
-                  </div>
-                ))}
-              </div>
-              <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>
-                Trusted by <strong style={{ color: "rgba(255,255,255,0.8)" }}>50+</strong> post-corporate founders
-              </span>
-            </div>
-          </Reveal>
-          <Reveal delay={100}>
-            <h1 className="hero-heading" style={{ fontSize: "clamp(32px, 5.5vw, 62px)", fontWeight: 900, lineHeight: 1.06, color: "var(--color-white)", letterSpacing: "-0.04em", marginBottom: 24 }}>
-              Build a Productized Consulting Business &amp; System That{" "}
-              <span style={{ color: "#d97657" }}>
-                Generates Leads On Demand
-              </span>
-              {" "}In 90 Days
-            </h1>
-          </Reveal>
-          <Reveal delay={200}>
-            <p style={{ fontSize: "clamp(17px, 2.2vw, 22px)", color: "rgba(255,255,255,0.6)", lineHeight: 1.7, maxWidth: 580, margin: "0 auto 12px", fontWeight: 500 }}>
-              Make Claude Your Co-Founder
-            </p>
-            <div style={{ marginTop: 24, marginBottom: 48 }} />
-          </Reveal>
-          <Reveal delay={300}>
-            <DemoButton onClick={openDemo} />
-            <p style={{ fontSize: 12, color: "rgba(255,255,255,0.25)", marginTop: 16, letterSpacing: 0.5 }}>
-              Free consultation. See if you qualify.
-            </p>
-          </Reveal>
-        </HeroW>
+        </div>
       </Section>
 
       {/* ── LOGO CAROUSEL ── */}
@@ -671,7 +692,7 @@ export default function LandingPage() {
       <TextBanner dark text="PRODUCTIZE YOURSELF" />
 
       {/* ── TRUST BAR (count-up numbers) ── */}
-      <div style={{ background: "var(--color-charcoal)", padding: "56px 24px", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+      <div style={{ background: "var(--color-charcoal)", padding: "56px 48px", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <Wide>
           <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: 32, textAlign: "center" }}>
             {[
@@ -682,7 +703,7 @@ export default function LandingPage() {
             ].map((item, i) => (
               <div key={i}>
                 <CountUp target={item.target} suffix={item.suffix} />
-                <p style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", marginTop: 8, letterSpacing: 2, textTransform: "uppercase" }}>{item.label}</p>
+                <p style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", marginTop: 8, letterSpacing: 2, textTransform: "uppercase", fontFamily: "var(--font-mono)" }}>{item.label}</p>
               </div>
             ))}
           </div>
@@ -694,7 +715,7 @@ export default function LandingPage() {
         <Narrow>
           <Reveal>
             <Label>THE PROBLEM</Label>
-            <h2 style={{ fontSize: "clamp(32px, 5vw, 56px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-text)", letterSpacing: "-0.03em", marginBottom: 36 }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px, 5vw, 56px)", fontWeight: 700, lineHeight: 1.08, color: "var(--color-text)", letterSpacing: "-0.03em", marginBottom: 36 }}>
               You have the expertise. You don&apos;t have the infrastructure.
             </h2>
           </Reveal>
@@ -718,7 +739,7 @@ export default function LandingPage() {
         <Narrow>
           <Reveal>
             <Label light>THE STORY</Label>
-            <h2 style={{ fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 900, lineHeight: 1.1, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 36 }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 700, lineHeight: 1.1, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 36 }}>
               I left Accenture at 26. It took me years to build what I&apos;m about to show you.
             </h2>
           </Reveal>
@@ -757,11 +778,11 @@ export default function LandingPage() {
       </Section>
 
       {/* ── 6P FRAMEWORK — ACCORDION ── */}
-      <Section dark>
+      <Section dark id="curriculum">
         <Wide>
           <Reveal>
             <Label light>THE FRAMEWORK</Label>
-            <h2 style={{ fontSize: "clamp(32px, 5.5vw, 60px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 20 }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px, 5.5vw, 60px)", fontWeight: 700, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 20 }}>
               Six phases. One system.<br />Your productized consulting business.
             </h2>
             <p style={{ fontSize: 17, lineHeight: 1.8, color: "rgba(255,255,255,0.45)", marginBottom: 56, maxWidth: 680 }}>
@@ -772,14 +793,14 @@ export default function LandingPage() {
             {phases.map((p, i) => (
               <Phase key={i} number={p.n} name={p.name} subtitle={p.sub} isOpen={openPhase === i} onClick={() => setOpenPhase(openPhase === i ? -1 : i)}>
                 <p style={{ fontSize: 16, lineHeight: 1.8, color: "rgba(255,255,255,0.65)", marginBottom: 24 }}>{p.body}</p>
-                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.3)", marginBottom: 12 }}>Deliverables</p>
+                <p style={{ fontSize: 11, fontWeight: 600, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.3)", marginBottom: 12, fontFamily: "var(--font-mono)" }}>Deliverables</p>
                 {p.gets.map((g, j) => (
                   <p key={j} style={{ fontSize: 14, color: "rgba(255,255,255,0.55)", marginBottom: 6, paddingLeft: 16 }}>
                     <span style={{ color: "rgba(255,255,255,0.15)", marginRight: 8 }}>-</span>{g}
                   </p>
                 ))}
-                <div style={{ marginTop: 20, padding: "16px 20px", background: "rgba(217,118,87,0.06)", borderRadius: 8, borderLeft: "2px solid var(--color-accent)" }}>
-                  <p style={{ fontSize: 11, fontWeight: 700, color: "var(--color-accent)", marginBottom: 6, letterSpacing: 1.5, textTransform: "uppercase" }}>AI at work</p>
+                <div style={{ marginTop: 20, padding: "16px 20px", background: "rgba(155,176,196,0.08)", borderRadius: 8, borderLeft: "2px solid var(--color-accent)" }}>
+                  <p style={{ fontSize: 11, fontWeight: 600, color: "var(--color-accent)", marginBottom: 6, letterSpacing: 1.5, textTransform: "uppercase", fontFamily: "var(--font-mono)" }}>AI at work</p>
                   <p style={{ fontSize: 14, lineHeight: 1.75, color: "rgba(255,255,255,0.55)" }}>{p.ai}</p>
                 </div>
               </Phase>
@@ -807,7 +828,7 @@ export default function LandingPage() {
           <Reveal>
             <div style={{ textAlign: "center", marginBottom: 64 }}>
               <Label>WHAT YOU GET</Label>
-              <h2 style={{ fontSize: "clamp(32px, 5vw, 56px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-text)", letterSpacing: "-0.03em" }}>
+              <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(32px, 5vw, 56px)", fontWeight: 700, lineHeight: 1.08, color: "var(--color-text)", letterSpacing: "-0.03em" }}>
                 Built in 16 weeks. Yours forever.
               </h2>
             </div>
@@ -823,7 +844,7 @@ export default function LandingPage() {
             ].map(([num, title, desc], i) => (
               <Reveal key={i} delay={i * 80}>
                 <div style={{ background: "var(--color-white)", padding: 36, borderRadius: 12, position: "relative", height: "100%", border: "1px solid var(--color-border)" }}>
-                  <span style={{ fontSize: 72, fontWeight: 900, color: "#F0F0F0", position: "absolute", top: 12, right: 20, lineHeight: 1, pointerEvents: "none" }}>{num}</span>
+                  <span style={{ fontSize: 72, fontWeight: 600, color: "#EBEBEB", position: "absolute", top: 12, right: 20, lineHeight: 1, pointerEvents: "none", fontFamily: "var(--font-display)" }}>{num}</span>
                   <p style={{ fontSize: 18, fontWeight: 700, color: "var(--color-text)", marginBottom: 12, position: "relative" }}>{title}</p>
                   <p style={{ fontSize: 15, lineHeight: 1.75, color: "var(--color-text-body)", position: "relative" }}>{desc}</p>
                 </div>
@@ -839,7 +860,7 @@ export default function LandingPage() {
           <Reveal>
             <div style={{ textAlign: "center", marginBottom: 48 }}>
               <Label light>THE FULL PACKAGE</Label>
-              <h2 style={{ fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 16 }}>
+              <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 700, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 16 }}>
                 Everything You Get
               </h2>
               <p style={{ fontSize: 16, color: "rgba(255,255,255,0.4)", maxWidth: 560, margin: "0 auto" }}>
@@ -856,7 +877,7 @@ export default function LandingPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ marginTop: 56, gap: 16 }}>
               {allDeliverables.map((title, i) => (
                 <div key={i} style={{ display: "flex", gap: 12, alignItems: "flex-start", padding: "10px 0" }}>
-                  <span style={{ color: "var(--color-accent)", fontSize: 12, fontWeight: 700, flexShrink: 0, marginTop: 3, fontFamily: "monospace" }}>
+                  <span style={{ color: "var(--color-accent)", fontSize: 12, fontWeight: 600, flexShrink: 0, marginTop: 3, fontFamily: "var(--font-mono)" }}>
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <p style={{ fontSize: 15, color: "rgba(255,255,255,0.7)", lineHeight: 1.5 }}>{title}</p>
@@ -868,12 +889,12 @@ export default function LandingPage() {
       </div>
 
       {/* ── TIMELINE ── */}
-      <Section dark>
+      <Section dark id="timeline">
         <Wide>
           <Reveal>
             <div style={{ textAlign: "center", marginBottom: 56 }}>
               <Label light>THE TIMELINE</Label>
-              <h2 style={{ fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 16 }}>
+              <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 700, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 16 }}>
                 Your 16-Week Journey
               </h2>
               <p style={{ fontSize: 16, color: "rgba(255,255,255,0.4)", maxWidth: 560, margin: "0 auto" }}>
@@ -885,9 +906,9 @@ export default function LandingPage() {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6" style={{ gap: 12 }}>
               {timeline.map((t, i) => (
                 <div key={i} style={{ background: "var(--color-card)", borderRadius: 12, padding: "28px 20px", borderLeft: "2px solid var(--color-accent)" }}>
-                  <p style={{ fontSize: 11, letterSpacing: 2, color: "var(--color-accent)", fontWeight: 700, textTransform: "uppercase", marginBottom: 12 }}>{t.weeks}</p>
-                  <p style={{ fontSize: 11, color: "rgba(255,255,255,0.2)", letterSpacing: 1, marginBottom: 4 }}>{t.phase}</p>
-                  <p style={{ fontSize: 20, fontWeight: 800, color: "var(--color-white)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 8 }}>{t.name}</p>
+                  <p style={{ fontSize: 11, letterSpacing: 2, color: "var(--color-accent)", fontWeight: 600, textTransform: "uppercase", marginBottom: 12, fontFamily: "var(--font-mono)" }}>{t.weeks}</p>
+                  <p style={{ fontSize: 11, color: "rgba(255,255,255,0.2)", letterSpacing: 1, marginBottom: 4, fontFamily: "var(--font-mono)" }}>{t.phase}</p>
+                  <p style={{ fontSize: 20, fontWeight: 700, color: "var(--color-white)", textTransform: "uppercase", letterSpacing: 1, marginBottom: 8, fontFamily: "var(--font-display)" }}>{t.name}</p>
                   <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", lineHeight: 1.5 }}>{t.desc}</p>
                 </div>
               ))}
@@ -905,7 +926,7 @@ export default function LandingPage() {
           <Reveal>
             <div style={{ textAlign: "center", marginBottom: 56 }}>
               <Label light>THE TRANSFORMATION</Label>
-              <h2 style={{ fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em" }}>Before vs. After</h2>
+              <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 700, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em" }}>Before vs. After</h2>
             </div>
           </Reveal>
           <Reveal delay={100}>
@@ -919,7 +940,7 @@ export default function LandingPage() {
                   </div>
                 ))}
               </div>
-              <div style={{ background: "#111827", padding: "40px 36px" }}>
+              <div style={{ background: "var(--color-charcoal)", padding: "40px 36px" }}>
                 <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: "var(--color-accent)", marginBottom: 28 }}>After 16 Weeks</p>
                 {["Named signature offer strangers understand instantly", "Landing page, email nurture, and ads generating leads weekly", "AI engine publishing 3x per week in your voice", "Sales playbook with scripts and closing frameworks", "You control the dynamic, the scope, and the price", "AI woven into how you create, sell, and deliver", "\"I have a system and it's working\""].map((t, i) => (
                   <div key={i} style={{ display: "flex", gap: 12, marginBottom: 14, alignItems: "flex-start" }}>
@@ -940,7 +961,7 @@ export default function LandingPage() {
         <Narrow>
           <Reveal>
             <Label>WHY US</Label>
-            <h2 style={{ fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-text)", letterSpacing: "-0.03em", marginBottom: 48 }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 700, lineHeight: 1.08, color: "var(--color-text)", letterSpacing: "-0.03em", marginBottom: 48 }}>
               8 reasons post-corporate founders choose to build with us
             </h2>
           </Reveal>
@@ -956,7 +977,7 @@ export default function LandingPage() {
           ].map(([title, body], i) => (
             <SlideReveal key={i} delay={i * 150}>
               <div style={{ display: "flex", gap: 24, marginBottom: 20, paddingBottom: 20, borderBottom: i < 7 ? "1px solid var(--color-border)" : "none" }}>
-                <span style={{ fontSize: 48, fontWeight: 900, color: "var(--color-accent)", minWidth: 48, lineHeight: 1, textAlign: "right", opacity: 0.2 }}>{i + 1}</span>
+                <span style={{ fontSize: 48, fontWeight: 700, color: "var(--color-accent)", minWidth: 48, lineHeight: 1, textAlign: "right", opacity: 0.2 }}>{i + 1}</span>
                 <div style={{ paddingTop: 4 }}>
                   <p style={{ fontSize: 18, fontWeight: 700, color: "var(--color-text)", marginBottom: 8, lineHeight: 1.3 }}>{title}</p>
                   <p style={{ fontSize: 15, lineHeight: 1.75, color: "var(--color-text-body)" }}>{body}</p>
@@ -973,7 +994,7 @@ export default function LandingPage() {
           <Reveal>
             <div style={{ textAlign: "center", marginBottom: 56 }}>
               <Label light>HOW WE COMPARE</Label>
-              <h2 style={{ fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 16 }}>
+              <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 700, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 16 }}>
                 Not coaching. Not an agency.<br />A full-suite productized business, built with you.
               </h2>
               <p style={{ fontSize: 16, color: "rgba(255,255,255,0.4)", maxWidth: 640, margin: "0 auto" }}>
@@ -987,7 +1008,7 @@ export default function LandingPage() {
                 <thead>
                   <tr>
                     <th style={{ textAlign: "left", padding: "16px 20px", fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "rgba(255,255,255,0.3)", borderBottom: "1px solid var(--color-border-dark)" }}></th>
-                    <th style={{ padding: "16px 16px", fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "var(--color-white)", background: "rgba(217,118,87,0.15)", borderBottom: "1px solid var(--color-accent)", borderRadius: "8px 8px 0 0", textAlign: "center" }}>Productize Yourself</th>
+                    <th style={{ padding: "16px 16px", fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "var(--color-white)", background: "rgba(155,176,196,0.15)", borderBottom: "1px solid var(--color-accent)", borderRadius: "8px 8px 0 0", textAlign: "center" }}>Productize Yourself</th>
                     <th style={{ padding: "16px 16px", fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "rgba(255,255,255,0.4)", borderBottom: "1px solid var(--color-border-dark)", textAlign: "center" }}>Business Coach</th>
                     <th style={{ padding: "16px 16px", fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "rgba(255,255,255,0.4)", borderBottom: "1px solid var(--color-border-dark)", textAlign: "center" }}>Marketing Agency</th>
                     <th style={{ padding: "16px 16px", fontSize: 12, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", color: "rgba(255,255,255,0.4)", borderBottom: "1px solid var(--color-border-dark)", textAlign: "center" }}>AI Course</th>
@@ -997,7 +1018,7 @@ export default function LandingPage() {
                   {comparisonRows.map((row, i) => (
                     <tr key={i}>
                       <td style={{ padding: "14px 20px", fontSize: 14, color: "rgba(255,255,255,0.65)", borderBottom: "1px solid var(--color-border-dark)" }}>{row.feature}</td>
-                      <td style={{ padding: "14px 16px", textAlign: "center", background: "rgba(217,118,87,0.06)", borderBottom: "1px solid var(--color-border-dark)" }}>{renderCheck(row.py)}</td>
+                      <td style={{ padding: "14px 16px", textAlign: "center", background: "rgba(155,176,196,0.08)", borderBottom: "1px solid var(--color-border-dark)" }}>{renderCheck(row.py)}</td>
                       <td style={{ padding: "14px 16px", textAlign: "center", borderBottom: "1px solid var(--color-border-dark)" }}>{renderCheck(row.coach)}</td>
                       <td style={{ padding: "14px 16px", textAlign: "center", borderBottom: "1px solid var(--color-border-dark)" }}>{renderCheck(row.agency)}</td>
                       <td style={{ padding: "14px 16px", textAlign: "center", borderBottom: "1px solid var(--color-border-dark)" }}>{renderCheck(row.ai)}</td>
@@ -1023,7 +1044,7 @@ export default function LandingPage() {
               </div>
               <Label>YOUR AI CO-FOUNDER</Label>
             </div>
-            <h2 style={{ fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-text)", letterSpacing: "-0.03em", marginBottom: 24 }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 700, lineHeight: 1.08, color: "var(--color-text)", letterSpacing: "-0.03em", marginBottom: 24 }}>
               Make Claude Your Co-Founder
             </h2>
           </Reveal>
@@ -1044,14 +1065,14 @@ export default function LandingPage() {
                 { num: "2", label: "SCALE", desc: "Use systems that let the backend of your business run while you deliver and do more of what you're best at." },
                 { num: "3", label: "SUSTAIN", desc: "Think long-term. Build something that lasts. With AI, stay relevant, needed, and able to survive the ultimate test of our time." },
               ].map((item) => (
-                <div key={item.num} style={{ background: "var(--color-bg)", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 16, padding: "40px 32px", position: "relative", overflow: "hidden" }}>
-                  <span style={{ position: "absolute", top: -10, left: 16, fontSize: 120, fontWeight: 900, color: "rgba(217,118,87,0.10)", lineHeight: 1, pointerEvents: "none", userSelect: "none" }}>{item.num}</span>
+                <div key={item.num} style={{ background: "var(--color-card)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 16, padding: "40px 32px", position: "relative", overflow: "hidden" }}>
+                  <span style={{ position: "absolute", top: -10, left: 16, fontSize: 120, fontWeight: 700, color: "rgba(155,176,196,0.08)", lineHeight: 1, pointerEvents: "none", userSelect: "none" }}>{item.num}</span>
                   <div style={{ position: "relative", zIndex: 1 }}>
                     <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginBottom: 16 }}>
-                      <span style={{ fontSize: 48, fontWeight: 900, color: "#d97657", lineHeight: 1 }}>{item.num}</span>
-                      <span style={{ fontSize: 42, fontWeight: 900, color: "#d97657", lineHeight: 1, letterSpacing: "-0.02em" }}>{item.label}</span>
+                      <span style={{ fontSize: 48, fontWeight: 700, color: "var(--color-accent)", lineHeight: 1, fontFamily: "var(--font-display)" }}>{item.num}</span>
+                      <span style={{ fontSize: 42, fontWeight: 700, color: "var(--color-accent)", lineHeight: 1, letterSpacing: "-0.02em", fontFamily: "var(--font-display)" }}>{item.label}</span>
                     </div>
-                    <p style={{ fontSize: 16, lineHeight: 1.75, color: "var(--color-text-body)" }}>
+                    <p style={{ fontSize: 16, lineHeight: 1.75, color: "rgba(255,255,255,0.55)" }}>
                       {item.desc}
                     </p>
                   </div>
@@ -1073,12 +1094,12 @@ export default function LandingPage() {
       </Section>
 
       {/* ── SOCIAL PROOF — STATIC GRID ── */}
-      <Section dark style={{ paddingBottom: 40 }}>
+      <Section dark id="proof" style={{ paddingBottom: 40 }}>
         <Wide>
           <Reveal>
             <div style={{ textAlign: "center", marginBottom: 48 }}>
               <Label light>RESULTS</Label>
-              <h2 style={{ fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em" }}>
+              <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 700, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em" }}>
                 What happens when the system works
               </h2>
             </div>
@@ -1103,7 +1124,7 @@ export default function LandingPage() {
           <Reveal>
             <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: 2, borderRadius: 16, overflow: "hidden" }}>
               <div style={{ background: "var(--color-charcoal)", padding: "56px 44px" }}>
-                <p style={{ fontSize: "clamp(24px, 3vw, 36px)", fontWeight: 900, color: "var(--color-white)", marginBottom: 36, letterSpacing: "-0.02em" }}>This is for you if...</p>
+                <p style={{ fontSize: "clamp(24px, 3vw, 36px)", fontWeight: 700, color: "var(--color-white)", marginBottom: 36, letterSpacing: "-0.02em", fontFamily: "var(--font-display)" }}>This is for you if...</p>
                 {["You have 5+ years of professional experience worth packaging", "You\u2019ve left corporate or you\u2019re about to", "You\u2019re doing custom work that feels like another job", "You\u2019re earning below your potential and you know it", "You\u2019re ready to build \u2014 not explore, learn, or plan", "You want AI to be a genuine competitive advantage"].map((t, i) => (
                   <div key={i} style={{ display: "flex", gap: 14, marginBottom: 16, alignItems: "flex-start" }}>
                     <span style={{ color: "var(--color-accent)", fontSize: 16, marginTop: 1, flexShrink: 0 }}>&gt;</span>
@@ -1111,8 +1132,8 @@ export default function LandingPage() {
                   </div>
                 ))}
               </div>
-              <div style={{ background: "#111111", padding: "56px 44px" }}>
-                <p style={{ fontSize: "clamp(24px, 3vw, 36px)", fontWeight: 900, color: "rgba(255,255,255,0.35)", marginBottom: 36, letterSpacing: "-0.02em" }}>This isn&apos;t for you if...</p>
+              <div style={{ background: "var(--color-mid)", padding: "56px 44px" }}>
+                <p style={{ fontSize: "clamp(24px, 3vw, 36px)", fontWeight: 700, color: "rgba(255,255,255,0.35)", marginBottom: 36, letterSpacing: "-0.02em", fontFamily: "var(--font-display)" }}>This isn&apos;t for you if...</p>
                 {["You\u2019re looking for a get-rich-quick scheme", "You don\u2019t have real expertise or professional experience", "You want someone to do the work for you", "You\u2019re not willing to commit 5-10 hours per week", "You think AI is a fad or a shortcut", "You\u2019d rather keep planning than start building"].map((t, i) => (
                   <div key={i} style={{ display: "flex", gap: 14, marginBottom: 16, alignItems: "flex-start" }}>
                     <span style={{ color: "rgba(255,255,255,0.15)", fontSize: 13, marginTop: 2, flexShrink: 0 }}>x</span>
@@ -1126,7 +1147,7 @@ export default function LandingPage() {
       </Section>
 
       {/* ── ABOUT ROSS ── */}
-      <Section dark>
+      <Section dark id="about">
         <Wide>
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr]" style={{ gap: 64, alignItems: "center" }}>
             <Reveal>
@@ -1136,7 +1157,7 @@ export default function LandingPage() {
             </Reveal>
             <Reveal delay={100}>
               <Label light>YOUR GUIDE</Label>
-              <h2 style={{ fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 900, lineHeight: 1.1, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 28 }}>Meet Ross</h2>
+              <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 700, lineHeight: 1.1, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 28 }}>Meet Ross</h2>
               {[
                 "Ex-Accenture product strategist. 10+ years in product strategy and acceleration. Built across the UK, Lisbon, US, Dubai, and Bali.",
                 "I built Productize Yourself because it didn't exist when I needed it. After leaving corporate at 26, I was confused, lost, and spent years assembling pieces from coaches, courses, and expensive mistakes until the pattern became clear.",
@@ -1169,7 +1190,7 @@ export default function LandingPage() {
         <Narrow>
           <Reveal>
             <Label>FAQ</Label>
-            <h2 style={{ fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-text)", letterSpacing: "-0.03em", marginBottom: 40 }}>Common questions</h2>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 700, lineHeight: 1.08, color: "var(--color-text)", letterSpacing: "-0.03em", marginBottom: 40 }}>Common questions</h2>
           </Reveal>
           <Reveal delay={100}>
             {[
@@ -1192,7 +1213,7 @@ export default function LandingPage() {
         <Narrow style={{ textAlign: "center" }}>
           <Reveal>
             <Label light>A NOTE FROM ROSS</Label>
-            <h2 style={{ fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 900, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 32 }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 4.5vw, 48px)", fontWeight: 700, lineHeight: 1.08, color: "var(--color-white)", letterSpacing: "-0.03em", marginBottom: 32 }}>
               The cost of waiting isn&apos;t zero.
             </h2>
           </Reveal>
@@ -1213,7 +1234,7 @@ export default function LandingPage() {
       <Section dark={false} style={{ textAlign: "center", padding: "clamp(100px,14vw,180px) 24px" }}>
         <HeroW>
           <Reveal>
-            <h2 style={{ fontSize: "clamp(36px, 6.5vw, 76px)", fontWeight: 900, lineHeight: 1.05, color: "var(--color-text)", letterSpacing: "-0.04em", marginBottom: 20 }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(36px, 6.5vw, 76px)", fontWeight: 700, lineHeight: 1.05, color: "var(--color-text)", letterSpacing: "-0.04em", marginBottom: 20 }}>
               Ready to productize yourself?
             </h2>
             <p style={{ fontSize: 18, color: "var(--color-text-body)", lineHeight: 1.7, maxWidth: 560, margin: "0 auto 48px" }}>
