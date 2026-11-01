@@ -19,9 +19,9 @@ const NAV: { label: string; view?: View; icon: IconName }[] = [
 const TODO = ["Identity excavation", "Your IP map", "Ideal client profile"];
 
 const SESSIONS = [
-  { day: "Wed", n: "01", title: "Live with Ross", status: "attending" },
-  { day: "Wed", n: "02", title: "Live with Ross", status: "attend" },
-  { day: "Wed", n: "03", title: "Live with Ross", status: "attend" },
+  { day: "Tue", n: "01", title: "Live with Ross", status: "attending" },
+  { day: "Thu", n: "02", title: "Live with Ross", status: "attend" },
+  { day: "Tue", n: "03", title: "Live with Ross", status: "attend" },
 ] as const;
 
 const COLLECTIONS = [

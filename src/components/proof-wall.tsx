@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Highlighted } from "@/components/highlight";
+import { HERO } from "@/lib/content";
 import {
-  PROOF_ROW_ONE,
-  PROOF_ROW_TWO,
+  PROOF_CARDS,
   type ProofCard,
   type QuoteCard,
   type VideoCard,
@@ -17,10 +18,33 @@ function initials(name: string) {
     .join("");
 }
 
+export function Stars({ label }: { label?: string }) {
+  return (
+    <p className="stars">
+      <span className="stars-row" aria-hidden="true">
+        {Array.from({ length: 5 }, (_, i) => (
+          <svg key={i} viewBox="0 0 20 20">
+            <path
+              fill="currentColor"
+              d="M10 1.4 12.4 6.3l5.4.8-3.9 3.8.9 5.4L10 14.2 5.2 16.3l.9-5.4L2.2 7.1l5.4-.8L10 1.4z"
+            />
+          </svg>
+        ))}
+      </span>
+      {label ? <span>{label}</span> : <span className="sr-only">5 stars</span>}
+    </p>
+  );
+}
+
 function Quote({ card }: { card: QuoteCard }) {
   return (
     <figure className={`proof-quote proof-${card.tone}`}>
-      <blockquote>&ldquo;{card.quote}&rdquo;</blockquote>
+      <Stars />
+      <blockquote>
+        &ldquo;
+        <Highlighted text={card.quote} />
+        &rdquo;
+      </blockquote>
       <figcaption>
         <span className="proof-avatar" aria-hidden="true">
           {initials(card.name)}
@@ -63,6 +87,10 @@ function Video({ card, hidden }: { card: VideoCard; hidden: boolean }) {
         onPause={() => setPlaying(false)}
         onPlay={() => setPlaying(true)}
       />
+      <div className="proof-video-meta">
+        <Stars />
+        <p>{card.name}</p>
+      </div>
       {!playing ? (
         <button
           type="button"
@@ -94,14 +122,12 @@ function Video({ card, hidden }: { card: VideoCard; hidden: boolean }) {
   );
 }
 
-function Row({
+function Column({
   cards,
-  direction,
   speed,
   stopped,
 }: {
   cards: ProofCard[];
-  direction: "left" | "right";
   speed: number;
   stopped: boolean;
 }) {
@@ -109,14 +135,14 @@ function Row({
 
   return (
     <div
-      className="proof-row"
+      className="proof-col"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onFocus={() => setHovered(true)}
       onBlur={() => setHovered(false)}
     >
       <div
-        className={`proof-track proof-${direction}`}
+        className="proof-track"
         style={{
           animationDuration: `${speed}s`,
           animationPlayState: hovered || stopped ? "paused" : "running",
@@ -140,13 +166,39 @@ function Row({
   );
 }
 
+function useProofColumns() {
+  const [count, setCount] = useState(1);
+
+  useEffect(() => {
+    const two = window.matchMedia("(min-width: 720px)");
+    const three = window.matchMedia("(min-width: 960px)");
+    const sync = () => setCount(three.matches ? 3 : two.matches ? 2 : 1);
+    sync();
+    two.addEventListener("change", sync);
+    three.addEventListener("change", sync);
+    return () => {
+      two.removeEventListener("change", sync);
+      three.removeEventListener("change", sync);
+    };
+  }, []);
+
+  return count;
+}
+
 export function ProofWall() {
   const [stopped, setStopped] = useState(false);
+  const colCount = useProofColumns();
+  const columns = Array.from({ length: colCount }, (_, index) =>
+    PROOF_CARDS.filter((_, i) => i % colCount === index),
+  );
 
   return (
     <div className="proof-wall">
-      <Row cards={PROOF_ROW_ONE} direction="left" speed={120} stopped={stopped} />
-      <Row cards={PROOF_ROW_TWO} direction="right" speed={135} stopped={stopped} />
+      <div className="proof-cols">
+        {columns.map((cards, i) => (
+          <Column key={i} cards={cards} speed={70 + i * 12} stopped={stopped} />
+        ))}
+      </div>
       <button
         type="button"
         className="proof-toggle"
@@ -157,4 +209,8 @@ export function ProofWall() {
       </button>
     </div>
   );
+}
+
+export function ProofTrust() {
+  return <Stars label={HERO.trust} />;
 }

@@ -2,9 +2,42 @@ export const HERO = {
   label: "Productize Yourself with AI",
   headline: ["Productize", "Yourself", "with AI"],
   subheading:
-    "Turn who you are into what you do, and build your dream business and life with AI as your co\u2011founder",
+    "Turn who you are into what you do, and build towards your first ==$5k or $10k month==, with AI as your co\u2011founder",
   button: "Apply now",
   small: "Ten questions, a few minutes, and your 50% is locked in",
+  trust: "Programmes trusted by > 150 people so far",
+} as const;
+
+export const GOALS = {
+  label: "Who this is built for",
+  heading: "Two goals. Both **under $10k months**",
+  paths: [
+    {
+      from: "0",
+      to: "$5,000",
+      unit: "USD or GBP a month",
+      body: "You know what you're good at. You don't have a named offer or a steady month yet. This is how you get your first ==$5k== month.",
+    },
+    {
+      from: "$5,000",
+      to: "$10,000",
+      unit: "USD or GBP a month",
+      body: "You've had some months that work and some that don't. This is how you make $10k a ==repeatable month==, not a lucky one.",
+    },
+  ],
+  beyond:
+    "Already past $10k? Stay. This is still highly valuable, and it is the exact formula I used to hit ==$20k months==, repeatedly, in my first year in business.",
+} as const;
+
+export const INCLUSIONS = {
+  label: "What you get",
+  heading: "Live calls, a path, a community, and the software",
+  items: [
+    { name: "Two live calls a week", line: "With me in the room, every week, recorded in your workspace" },
+    { name: "The six-phase journey", line: "From who you are to a named offer and a client pipeline" },
+    { name: "The community", line: "People on the same path, doing the same work, in the same place" },
+    { name: "Pistachio", line: "The software I am building. The programme lives inside it" },
+  ],
 } as const;
 
 export const STATS = [
@@ -43,11 +76,11 @@ export const JOURNEY = {
 
 export const WORKSPACE = {
   label: "Powered by pistachio",
-  heading: "The workspace is the programme",
-  body: "Every phase, live session, prompt and reflection lives in one place, built on Pistachio, the learning platform I designed for doing rather than watching.",
+  heading: "The software is part of the journey",
+  body: "Pistachio is the software I am building for this. Your journey, two live calls a week, library and reflections all live here. It is ==not an extra==. It is where you do the programme.",
   tiles: [
     { key: "journey", title: "A path that unlocks as you go", line: "Each phase opens when you're ready for it, so you always know the next step" },
-    { key: "sessions", title: "Live with Ross", line: "Join live, add it to your calendar, and catch the recording if you miss it" },
+    { key: "sessions", title: "Two live calls a week", line: "Join live, add it to your calendar, and catch the recording if you miss it" },
     { key: "library", title: "A library that keeps growing", line: "Over 500 tested prompts and the skills I use in my own business" },
     { key: "reflections", title: "Reflections I read", line: "Every activity ends with a reflection, and I reply to them" },
   ],
@@ -55,38 +88,42 @@ export const WORKSPACE = {
 
 export const LIVE = {
   label: "Live sessions",
-  heading: "You build it with me in the room",
-  body: "We work through every phase together in live sessions, and each one is saved in your workspace so you never fall behind.",
-  points: ["Live sessions with Ross", "Recordings saved in your workspace", "A community doing the same work"],
+  heading: "**Two live calls** every week, with me in the room",
+  body: "We go live ==twice a week== and work through the phase together. Every call is saved in Pistachio, so you never fall behind.",
+  points: [
+    "**Two live calls a week** with Ross",
+    "Every session recorded in your workspace",
+    "A community doing the same work",
+  ],
 } as const;
 
 export const NAVAL = {
   leadIn: "If you had to sum up success in two words",
   quote: "Productize yourself.",
   attribution: "Naval Ravikant",
-  support: "Productize has specific knowledge and leverage. Yourself has uniqueness and accountability.",
+  support: "Productize has **specific knowledge** and leverage. Yourself has uniqueness and accountability.",
 } as const;
 
 export const WHO = {
   label: "Who this is for",
-  heading: "For coaches, consultants and experts ready for the business to reflect how good they are",
+  heading: "For coaches, consultants and experts building towards **$10k months**",
   list: [
-    "You're earning under $10k a month from what you know and want your first steady months",
+    "You're going from 0 to your first ==$5,000 month==, in USD or GBP",
+    "Or from $5,000 to your first ==$10,000 month==, and you want it to repeat",
     "People already come to you for advice, but how you help has no name, method or price",
-    "You can feel AI changing your industry and you'd rather use it to scale yourself",
-    "You want to build real things as you go and leave every session holding something",
+    "You want to build real things as you go, with **two live calls a week** and software that holds the work",
   ],
   upgrade: {
-    before: "Already past $10k a month with a proven offer? ",
+    before: "Already past $10k a month? Stay. This is the formula I used to hit ==$20k months==, repeatedly, in my first year. If you also want a room of established founders, ",
     link: "Upgrade",
-    after: " is where you belong",
+    after: " is next door",
     href: "https://joinupgrade.co",
   },
 } as const;
 
 export const BONUSES = {
   label: "Early-bird offer",
-  heading: "Early-bird perks for everyone who applies before 31 December",
+  heading: "Early-bird perks for everyone who applies before ==31 December==",
   cards: [
     { name: "Your Claude setup, done with you", body: "A live session where we get your AI Co-Founder installed and briefed together" },
     { name: "Your offer, reviewed by me", body: "Once your first offer is built, I'll review it personally" },
@@ -99,7 +136,7 @@ export const LETTER = {
   label: "A personal note",
   heading: "This is my favourite programme I've ever built",
   paragraphs: [
-    "I've spent ten years as a product manager, in startups and in some of the biggest companies in the world. Then I ran two Productize Yourself programmes, iterated the method in the room, and ran five Claude programmes, with a sixth underway. Eighteen months and more than 1,500 hours of teaching both. This is the merger of those two paths, with Claude as your AI co-founder.",
+    "I've spent ten years as a product manager, in startups and in some of the biggest companies in the world. Then I ran two Productize Yourself programmes, iterated the method in the room, and ran five Claude programmes, with a sixth underway. Eighteen months and more than ==1,500 hours== of teaching both. This is the **merger of those two paths**, with Claude as your AI co-founder.",
     "The idea starts with Naval Ravikant, and with Dan Koe, Alex Hormozi, Daniel Priestley and Tom Noske along the way. I built it for the version of me who left corporate with plenty of expertise and no idea how to turn it into a business. If that sounds like you, I'd love you to be one of the first through the door.",
   ],
   signOff: "Ross",
@@ -145,7 +182,7 @@ export const FAQ = [
   },
   {
     q: "What if I'm already earning more than $10k a month?",
-    a: "Then you're probably ready for Upgrade, the community for established founders, and you can join that waitlist instead.",
+    a: "Stay. This is still highly valuable, and it is the exact formula I used to hit $20k months, repeatedly, in my first year in business. The focus of the room is 0 to $10k, so you'll be ahead, not in the wrong place. If you also want a community of established founders, Upgrade is next door.",
   },
 ] as const;
 
@@ -153,14 +190,14 @@ export const FINAL = {
   label: "Apply for an early-bird place",
   headline: "Productize Yourself with AI",
   subheading:
-    "If you've been waiting for the moment to turn what you know into something that works without you, 2027 is it.",
+    "If you've been waiting to go from ==0 to $5k==, or **$5k to $10k**, 2027 is the year you do it with a system.",
   small: "No spam, and you can leave whenever you like",
   closer:
     "Go do your thing. It'll all make sense eventually, and this time you'll have a system to show for it.",
   thanks:
     "Your application is in and your 50% early-bird offer is locked in. Keep an eye on your inbox and WhatsApp, because the first thing I'll send you is how to get Claude ready so you're ahead before we even begin.",
   upgrade:
-    "From what you've shared, Upgrade might be an even better fit, and you can join that waitlist too.",
+    "This programme still fits. If you also want a community of established founders, you can join the Upgrade waitlist too.",
 } as const;
 
 export const REVENUE_OPTIONS = [
@@ -176,7 +213,7 @@ export const OFFER = {
   headline: "Apply before 31 December and you get",
   body: "Everyone who applies before 31 December 2026 locks in half price on Productize Yourself when it opens, along with the early-bird perks below.",
   perks: [
-    "50% off the programme when it goes live",
+    "==50% off== the programme when it goes live",
     "Your Claude setup, done with me in a live session",
     "Your first offer, reviewed by me personally",
     "My own ScoreCard and lead magnet to adapt",

@@ -2,14 +2,17 @@ import Image from "next/image";
 import { PistachioMark, PoweredByPistachio } from "@/components/pistachio-mark";
 import { Icon, ProductStage, SessionRow } from "@/components/product-stage";
 import { StructuredData } from "@/components/structured-data";
-import { ProofWall } from "@/components/proof-wall";
+import { Highlighted } from "@/components/highlight";
+import { ProofTrust, ProofWall } from "@/components/proof-wall";
 import { WaitlistForm } from "@/components/waitlist-form";
 import {
   APPLICATION,
   BONUSES,
   FAQ,
   FINAL,
+  GOALS,
   HERO,
+  INCLUSIONS,
   JOURNEY,
   LETTER,
   LIVE,
@@ -61,7 +64,9 @@ function SectionHead({
   return (
     <div className={center ? "section-head is-center" : "section-head"}>
       <p className="eyebrow">{label}</p>
-      <h2 id={id}>{heading}</h2>
+      <h2 id={id}>
+        <Highlighted text={heading} />
+      </h2>
     </div>
   );
 }
@@ -87,8 +92,8 @@ function TileVisual({ kind }: { kind: (typeof WORKSPACE.tiles)[number]["key"] })
   if (kind === "sessions") {
     return (
       <div className="tile-ui session-list">
-        <SessionRow day="Wed" n="01" title="Live with Ross" status="attending" />
-        <SessionRow day="Wed" n="02" title="Live with Ross" status="attend" />
+        <SessionRow day="Tue" n="01" title="Live with Ross" status="attending" />
+        <SessionRow day="Thu" n="02" title="Live with Ross" status="attend" />
       </div>
     );
   }
@@ -185,10 +190,13 @@ export default function WaitlistPage() {
                   </span>
                 ))}
               </h1>
-              <p className="hero-sub">{HERO.subheading}</p>
+              <p className="hero-sub">
+                <Highlighted text={HERO.subheading} />
+              </p>
               <a className="btn btn-primary btn-lg" href="#waitlist">
                 {HERO.button}
               </a>
+              <ProofTrust />
               <p className="hero-small">{HERO.small}</p>
             </div>
 
@@ -247,6 +255,28 @@ export default function WaitlistPage() {
           ))}
         </section>
 
+        <section className="section" aria-labelledby="goals-title">
+          <div className="wrap">
+            <SectionHead label={GOALS.label} heading={GOALS.heading} id="goals-title" center />
+            <div className="goals">
+              {GOALS.paths.map((path) => (
+                <article key={path.to} className="goal">
+                  <p className="goal-range">
+                    {path.from} → {path.to}
+                  </p>
+                  <p className="goal-unit">{path.unit}</p>
+                  <p>
+                    <Highlighted text={path.body} />
+                  </p>
+                </article>
+              ))}
+            </div>
+            <p className="small-note is-center">
+              <Highlighted text={GOALS.beyond} />
+            </p>
+          </div>
+        </section>
+
         <section className="section" id="journey" aria-labelledby="journey-title">
           <div className="wrap">
             <SectionHead label={JOURNEY.label} heading={JOURNEY.heading} id="journey-title" center />
@@ -295,8 +325,18 @@ export default function WaitlistPage() {
               {WORKSPACE.label}
             </p>
             <h2 id="workspace-title">{WORKSPACE.heading}</h2>
-            <p className="lead">{WORKSPACE.body}</p>
+            <p className="lead">
+              <Highlighted text={WORKSPACE.body} />
+            </p>
           </div>
+          <ul className="inclusions">
+            {INCLUSIONS.items.map((item) => (
+              <li key={item.name}>
+                <p>{item.name}</p>
+                <span>{item.line}</span>
+              </li>
+            ))}
+          </ul>
           <ul className="bento">
             {WORKSPACE.tiles.map((tile) => (
               <li key={tile.key} className={`tile tile-${tile.key}`}>
@@ -334,20 +374,25 @@ export default function WaitlistPage() {
               </div>
               <span className="live-chip" aria-hidden="true">
                 <i />
-                Live with Ross
+                2 live calls a week
               </span>
               <div className="collage-card" aria-hidden="true">
-                <SessionRow day="Wed" n="01" title="Live with Ross" status="attending" />
+                <div className="session-list">
+                  <SessionRow day="Tue" n="01" title="Live with Ross" status="attending" />
+                  <SessionRow day="Thu" n="02" title="Live with Ross" status="attend" />
+                </div>
               </div>
             </div>
             <div>
               <SectionHead label={LIVE.label} heading={LIVE.heading} id="live-title" />
-              <p className="lead">{LIVE.body}</p>
+              <p className="lead">
+                <Highlighted text={LIVE.body} />
+              </p>
               <ul className="checklist">
                 {LIVE.points.map((point) => (
                   <li key={point}>
                     <Tick />
-                    {point}
+                    <Highlighted text={point} />
                   </li>
                 ))}
               </ul>
@@ -363,7 +408,9 @@ export default function WaitlistPage() {
             </blockquote>
             <figcaption>
               <span className="attribution">{NAVAL.attribution}</span>
-              <span className="support">{NAVAL.support}</span>
+              <span className="support">
+                <Highlighted text={NAVAL.support} />
+              </span>
             </figcaption>
           </figure>
         </section>
@@ -376,12 +423,12 @@ export default function WaitlistPage() {
                 {WHO.list.map((item) => (
                   <li key={item}>
                     <Tick />
-                    {item}
+                    <Highlighted text={item} />
                   </li>
                 ))}
               </ul>
               <p className="small-note">
-                {WHO.upgrade.before}
+                <Highlighted text={WHO.upgrade.before} />
                 <a href={WHO.upgrade.href} target="_blank" rel="noreferrer">
                   {WHO.upgrade.link}
                 </a>
@@ -395,9 +442,8 @@ export default function WaitlistPage() {
           <div className="wrap">
             <div className="section-head is-center">
               <p className="eyebrow">Proof wall</p>
-              <h2 id="proof-title">
-                In their <em>own words</em>, from the people who did the work
-              </h2>
+              <h2 id="proof-title">In their own words, from the people who did the work</h2>
+              <ProofTrust />
             </div>
           </div>
           <ProofWall />
@@ -431,7 +477,9 @@ export default function WaitlistPage() {
               <p className="eyebrow">{LETTER.label}</p>
               <h2 id="letter-title">{LETTER.heading}</h2>
               {LETTER.paragraphs.map((p) => (
-                <p key={p.slice(0, 24)}>{p}</p>
+                <p key={p.slice(0, 24)}>
+                  <Highlighted text={p} />
+                </p>
               ))}
               <p className="signature">{LETTER.signOff}</p>
               <p className="small-note">{LETTER.small}</p>
@@ -466,14 +514,16 @@ export default function WaitlistPage() {
               <h2 id="final-title" className="final-headline">
                 {FINAL.headline}
               </h2>
-              <p className="lead">{FINAL.subheading}</p>
+              <p className="lead">
+                <Highlighted text={FINAL.subheading} />
+              </p>
               <div className="offer-card">
                 <p className="offer-title">{OFFER.headline}</p>
                 <ul className="checklist">
                   {OFFER.perks.map((perk) => (
                     <li key={perk}>
                       <Tick />
-                      {perk}
+                      <Highlighted text={perk} />
                     </li>
                   ))}
                 </ul>

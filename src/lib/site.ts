@@ -3,7 +3,7 @@ export const SITE = {
   url: "https://productizeyourself.ai",
   title: "Productize Yourself with AI | The 2027 programme by Ross Power",
   description:
-    "Productize Yourself with AI is Ross Power's 2027 programme for coaches, consultants and experts. Turn your expertise into a signature offer, content engine and client pipeline, with Claude as your AI co-founder. Apply before 31 December for 50% off.",
+    "Productize Yourself with AI is Ross Power's 2027 programme for coaches, consultants and experts going from 0 to $5k, or $5k to $10k a month. Two live calls a week, on Pistachio, with Claude as your AI co-founder. Apply before 31 December for 50% off.",
   keywords: [
     "Productize Yourself",
     "Productize Yourself with AI",
