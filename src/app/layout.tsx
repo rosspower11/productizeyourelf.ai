@@ -1,33 +1,43 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import { SITE } from "@/lib/site";
 import "./globals.css";
 
+const OG_IMAGE = {
+  url: "/images/assets/social-preview-image.png",
+  width: 1200,
+  height: 630,
+  alt: "Productize Yourself with AI, a 2027 programme by Ross Power and AI Powered",
+};
+
 export const metadata: Metadata = {
-  title: "Productize Yourself | Build & Sell with Ross Power",
-  description:
-    "Turn who you are into what you do, create, and sell. A 16-week AI-native program to build your productized consulting business with 30+ operational assets.",
-  metadataBase: new URL("https://apply.productizeyourself.ai"),
+  title: {
+    default: SITE.title,
+    template: "%s | Productize Yourself with AI",
+  },
+  description: SITE.description,
+  keywords: [...SITE.keywords],
+  metadataBase: new URL(SITE.url),
+  applicationName: SITE.name,
+  category: "education",
+  authors: [{ name: SITE.founder, url: SITE.founderUrl }],
+  creator: SITE.founder,
+  publisher: SITE.org,
+  alternates: { canonical: "/" },
+  robots: { index: true, follow: true },
   openGraph: {
-    title: "Productize Yourself | Build & Sell with Ross Power",
-    description:
-      "Turn who you are into what you do, create, and sell. A 16-week AI-native program to build your productized consulting business with 30+ operational assets.",
+    title: SITE.title,
+    description: SITE.description,
     type: "website",
-    url: "https://apply.productizeyourself.ai",
-    images: [
-      {
-        url: "https://apply.productizeyourself.ai/images/assets/social-preview-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Productize Yourself — 16-week AI-native program by Ross Power",
-      },
-    ],
+    url: SITE.url,
+    siteName: SITE.name,
+    locale: "en_GB",
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Productize Yourself | Build & Sell with Ross Power",
-    description:
-      "Turn who you are into what you do, create, and sell. A 16-week AI-native program to build your productized consulting business with 30+ operational assets.",
-    images: ["https://apply.productizeyourself.ai/images/assets/social-preview-image.png"],
+    title: SITE.title,
+    description: SITE.description,
+    images: [OG_IMAGE.url],
   },
 };
 
@@ -37,19 +47,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en-GB" data-theme="light">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body>
-        {children}
-        <Script src="https://links.productizeyourself.ai/js/form_embed.js" strategy="lazyOnload" />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
