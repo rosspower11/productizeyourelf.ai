@@ -3,7 +3,7 @@ import { SITE } from "@/lib/site";
 import "./globals.css";
 
 const OG_IMAGE = {
-  url: "/images/assets/social-preview-hero.jpg",
+  url: "https://apply.productizeyourself.ai/images/assets/social-preview-hero.jpg",
   width: 1200,
   height: 630,
   alt: "Productize Yourself with AI. Turn who you are into what you do, and build towards your first $5k or $10k month.",
