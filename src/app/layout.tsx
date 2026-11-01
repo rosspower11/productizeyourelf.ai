@@ -3,10 +3,10 @@ import { SITE } from "@/lib/site";
 import "./globals.css";
 
 const OG_IMAGE = {
-  url: "/images/assets/social-preview-image.png",
+  url: "/images/assets/social-preview-hero.jpg",
   width: 1200,
   height: 630,
-  alt: "Productize Yourself with AI, a 2027 programme by Ross Power and AI Powered",
+  alt: "Productize Yourself with AI. Turn who you are into what you do, and build towards your first $5k or $10k month.",
 };
 
 export const metadata: Metadata = {
