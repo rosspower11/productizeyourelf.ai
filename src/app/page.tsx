@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { PistachioMark, PoweredByPistachio } from "@/components/pistachio-mark";
+import { PistachioLockup, PoweredByPistachio } from "@/components/pistachio-mark";
 import { Icon, ProductStage, SessionRow } from "@/components/product-stage";
 import { StructuredData } from "@/components/structured-data";
 import { Highlighted } from "@/components/highlight";
@@ -321,8 +321,7 @@ export default function WaitlistPage() {
         <section className="wrap band" id="workspace" aria-labelledby="workspace-title">
           <div className="band-head">
             <p className="band-kicker">
-              <PistachioMark className="band-mark" />
-              {WORKSPACE.label}
+              <PistachioLockup className="band-lockup" alt={WORKSPACE.label} />
             </p>
             <h2 id="workspace-title">{WORKSPACE.heading}</h2>
             <p className="lead">
