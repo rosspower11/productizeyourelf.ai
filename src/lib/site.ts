@@ -32,9 +32,8 @@ export const SITE = {
   orgUrl: "https://aipowered.xyz",
 } as const;
 
-/** Paste a GoHighLevel waitlist form URL to use that embed instead of the native form. */
 export const WAITLIST_FORM_EMBED =
-  process.env.NEXT_PUBLIC_WAITLIST_FORM_EMBED ?? "";
+  "https://workspace.aipowered.xyz/go/bkeml0sd9yonrlxyu6gd/embed";
 
 export const WAITLIST_LIST = "waitlist-productize-2027";
 
